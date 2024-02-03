@@ -1,5 +1,5 @@
-import useApp from "@/hooks/useApp";
 import { IQuestionImage } from "@/interfaces/app.interface";
+import Image from "next/image";
 import { ReactElement } from "react";
 
 interface IQuestionCardImg {
@@ -11,14 +11,20 @@ export default function QuestionCardImg({
   index,
   image,
 }: IQuestionCardImg): ReactElement {
-  const { handleChangeQuestion } = useApp();
-
   return (
-    <input
-      type="file"
-      onChange={(e: any) => {
-        handleChangeQuestion(index, URL.createObjectURL(e.target.files[0]));
+    <Image
+      height={96}
+      width={128}
+      style={{
+        objectFit: "contain",
+        objectPosition: "center",
+        minWidth: "128px",
+        minHeight: "96px",
+        maxHeight: "96px",
+        maxWidth: "128px",
       }}
+      src={image!}
+      alt="Question Image"
     />
   );
 }

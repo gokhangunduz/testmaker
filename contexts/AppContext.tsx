@@ -1,6 +1,10 @@
 "use client";
 
-import { IQuestion, IQuestionAnswer } from "@/interfaces/app.interface";
+import {
+  IQuestion,
+  IQuestionAnswer,
+  IQuestionImage,
+} from "@/interfaces/app.interface";
 import React, { createContext, useEffect, useState } from "react";
 
 export const AppContext: any = createContext<any>(null);
@@ -9,64 +13,44 @@ export const AppContext: any = createContext<any>(null);
 export default ({ children }: any) => {
   const [questions, setQuestions] = useState<IQuestion[]>([
     {
-      image: "img",
-      answer: "A",
+      image: "",
+      answer: "C",
     },
     {
-      image: "img",
-      answer: "A",
+      image: "",
+      answer: "C",
     },
     {
-      image: "img",
-      answer: "A",
+      image: "",
+      answer: "C",
     },
     {
-      image: "img",
-      answer: "A",
+      image: "",
+      answer: "C",
     },
     {
-      image: "img",
-      answer: "A",
+      image: "",
+      answer: "C",
     },
     {
-      image: "img",
-      answer: "A",
+      image: "",
+      answer: "C",
     },
     {
-      image: "img",
-      answer: "A",
+      image: "",
+      answer: "C",
     },
     {
-      image: "img",
-      answer: "A",
+      image: "",
+      answer: "C",
     },
     {
-      image: "img",
-      answer: "A",
+      image: "",
+      answer: "C",
     },
     {
-      image: "img",
-      answer: "A",
-    },
-    {
-      image: "img",
-      answer: "A",
-    },
-    {
-      image: "img",
-      answer: "A",
-    },
-    {
-      image: "img",
-      answer: "A",
-    },
-    {
-      image: "img",
-      answer: "A",
-    },
-    {
-      image: "img",
-      answer: "A",
+      image: "",
+      answer: "C",
     },
   ]);
 
@@ -74,18 +58,20 @@ export default ({ children }: any) => {
     console.log("questions", questions);
   }, [questions]);
 
-  function handleAddQuestion() {
-    setQuestions([
-      ...questions,
+  function handleAddQuestion(image?: IQuestionImage, answer?: IQuestionAnswer) {
+    setQuestions((prevQuestions) => [
+      ...prevQuestions,
       {
-        image: undefined,
-        answer: undefined,
+        image: image,
+        answer: answer,
       },
     ]);
   }
 
   function handleRemoveQuestion(index: number) {
-    setQuestions(questions.filter((_, i) => i !== index));
+    setQuestions((prevQuestions) =>
+      prevQuestions.filter((_, i) => i !== index)
+    );
   }
 
   function handleChangeQuestion(index: number, image: string) {

@@ -13,15 +13,16 @@ export default function QuestionCardAnswer({
   const { handleChangeAnswer } = useApp();
 
   return (
-    <div className="flex gap-2">
-      {["A", "B", "C", "D", "E"].map((option, bIndex) => (
+    <div className="flex">
+      {["A", "B", "C", "D", "E", undefined].map((option, bIndex) => (
         <button
+          className={`border border-gray-200 shadow-md w-9 h-9`}
           key={bIndex}
           onClick={(e: any) => {
             handleChangeAnswer(index, option as IQuestionAnswer);
           }}
         >
-          {option}
+          {option || "None"}
         </button>
       ))}
     </div>
