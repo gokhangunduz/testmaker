@@ -86,6 +86,15 @@ export default ({ children }: any) => {
     );
   }
 
+  function handleOrderQuestion(oldIndex: number, newIndex: number) {
+    setQuestions((prevQuestions) => {
+      const newQuestions = [...prevQuestions];
+      const [removed] = newQuestions.splice(oldIndex, 1);
+      newQuestions.splice(newIndex, 0, removed);
+      return newQuestions;
+    });
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -95,6 +104,7 @@ export default ({ children }: any) => {
         handleChangeQuestion,
         handleChangeAnswer,
         handleRemoveQuestion,
+        handleOrderQuestion,
       }}
     >
       {children}

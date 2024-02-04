@@ -5,6 +5,7 @@ export interface IuseApp {
   handleChangeQuestion: (index: number, image: string) => void;
   handleChangeAnswer: (index: number, answer: IQuestionAnswer) => void;
   handleRemoveQuestion: (index: number) => void;
+  handleOrderQuestion: (oldIndex: number, newIndex: number) => void;
 }
 
 export interface IQuestion {
