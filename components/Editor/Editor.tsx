@@ -6,8 +6,8 @@ import { ReactElement } from "react";
 
 export default function Editor(): ReactElement {
   return (
-    // <QuestionUploader>
-    <QuestionsMapper />
-    // </QuestionUploader>
+    <QuestionUploader>
+      <QuestionsMapper />
+    </QuestionUploader>
   );
 }

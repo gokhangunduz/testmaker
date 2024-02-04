@@ -11,48 +11,7 @@ export const AppContext: any = createContext<any>(null);
 
 // eslint-disable-next-line
 export default ({ children }: any) => {
-  const [questions, setQuestions] = useState<IQuestion[]>([
-    {
-      image: "",
-      answer: "C",
-    },
-    {
-      image: "",
-      answer: "C",
-    },
-    {
-      image: "",
-      answer: "C",
-    },
-    {
-      image: "",
-      answer: "C",
-    },
-    {
-      image: "",
-      answer: "C",
-    },
-    {
-      image: "",
-      answer: "C",
-    },
-    {
-      image: "",
-      answer: "C",
-    },
-    {
-      image: "",
-      answer: "C",
-    },
-    {
-      image: "",
-      answer: "C",
-    },
-    {
-      image: "",
-      answer: "C",
-    },
-  ]);
+  const [questions, setQuestions] = useState<IQuestion[]>([]);
 
   useEffect(() => {
     console.log("questions", questions);

@@ -2,7 +2,7 @@
 
 import { convertBase64 } from "@/functions/convertBase64";
 import useApp from "@/hooks/useApp";
-import { Fragment, ReactElement } from "react";
+import { Fragment, ReactElement, useState } from "react";
 
 interface IQuestionUploader {
   children?: ReactElement | ReactElement[];
@@ -11,27 +11,45 @@ interface IQuestionUploader {
 export default function QuestionUploader({
   children,
 }: Readonly<IQuestionUploader>): ReactElement {
-  const { handleAddQuestion } = useApp();
+  const [onDragging, setOnDragging] = useState<boolean>(false);
+
+  const { questions, handleAddQuestion } = useApp();
 
   return (
     <Fragment>
-      <div className="relative h-full w-full bg-blue-300">
+      <div
+        className={`relative h-full w-full transition-all duration-500 ${
+          onDragging &&
+          "flex items-center justify-center bg-gray-300 opacity-75"
+        }`}
+      >
         <input
           onClick={(e) => e.preventDefault()}
           onDrop={(e) => {
             e.preventDefault();
+            setOnDragging(false);
             Array.from(e.dataTransfer.files).map(async (file) => {
               handleAddQuestion(await convertBase64(file));
             });
           }}
           onDragOver={(e) => {
             e.preventDefault();
+            setOnDragging(true);
+          }}
+          onDragLeave={(e) => {
+            e.preventDefault();
+            setOnDragging(false);
           }}
           type="file"
           className="absolute inset-0"
           accept="image/*"
         />
         {children}
+        {!questions?.length && onDragging && (
+          <p className="absolute z-10">
+            Drag and drop your question image here.
+          </p>
+        )}
       </div>
     </Fragment>
   );
