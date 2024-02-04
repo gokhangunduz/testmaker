@@ -1,3 +1,5 @@
+"use client";
+
 import useApp from "@/hooks/useApp";
 import { ReactElement } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";

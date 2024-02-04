@@ -1,7 +1,7 @@
 import Editor from "@/components/Editor/Editor";
 import Preview from "@/components/Preview/Preview";
 import Sidebar from "@/components/Sidebar/Sidebar";
-import AppContext from "@/contexts/AppContext";
+import AppProvider from "@/contexts/AppContext";
 import { ReactElement } from "react";
 
 export interface IAppLayout {
@@ -10,7 +10,7 @@ export interface IAppLayout {
 
 export default function AppLayout({ children }: Readonly<IAppLayout>) {
   return (
-    <AppContext>
+    <AppProvider>
       <div
         className="w-full grid grid-cols-12"
         style={{
@@ -27,6 +27,6 @@ export default function AppLayout({ children }: Readonly<IAppLayout>) {
           <Preview />
         </div>
       </div>
-    </AppContext>
+    </AppProvider>
   );
 }

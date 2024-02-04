@@ -1,5 +1,8 @@
 import useApp from "@/hooks/useApp";
 import { IQuestionAnswer } from "@/interfaces/app.interface";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
+import { Radio } from "antd";
+import { IoCloseCircleOutline } from "react-icons/io5";
 
 interface IQuestionCardAnswer {
   index: number;
@@ -10,21 +13,25 @@ export default function QuestionCardAnswer({
   index,
   answer,
 }: Readonly<IQuestionCardAnswer>) {
-  const { handleChangeAnswer } = useApp();
+  const { handleChangeAnswer, handleRemoveQuestion } = useApp();
 
   return (
-    <div className="flex">
-      {["A", "B", "C", "D", "E", undefined].map((option, bIndex) => (
-        <button
-          className={`border border-gray-200 shadow-md w-9 h-9`}
-          key={bIndex}
-          onClick={(e: any) => {
-            handleChangeAnswer(index, option as IQuestionAnswer);
-          }}
-        >
-          {option || "None"}
-        </button>
+    <Radio.Group
+      className="animate__animated animate__fadeIn animate__delay-1s"
+      value={answer}
+      onChange={(e) => {
+        if (e.target.value === "🗑️") {
+          handleRemoveQuestion(index);
+        } else {
+          handleChangeAnswer(index, e.target.value);
+        }
+      }}
+    >
+      {["A", "B", "C", "D", "E", undefined, "🗑️"].map((option, index) => (
+        <Radio.Button key={index} value={option}>
+          {option || "N/A"}
+        </Radio.Button>
       ))}
-    </div>
+    </Radio.Group>
   );
 }
