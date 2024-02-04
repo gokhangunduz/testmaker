@@ -1,3 +1,5 @@
+"use client";
+
 import Editor from "@/components/Editor/Editor";
 import Preview from "@/components/Preview/Preview";
 import Sidebar from "@/components/Sidebar/Sidebar";

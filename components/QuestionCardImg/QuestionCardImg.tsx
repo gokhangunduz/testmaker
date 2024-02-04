@@ -1,3 +1,5 @@
+"use client";
+
 import { IQuestionImage } from "@/interfaces/app.interface";
 import Image from "next/image";
 import { ReactElement } from "react";

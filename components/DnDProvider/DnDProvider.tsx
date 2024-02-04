@@ -3,6 +3,7 @@
 import useApp from "@/hooks/useApp";
 import { ReactElement } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { resetServerContext } from "react-beautiful-dnd";
 
 interface IDnDProvider {
   children: ReactElement | ReactElement[];
@@ -10,6 +11,8 @@ interface IDnDProvider {
 
 export default function DnDProvider({ children }: IDnDProvider): ReactElement {
   const { handleOrderQuestion } = useApp();
+
+  resetServerContext();
 
   return (
     <DragDropContext

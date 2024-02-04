@@ -1,3 +1,5 @@
+"use client";
+
 import useApp from "@/hooks/useApp";
 import { IQuestionAnswer } from "@/interfaces/app.interface";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
