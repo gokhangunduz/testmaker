@@ -1,7 +1,11 @@
 export interface IuseApp {
   questions: IQuestion[];
   setQuestions: React.Dispatch<React.SetStateAction<IQuestion[]>>;
-  handleAddQuestion: (image?: IQuestionImage, answer?: IQuestionAnswer) => void;
+  handleAddQuestion: (
+    blob: IQuestionBlob,
+    base64: IQuestionBase64,
+    answer?: IQuestionAnswer
+  ) => void;
   handleChangeQuestion: (index: number, image: string) => void;
   handleChangeAnswer: (index: number, answer: IQuestionAnswer) => void;
   handleRemoveQuestion: (index: number) => void;
@@ -9,9 +13,11 @@ export interface IuseApp {
 }
 
 export interface IQuestion {
-  image: IQuestionImage;
+  blob: IQuestionBlob;
+  base64: IQuestionBase64;
   answer: IQuestionAnswer;
 }
 
-export type IQuestionImage = string | undefined;
+export type IQuestionBlob = string | undefined;
+export type IQuestionBase64 = string | undefined;
 export type IQuestionAnswer = "A" | "B" | "C" | "D" | "E" | undefined;

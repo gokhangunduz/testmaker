@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactElement, useEffect } from "react";
+import React, { ReactElement } from "react";
 import {
   Page,
   Text,
@@ -10,7 +10,6 @@ import {
 } from "@react-pdf/renderer";
 
 export default function Document(): ReactElement {
-  // Create styles
   const styles = StyleSheet.create({
     page: {
       flexDirection: "row",

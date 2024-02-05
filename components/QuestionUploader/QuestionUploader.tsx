@@ -29,7 +29,11 @@ export default function QuestionUploader({
             e.preventDefault();
             setOnDragging(false);
             Array.from(e.dataTransfer.files).map(async (file) => {
-              handleAddQuestion(await convertBase64(file));
+              handleAddQuestion(
+                URL.createObjectURL(file),
+                await convertBase64(file),
+                undefined
+              );
             });
           }}
           onDragOver={(e) => {

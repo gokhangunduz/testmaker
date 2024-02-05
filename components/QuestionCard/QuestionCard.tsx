@@ -19,7 +19,7 @@ export default function QuestionCard({
   return (
     <Card>
       <div className="h-full w-full flex gap-4 items-center">
-        <QuestionCardImg index={index} image={question.image} />
+        <QuestionCardImg index={index} base64={question.base64} />
         <div className="h-full w-full flex flex-col justify-evenly">
           <p>Question {index + 1}</p>
           <QuestionCardAnswer index={index} answer={question.answer} />

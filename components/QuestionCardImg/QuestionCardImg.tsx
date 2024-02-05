@@ -1,17 +1,17 @@
 "use client";
 
-import { IQuestionImage } from "@/interfaces/app.interface";
+import { IQuestionBase64 } from "@/interfaces/app.interface";
 import Image from "next/image";
 import { ReactElement } from "react";
 
 interface IQuestionCardImg {
   index: number;
-  image: IQuestionImage;
+  base64: IQuestionBase64;
 }
 
 export default function QuestionCardImg({
   index,
-  image,
+  base64,
 }: IQuestionCardImg): ReactElement {
   return (
     <Image
@@ -25,7 +25,7 @@ export default function QuestionCardImg({
         maxHeight: "96px",
         maxWidth: "128px",
       }}
-      src={image!}
+      src={base64!}
       alt="Question Image"
     />
   );

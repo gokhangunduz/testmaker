@@ -7,9 +7,9 @@ import Document from "@/components/Document/Document";
 export default function Preview(): ReactElement {
   return (
     <div className="h-full w-full">
-      {/* <PDFViewer className="h-full w-full" showToolbar={false}>
+      <PDFViewer className="h-full w-full" showToolbar={false}>
         <Document />
-      </PDFViewer> */}
+      </PDFViewer>
     </div>
   );
 }
