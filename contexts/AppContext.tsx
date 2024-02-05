@@ -6,12 +6,15 @@ import {
   IQuestionImage,
 } from "@/interfaces/app.interface";
 import React, { createContext, useEffect, useState } from "react";
+import mockQuestions from "@/mocks/questions.json";
 
 export const AppContext: any = createContext<any>(null);
 
 // eslint-disable-next-line
 export default ({ children }: any) => {
-  const [questions, setQuestions] = useState<IQuestion[]>([]);
+  const [questions, setQuestions] = useState<IQuestion[]>(
+    mockQuestions as IQuestion[]
+  );
 
   useEffect(() => {
     console.log("questions", questions);
