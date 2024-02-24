@@ -18,6 +18,6 @@ export interface IQuestion {
   answer: IQuestionAnswer;
 }
 
-export type IQuestionBlob = string | undefined;
-export type IQuestionBase64 = string | undefined;
-export type IQuestionAnswer = "A" | "B" | "C" | "D" | "E" | undefined;
+export type IQuestionBlob = string | null;
+export type IQuestionBase64 = string | null;
+export type IQuestionAnswer = "A" | "B" | "C" | "D" | "E" | null;

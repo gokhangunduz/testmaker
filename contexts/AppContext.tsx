@@ -13,10 +13,12 @@ export const AppContext: any = createContext<any>(null);
 
 // eslint-disable-next-line
 export default ({ children }: any) => {
-  const [questions, setQuestions] = useState<IQuestion[]>([]);
+  const [questions, setQuestions] = useState<IQuestion[]>(
+    mockQuestions as IQuestion[]
+  );
 
   useEffect(() => {
-    console.log("questions", questions);
+    console.log(questions?.[0]?.base64);
   }, [questions]);
 
   function handleAddQuestion(
@@ -27,9 +29,9 @@ export default ({ children }: any) => {
     setQuestions((prevQuestions) => [
       ...prevQuestions,
       {
-        blob: blob,
-        base64: base64,
-        answer: answer,
+        blob: blob || null,
+        base64: base64 || null,
+        answer: answer || null,
       },
     ]);
   }
