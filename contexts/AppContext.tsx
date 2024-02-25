@@ -17,12 +17,7 @@ export const AppContext: any = createContext<any>(null);
 
 // eslint-disable-next-line
 export default ({ children }: any) => {
-  const [questions, setQuestions] = useState<IQuestion[]>([
-    // ...mockQuestions,
-    mockQuestions?.[0],
-    mockQuestions?.[1],
-    mockQuestions?.[2],
-  ] as IQuestion[]);
+  const [questions, setQuestions] = useState<IQuestion[]>([]);
 
   useEffect(() => {
     console.log(questions);
