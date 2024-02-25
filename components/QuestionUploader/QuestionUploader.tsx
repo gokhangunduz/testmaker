@@ -3,6 +3,7 @@
 import { convertBase64 } from "@/functions/convertBase64";
 import useApp from "@/hooks/useApp";
 import { Fragment, ReactElement, useState } from "react";
+import handleGetImageMeta from "@/functions/meta.image.function";
 
 interface IQuestionUploader {
   children?: ReactElement | ReactElement[];
@@ -25,13 +26,18 @@ export default function QuestionUploader({
       >
         <input
           onClick={(e) => e.preventDefault()}
-          onDrop={(e) => {
+          onDrop={async (e) => {
             e.preventDefault();
             setOnDragging(false);
             Array.from(e.dataTransfer.files).map(async (file) => {
+              const { width, height, ratio } = await handleGetImageMeta(file);
+
               handleAddQuestion(
                 URL.createObjectURL(file),
                 await convertBase64(file),
+                width,
+                height,
+                ratio,
                 undefined
               );
             });

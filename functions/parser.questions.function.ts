@@ -5,7 +5,8 @@ export function handleParserQuestions(questions: IQuestion[]): IQuestion[][] {
   let currentArray: IQuestion[] = [];
 
   const isRatioValid = (q: IQuestion[]): boolean =>
-    q.reduce((sum, question) => sum + question.ratio, 0) <= 2.75;
+    q.reduce((sum, question) => sum + question.ratio * question.scale, 0) <=
+    2.75;
 
   for (const question of questions) {
     if (isRatioValid([...currentArray, question])) {

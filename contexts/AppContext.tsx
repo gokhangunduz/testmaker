@@ -5,6 +5,10 @@ import {
   IQuestionAnswer,
   IQuestionBase64,
   IQuestionBlob,
+  IQuestionHeight,
+  IQuestionRatio,
+  IQuestionScale,
+  IQuestionWidth,
 } from "@/interfaces/app.interface";
 import React, { createContext, useEffect, useState } from "react";
 import mockQuestions from "@/mocks/questions.json";
@@ -14,17 +18,22 @@ export const AppContext: any = createContext<any>(null);
 // eslint-disable-next-line
 export default ({ children }: any) => {
   const [questions, setQuestions] = useState<IQuestion[]>([
-    ...mockQuestions,
-    ...mockQuestions,
+    // ...mockQuestions,
+    mockQuestions?.[0],
+    mockQuestions?.[1],
+    mockQuestions?.[2],
   ] as IQuestion[]);
 
   useEffect(() => {
-    console.log(questions?.[0]?.base64);
+    console.log(questions);
   }, [questions]);
 
   function handleAddQuestion(
     blob: IQuestionBlob,
     base64: IQuestionBase64,
+    width: IQuestionWidth,
+    height: IQuestionHeight,
+    ratio: IQuestionRatio,
     answer?: IQuestionAnswer
   ) {
     setQuestions((prevQuestions) => [
@@ -33,10 +42,10 @@ export default ({ children }: any) => {
         blob: blob || null,
         base64: base64 || null,
         answer: answer || null,
-        width: 0,
-        height: 0,
+        width: width || 0,
+        height: height || 0,
         scale: 1,
-        ratio: 0,
+        ratio: ratio || 0,
       },
     ]);
   }
@@ -59,6 +68,12 @@ export default ({ children }: any) => {
     );
   }
 
+  function handleChangeScale(index: number, scale: IQuestionScale) {
+    setQuestions((prevQuestions) =>
+      prevQuestions.map((q, i) => (i === index ? { ...q, scale } : q))
+    );
+  }
+
   function handleOrderQuestion(oldIndex: number, newIndex: number) {
     setQuestions((prevQuestions) => {
       const newQuestions = [...prevQuestions];
@@ -76,6 +91,7 @@ export default ({ children }: any) => {
         handleAddQuestion,
         handleChangeQuestion,
         handleChangeAnswer,
+        handleChangeScale,
         handleRemoveQuestion,
         handleOrderQuestion,
       }}
