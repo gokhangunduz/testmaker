@@ -16,6 +16,10 @@ export interface IQuestion {
   blob: IQuestionBlob;
   base64: IQuestionBase64;
   answer: IQuestionAnswer;
+  width: number;
+  height: number;
+  scale: number;
+  ratio: number;
 }
 
 export type IQuestionBlob = string | null;

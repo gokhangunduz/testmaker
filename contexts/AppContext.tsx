@@ -13,9 +13,10 @@ export const AppContext: any = createContext<any>(null);
 
 // eslint-disable-next-line
 export default ({ children }: any) => {
-  const [questions, setQuestions] = useState<IQuestion[]>(
-    mockQuestions as IQuestion[]
-  );
+  const [questions, setQuestions] = useState<IQuestion[]>([
+    ...mockQuestions,
+    ...mockQuestions,
+  ] as IQuestion[]);
 
   useEffect(() => {
     console.log(questions?.[0]?.base64);
@@ -32,6 +33,10 @@ export default ({ children }: any) => {
         blob: blob || null,
         base64: base64 || null,
         answer: answer || null,
+        width: 0,
+        height: 0,
+        scale: 1,
+        ratio: 0,
       },
     ]);
   }
