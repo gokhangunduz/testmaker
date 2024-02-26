@@ -19,7 +19,7 @@ export default function QuestionUploader({
   return (
     <Fragment>
       <div
-        className={`relative h-full w-full transition-all duration-500 ${
+        className={`relative hw-full transition-all duration-500 ${
           onDragging &&
           "flex items-center justify-center bg-gray-300 opacity-75"
         }`}

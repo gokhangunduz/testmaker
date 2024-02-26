@@ -17,7 +17,9 @@ export const AppContext: any = createContext<any>(null);
 
 // eslint-disable-next-line
 export default ({ children }: any) => {
-  const [questions, setQuestions] = useState<IQuestion[]>([]);
+  const [questions, setQuestions] = useState<IQuestion[]>(
+    mockQuestions as IQuestion[]
+  );
 
   useEffect(() => {
     console.log(questions);
@@ -70,6 +72,7 @@ export default ({ children }: any) => {
   }
 
   function handleOrderQuestion(oldIndex: number, newIndex: number) {
+    console.log(oldIndex, newIndex);
     setQuestions((prevQuestions) => {
       const newQuestions = [...prevQuestions];
       const [removed] = newQuestions.splice(oldIndex, 1);

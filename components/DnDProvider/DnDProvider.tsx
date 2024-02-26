@@ -17,7 +17,7 @@ export default function DnDProvider({ children }: IDnDProvider): ReactElement {
   return (
     <DragDropContext
       onDragEnd={(e) => {
-        e.destination?.index &&
+        typeof e.destination?.index === "number" &&
           handleOrderQuestion(e.source.index, e.destination.index);
       }}
     >

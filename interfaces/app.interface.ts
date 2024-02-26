@@ -24,6 +24,7 @@ export interface IQuestion {
   height: IQuestionHeight;
   scale: IQuestionScale;
   ratio: IQuestionRatio;
+  index?: IQuestionIndex;
 }
 
 export type IQuestionBlob = string | null;
@@ -33,3 +34,4 @@ export type IQuestionWidth = number;
 export type IQuestionHeight = number;
 export type IQuestionScale = number;
 export type IQuestionRatio = number;
+export type IQuestionIndex = number;

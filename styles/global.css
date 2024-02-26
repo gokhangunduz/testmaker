@@ -25,3 +25,10 @@ input[type="file"] {
   color: transparent !important;
   content: "";
 }
+.hw-full {
+  @apply h-full w-full;
+}
+
+.transition-500 {
+  @apply transition-all duration-500;
+}

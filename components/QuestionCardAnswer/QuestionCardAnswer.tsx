@@ -17,7 +17,7 @@ export default function QuestionCardAnswer({
 
   return (
     <SelectButton
-      className="flex text-xs"
+      className="flex text-xs transition-500"
       value={answer}
       options={["A", "B", "C", "D", "E", "N/A", "🗑️"]}
       onChange={(e) => {

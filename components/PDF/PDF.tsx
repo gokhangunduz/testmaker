@@ -53,7 +53,7 @@ export default function PDF({
     },
     sectionColumn: {
       width: "100%",
-      padding: "1%",
+      padding: "2%",
       flexDirection: "column",
       justifyContent: "space-between",
     },
@@ -75,13 +75,22 @@ export default function PDF({
     },
     textQuestion: {
       textAlign: "left",
-      fontSize: 12,
+      fontSize: 10,
     },
     sectionFooter: {
       width: "100%",
       height: "4%",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
       borderBottom: "1px solid #000",
       borderTop: "1px solid #000",
+    },
+    textFooterPageNumber: {
+      fontSize: 12,
+    },
+    textFooterAnswers: {
+      fontSize: 12,
     },
   });
 
@@ -89,24 +98,27 @@ export default function PDF({
 
   return (
     <Document>
-      {pages?.map((column, pageIndex) => {
-        return (
-          <Page size="A4" style={styles.page} key={pageIndex}>
-            <View style={styles.sectionHeader}>
-              <Text style={styles.textTitle}>Title</Text>
-              <Text style={styles.textSubtitle}>Subtitle</Text>
-            </View>
-            <View style={styles.sectionLayout}>
+      {pages?.map((columns, pageIndex) => (
+        <Page size="A4" style={styles.page} key={pageIndex}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.textTitle}>Title</Text>
+            <Text style={styles.textSubtitle}>Subtitle</Text>
+          </View>
+          <View style={styles.sectionLayout}>
+            {columns?.map((column, colIndex) => (
               <View
+                key={colIndex}
                 style={{
                   ...styles.sectionColumn,
-                  borderRight: "1px solid #000",
+                  ...(colIndex === 0 && { borderRight: "1px solid #000" }),
                 }}
               >
-                {column?.[0]?.map((question, questionIndex) => (
-                  <View style={styles.sectionQuestion} key={questionIndex}>
+                {column?.map((question, qIndex) => (
+                  <View style={styles.sectionQuestion} key={qIndex}>
                     <View style={styles.layoutQuestion}>
-                      <Text style={styles.textQuestion}>1)</Text>
+                      <Text style={styles.textQuestion}>
+                        {question.index! + 1})
+                      </Text>
                       <Image
                         style={{
                           ...styles.imageQuestion,
@@ -118,29 +130,21 @@ export default function PDF({
                   </View>
                 ))}
               </View>
-              <View style={styles.sectionColumn}>
-                {column?.[1]?.map((question, questionIndex) => (
-                  <View style={styles.sectionQuestion} key={questionIndex}>
-                    <View style={styles.layoutQuestion}>
-                      <Text style={styles.textQuestion}>1)</Text>
-                      <Image
-                        style={{
-                          ...styles.imageQuestion,
-                          width: `${question.scale * 100}%`,
-                        }}
-                        src={question.base64!}
-                      />
-                    </View>
-                  </View>
-                ))}
-              </View>
-            </View>
-            <View style={styles.sectionFooter}>
-              <Text>{pageIndex + 1}</Text>
-            </View>
-          </Page>
-        );
-      })}
+            ))}
+          </View>
+          <View style={styles.sectionFooter}>
+            <Text style={styles.textFooterPageNumber}>{pageIndex + 1}</Text>
+            <Text style={styles.textFooterAnswers}>
+              {columns
+                ?.flat()
+                ?.map((question) => {
+                  return `${question.index! + 1}${question?.answer || "?"}`;
+                })
+                ?.join(", ")}
+            </Text>
+          </View>
+        </Page>
+      ))}
     </Document>
   );
 }
