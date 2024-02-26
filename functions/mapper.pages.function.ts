@@ -1,4 +1,4 @@
-import { IQuestion } from "@/interfaces/app.hook.interface";
+import { IQuestion } from "@/interfaces/pdf.question.interface";
 
 export function handleMapperPages(questions: IQuestion[][]): IQuestion[][][] {
   const pages = [];
