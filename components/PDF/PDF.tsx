@@ -10,14 +10,20 @@ import {
   Image,
   Text,
 } from "@react-pdf/renderer";
-import { IQuestion } from "@/interfaces/app.interface";
 import { handleMapperPages } from "@/functions/mapper.pages.function";
 import { handleParserQuestions } from "@/functions/parser.questions.function";
+import { IQuestion } from "@/interfaces/pdf.question.interface";
+import { IDetails } from "@/interfaces/pdf.details.interface";
+import { ISettings } from "@/interfaces/pdf.settings.interface";
 
 export default function PDF({
   questions,
+  details,
+  settings,
 }: {
   questions: IQuestion[];
+  details: IDetails;
+  settings: ISettings;
 }): ReactElement {
   const styles = StyleSheet.create({
     page: {
@@ -81,7 +87,7 @@ export default function PDF({
       width: "100%",
       height: "4%",
       flexDirection: "row",
-      justifyContent: "space-between",
+      justifyContent: settings.answers.isPerPage ? "space-between" : "center",
       alignItems: "center",
       borderBottom: "1px solid #000",
       borderTop: "1px solid #000",
@@ -101,8 +107,8 @@ export default function PDF({
       {pages?.map((columns, pageIndex) => (
         <Page size="A4" style={styles.page} key={pageIndex}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.textTitle}>Title</Text>
-            <Text style={styles.textSubtitle}>Subtitle</Text>
+            <Text style={styles.textTitle}>{details?.title}</Text>
+            <Text style={styles.textSubtitle}>{details?.subtitle}</Text>
           </View>
           <View style={styles.sectionLayout}>
             {columns?.map((column, colIndex) => (
@@ -134,14 +140,16 @@ export default function PDF({
           </View>
           <View style={styles.sectionFooter}>
             <Text style={styles.textFooterPageNumber}>{pageIndex + 1}</Text>
-            <Text style={styles.textFooterAnswers}>
-              {columns
-                ?.flat()
-                ?.map((question) => {
-                  return `${question.index! + 1}${question?.answer || "?"}`;
-                })
-                ?.join(", ")}
-            </Text>
+            {settings.answers.isPerPage && (
+              <Text style={styles.textFooterAnswers}>
+                {columns
+                  ?.flat()
+                  ?.map((question) => {
+                    return `${question.index! + 1}${question?.answer || "?"}`;
+                  })
+                  ?.join("  ")}
+              </Text>
+            )}
           </View>
         </Page>
       ))}

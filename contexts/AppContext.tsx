@@ -9,9 +9,14 @@ import {
   IQuestionRatio,
   IQuestionScale,
   IQuestionWidth,
-} from "@/interfaces/app.interface";
+} from "@/interfaces/pdf.question.interface";
 import React, { createContext, useEffect, useState } from "react";
-import mockQuestions from "@/mocks/questions.json";
+import mockQuestions from "@/constants/pdf.questions.json";
+import initialDetails from "@/constants/pdf.details.json";
+import initalSettings from "@/constants/pdf.settings.json";
+
+import { IDetails } from "@/interfaces/pdf.details.interface";
+import { ISettings } from "@/interfaces/pdf.settings.interface";
 
 export const AppContext: any = createContext<any>(null);
 
@@ -21,10 +26,17 @@ export default ({ children }: any) => {
     mockQuestions as IQuestion[]
   );
 
+  const [details, setDetails] = useState<IDetails>(initialDetails as IDetails);
+
+  const [settings, setSettings] = useState<ISettings>(
+    initalSettings as ISettings
+  );
+
   useEffect(() => {
     console.log(questions);
   }, [questions]);
 
+  // Questions
   function handleAddQuestion(
     blob: IQuestionBlob,
     base64: IQuestionBase64,
@@ -46,31 +58,26 @@ export default ({ children }: any) => {
       },
     ]);
   }
-
   function handleRemoveQuestion(index: number) {
     setQuestions((prevQuestions) =>
       prevQuestions.filter((_, i) => i !== index)
     );
   }
-
   function handleChangeQuestion(index: number, image: string) {
     setQuestions((prevQuestions) =>
       prevQuestions.map((q, i) => (i === index ? { ...q, image } : q))
     );
   }
-
   function handleChangeAnswer(index: number, answer: IQuestionAnswer) {
     setQuestions((prevQuestions) =>
       prevQuestions.map((q, i) => (i === index ? { ...q, answer } : q))
     );
   }
-
   function handleChangeScale(index: number, scale: IQuestionScale) {
     setQuestions((prevQuestions) =>
       prevQuestions.map((q, i) => (i === index ? { ...q, scale } : q))
     );
   }
-
   function handleOrderQuestion(oldIndex: number, newIndex: number) {
     console.log(oldIndex, newIndex);
     setQuestions((prevQuestions) => {
@@ -80,18 +87,32 @@ export default ({ children }: any) => {
       return newQuestions;
     });
   }
+  // Details
+  function handleSetDetails(details: IDetails) {
+    setDetails(details);
+  }
+  // Settings
+  function handleSetSettings(settings: ISettings) {
+    setSettings(settings);
+  }
 
   return (
     <AppContext.Provider
       value={{
         questions,
-        setQuestions,
+        details,
+        settings,
+        // Questions
         handleAddQuestion,
         handleChangeQuestion,
         handleChangeAnswer,
         handleChangeScale,
         handleRemoveQuestion,
         handleOrderQuestion,
+        // Details
+        handleSetDetails,
+        // Settings
+        handleSetSettings,
       }}
     >
       {children}

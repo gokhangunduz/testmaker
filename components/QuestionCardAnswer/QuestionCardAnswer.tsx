@@ -1,7 +1,7 @@
 "use client";
 
 import useApp from "@/hooks/useApp";
-import { IQuestionAnswer } from "@/interfaces/app.interface";
+import { IQuestionAnswer } from "@/interfaces/app.hook.interface";
 import { SelectButton } from "primereact/selectbutton";
 
 interface IQuestionCardAnswer {

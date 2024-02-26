@@ -2,7 +2,7 @@
 
 import { Draggable } from "react-beautiful-dnd";
 import QuestionCard from "../QuestionCard/QuestionCard";
-import { IQuestion } from "@/interfaces/app.interface";
+import { IQuestion } from "@/interfaces/pdf.question.interface";
 
 interface IDraggableQuestionCard {
   index: number;

@@ -1,4 +1,4 @@
-import { IQuestion } from "@/interfaces/app.interface";
+import { IQuestion } from "@/interfaces/pdf.question.interface";
 
 export function handleParserQuestions(questions: IQuestion[]): IQuestion[][] {
   const nestedArrays: IQuestion[][] = [];
