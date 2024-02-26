@@ -1,5 +1,5 @@
 import useApp from "@/hooks/useApp";
-import { IQuestionScale } from "@/interfaces/app.hook.interface";
+import { IQuestionScale } from "@/interfaces/pdf.question.interface";
 import {
   InputNumber,
   InputNumberValueChangeEvent,

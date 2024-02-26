@@ -1,6 +1,6 @@
 "use client";
 
-import { IQuestionBase64 } from "@/interfaces/app.hook.interface";
+import { IQuestionBase64 } from "@/interfaces/pdf.question.interface";
 import Image from "next/image";
 import { ReactElement } from "react";
 
