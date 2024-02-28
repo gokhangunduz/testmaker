@@ -1,10 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
+  productionBrowserSourceMaps: false,
   reactStrictMode: false,
-  experimental: {
-    serverComponentsExternalPackages: ["@react-pdf/renderer"],
-  },
+  output: "export",
 };
 
 export default nextConfig;

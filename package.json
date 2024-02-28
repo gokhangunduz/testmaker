@@ -9,10 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@ant-design/nextjs-registry": "^1.0.0",
     "@react-pdf/renderer": "^3.3.8",
     "animate.css": "^4.1.1",
-    "antd": "^5.14.0",
     "formik": "^2.4.5",
     "jay-peg": "^1.0.1",
     "lodash": "^4.17.21",

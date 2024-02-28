@@ -1,9 +1,6 @@
 import useApp from "@/hooks/useApp";
 import { IQuestionScale } from "@/interfaces/pdf.question.interface";
-import {
-  InputNumber,
-  InputNumberValueChangeEvent,
-} from "primereact/inputnumber";
+import { Button } from "primereact/button";
 
 interface IQuestionScaleInput {
   index: number;
@@ -17,19 +14,10 @@ export default function QuestionScaleInput({
   const { handleChangeScale } = useApp();
 
   return (
-    <InputNumber
-      value={scale}
-      onValueChange={(e: InputNumberValueChangeEvent) =>
-        handleChangeScale(index, e.value as IQuestionScale)
-      }
-      showButtons
-      buttonLayout="horizontal"
-      step={0.1}
-      max={1}
-      decrementButtonClassName="p-button-danger"
-      incrementButtonClassName="p-button-success"
-      incrementButtonIcon="pi pi-plus"
-      decrementButtonIcon="pi pi-minus"
-    />
+    <div>
+      <Button icon="pi pi-minus" className="p-button-secondary" />
+      <span>{scale}</span>
+      <Button icon="pi pi-plus" className="p-button-secondary ml-2" />
+    </div>
   );
 }
