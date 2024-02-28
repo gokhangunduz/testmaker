@@ -205,7 +205,8 @@ export default function PDF({
                         textAlign: "center",
                       }}
                     >
-                      {index + 1}:{question?.answer || "?"}
+                      {index + 1}
+                      {question?.answer || "?"}
                     </Text>
                   </View>
                 ))}
