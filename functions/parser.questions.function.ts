@@ -3,7 +3,7 @@ import { IQuestion } from "@/interfaces/pdf.question.interface";
 export function handleParserQuestions(questions: IQuestion[]): IQuestion[][] {
   const nestedArrays: IQuestion[][] = [];
   let currentArray: IQuestion[] = [];
-  let currentIndex = 0; // Eklenen index'i burada saklayalım
+  let currentIndex = 0;
 
   const isRatioValid = (q: IQuestion[]): boolean =>
     q.reduce((sum, question) => sum + question.ratio * question.scale, 0) <=

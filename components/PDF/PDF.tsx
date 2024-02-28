@@ -180,7 +180,7 @@ export default function PDF({
                 width: "100%",
               }}
             >
-              Answers of the questions
+              Answers
             </Text>
             <View
               style={{

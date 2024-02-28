@@ -15,6 +15,8 @@ export interface IuseApp {
   questions: IQuestion[];
   details: IDetails;
   settings: ISettings;
+  // Loading
+  isPDFLoading: boolean;
   // Questions
   handleAddQuestion(
     blob: IQuestionBlob,

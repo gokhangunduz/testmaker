@@ -1,12 +1,12 @@
 "use client";
 
-import { ReactElement } from "react";
 import QuestionCardAnswer from "../QuestionCardAnswer/QuestionCardAnswer";
-import Card from "../Card/Card";
-import QuestionCardImg from "../QuestionCardImg/QuestionCardImg";
-import { MdDragIndicator } from "react-icons/md";
 import QuestionScaleInput from "../QuestionScaleInput/QuestionScaleInput";
+import QuestionCardImg from "../QuestionCardImg/QuestionCardImg";
 import { IQuestion } from "@/interfaces/pdf.question.interface";
+import { MdDragIndicator } from "react-icons/md";
+import { ReactElement } from "react";
+import Card from "../Card/Card";
 
 interface IQuestionCard {
   question: IQuestion;

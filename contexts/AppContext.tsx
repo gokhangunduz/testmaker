@@ -14,9 +14,9 @@ import React, { createContext, useEffect, useState } from "react";
 import mockQuestions from "@/constants/pdf.questions.json";
 import initialDetails from "@/constants/pdf.details.json";
 import initalSettings from "@/constants/pdf.settings.json";
-
 import { IDetails } from "@/interfaces/pdf.details.interface";
 import { ISettings } from "@/interfaces/pdf.settings.interface";
+import _debounce from "lodash/debounce";
 
 export const AppContext: any = createContext<any>(null);
 
@@ -25,12 +25,29 @@ export default ({ children }: any) => {
   const [questions, setQuestions] = useState<IQuestion[]>(
     mockQuestions as IQuestion[]
   );
-
   const [details, setDetails] = useState<IDetails>(initialDetails as IDetails);
-
   const [settings, setSettings] = useState<ISettings>(
     initalSettings as ISettings
   );
+  const [isPDFLoading, setPDFLoading] = useState<boolean>(true);
+
+  const logChanges = _debounce(() => {
+    setPDFLoading(false);
+  }, 3000);
+
+  useEffect(() => {
+    !isPDFLoading && setPDFLoading(true);
+    logChanges();
+
+    return () => {
+      logChanges.cancel();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [questions, settings, details]);
+
+  useEffect(() => {
+    console.log("isPDFLoading", isPDFLoading);
+  }, [isPDFLoading]);
 
   useEffect(() => {
     console.log(questions);
@@ -102,6 +119,8 @@ export default ({ children }: any) => {
         questions,
         details,
         settings,
+        // Loading
+        isPDFLoading,
         // Questions
         handleAddQuestion,
         handleChangeQuestion,
