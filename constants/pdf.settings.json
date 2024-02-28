@@ -1,9 +1,6 @@
 {
   "answers": {
     "isPerPage": false,
-    "isLastPage": {
-      "isActive": false,
-      "newPage": false
-    }
+    "isLastPage": true
   }
 }

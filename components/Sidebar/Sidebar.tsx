@@ -24,7 +24,7 @@ export default function Sidebar(): ReactElement {
   }, [formik?.values]);
 
   return (
-    <div className=" hw-full bg-red-300 p-6 flex flex-col gap-6">
+    <div className=" hw-full bg-zinc-100 border-r border-zinc-300 p-6 flex flex-col gap-6">
       <InputText
         label="Title"
         formikProps={formik.getFieldProps("details.title")}
@@ -57,6 +57,32 @@ export default function Sidebar(): ReactElement {
         ]}
         onChange={(e) => {
           formik.setFieldValue("settings.answers.isPerPage", e.value);
+        }}
+      />
+      <ButtonGroup
+        value={
+          formik.values.settings.answers.isLastPage
+            ? {
+                label: "On",
+                value: true,
+              }
+            : {
+                label: "Off",
+                value: false,
+              }
+        }
+        options={[
+          {
+            label: "On",
+            value: true,
+          },
+          {
+            label: "Off",
+            value: false,
+          },
+        ]}
+        onChange={(e) => {
+          formik.setFieldValue("settings.answers.isLastPage", e.value);
         }}
       />
     </div>

@@ -1,3 +1,5 @@
+"use client";
+
 export default function handleGetImageMeta(
   file: File
 ): Promise<{ width: number; height: number; ratio: number }> {
@@ -12,7 +14,7 @@ export default function handleGetImageMeta(
       resolve({
         width: img.width,
         height: img.height,
-        ratio: img.width / img.height,
+        ratio: img.height / img.width,
       });
     };
   });

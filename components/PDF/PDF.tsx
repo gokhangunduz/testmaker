@@ -153,6 +153,66 @@ export default function PDF({
           </View>
         </Page>
       ))}
+      {settings.answers.isLastPage && (
+        <Page size="A4" style={styles.page}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.textTitle}>{details?.title}</Text>
+            <Text style={styles.textSubtitle}>{details?.subtitle}</Text>
+          </View>
+          <View
+            style={{
+              ...styles.sectionLayout,
+              paddingTop: "1%",
+              flexDirection: "column",
+              justifyContent: "center",
+              padding: "2.5%",
+              gap: "0.5cm",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 12,
+                textAlign: "center",
+                width: "100%",
+              }}
+            >
+              Answers of the questions
+            </Text>
+            <View
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+              }}
+            >
+              {pages
+                ?.flat()
+                ?.flat()
+                ?.map((question, index) => (
+                  <View
+                    style={{
+                      padding: "0.5%",
+                      width: "10%",
+                      border: "1px solid #000",
+                    }}
+                    key={index}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        textAlign: "center",
+                      }}
+                    >
+                      {index + 1}:{question?.answer || "?"}
+                    </Text>
+                  </View>
+                ))}
+            </View>
+          </View>
+        </Page>
+      )}
     </Document>
   );
 }

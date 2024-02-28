@@ -6,8 +6,7 @@ export function handleParserQuestions(questions: IQuestion[]): IQuestion[][] {
   let currentIndex = 0; // Eklenen index'i burada saklayalım
 
   const isRatioValid = (q: IQuestion[]): boolean =>
-    q.reduce((sum, question) => sum + question.ratio * question.scale, 0) <=
-    2.5;
+    q.reduce((sum, question) => sum + question.ratio * question.scale, 0) <= 3;
 
   for (const question of questions) {
     if (isRatioValid([...currentArray, question])) {
