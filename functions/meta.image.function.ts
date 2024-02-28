@@ -14,7 +14,10 @@ export default function handleGetImageMeta(
       resolve({
         width: img.width,
         height: img.height,
-        ratio: img.width / img.height,
+        ratio:
+          img.width > img.height
+            ? img.height / img.width
+            : img.width / img.height,
       });
     };
   });

@@ -100,7 +100,11 @@ export default function PDF({
     },
   });
 
-  const pages = handleMapperPages(handleParserQuestions(questions));
+  const pages: IQuestion[][][] = handleMapperPages(
+    handleParserQuestions(questions)
+  );
+
+  const answers: IQuestion[] = pages?.flat()?.flat();
 
   return (
     <Document>
@@ -153,7 +157,7 @@ export default function PDF({
           </View>
         </Page>
       ))}
-      {settings.answers.isLastPage && (
+      {questions?.length && settings.answers.isLastPage && (
         <Page size="A4" style={styles.page}>
           <View style={styles.sectionHeader}>
             <Text style={styles.textTitle}>{details?.title}</Text>
@@ -187,29 +191,26 @@ export default function PDF({
                 flexWrap: "wrap",
               }}
             >
-              {pages
-                ?.flat()
-                ?.flat()
-                ?.map((question, index) => (
-                  <View
+              {answers?.map((question, index) => (
+                <View
+                  style={{
+                    padding: "0.5%",
+                    width: "10%",
+                    border: "1px solid #000",
+                  }}
+                  key={index}
+                >
+                  <Text
                     style={{
-                      padding: "0.5%",
-                      width: "10%",
-                      border: "1px solid #000",
+                      fontSize: 12,
+                      textAlign: "center",
                     }}
-                    key={index}
                   >
-                    <Text
-                      style={{
-                        fontSize: 12,
-                        textAlign: "center",
-                      }}
-                    >
-                      {index + 1}
-                      {question?.answer || "?"}
-                    </Text>
-                  </View>
-                ))}
+                    {index + 1}
+                    {question?.answer || "?"}
+                  </Text>
+                </View>
+              ))}
             </View>
           </View>
         </Page>
