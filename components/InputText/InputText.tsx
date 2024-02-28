@@ -17,7 +17,7 @@ export default function InputText({
   return (
     <span className="p-float-label">
       <InputTextPR
-        className="h-10 w-full"
+        className="h-10 w-full px-2"
         id={label}
         value={value}
         onChange={onChange}

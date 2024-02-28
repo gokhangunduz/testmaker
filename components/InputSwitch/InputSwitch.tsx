@@ -14,7 +14,7 @@ export default function InputSwitch({
 }: IInputSwitch): ReactElement {
   return (
     <div className="flex items-center justify-between">
-      <label>{label}:</label>
+      <label className="text-zinc-600">{label}:</label>
       <InputSwitchPR checked={checked} onChange={(e) => onChange(e)} />
     </div>
   );

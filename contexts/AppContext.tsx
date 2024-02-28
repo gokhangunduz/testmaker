@@ -11,23 +11,26 @@ import {
   IQuestionWidth,
 } from "@/interfaces/pdf.question.interface";
 import React, { createContext, useEffect, useState } from "react";
-import mockQuestions from "@/constants/pdf.questions.json";
-import initialDetails from "@/constants/pdf.details.json";
-import initalSettings from "@/constants/pdf.settings.json";
 import { IDetails } from "@/interfaces/pdf.details.interface";
 import { ISettings } from "@/interfaces/pdf.settings.interface";
 import _debounce from "lodash/debounce";
+import {
+  pdfInitialDetails,
+  pdfInitialQuestions,
+  pdfInitialSettings,
+} from "@/constants/pdf.initial";
 
 export const AppContext: any = createContext<any>(null);
 
 // eslint-disable-next-line
 export default ({ children }: any) => {
-  const [questions, setQuestions] = useState<IQuestion[]>(
-    mockQuestions as IQuestion[]
+  const [questions, setQuestions] = useState<IQuestion[]>(pdfInitialQuestions);
+
+  const [details, setDetails] = useState<IDetails>(
+    pdfInitialDetails as IDetails
   );
-  const [details, setDetails] = useState<IDetails>(initialDetails as IDetails);
   const [settings, setSettings] = useState<ISettings>(
-    initalSettings as ISettings
+    pdfInitialSettings as ISettings
   );
   const [isPDFLoading, setPDFLoading] = useState<boolean>(true);
 
