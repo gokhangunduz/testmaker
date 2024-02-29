@@ -1,3 +1,5 @@
+"use client";
+
 import { ChangeEvent, ReactElement } from "react";
 import { InputText as InputTextPR } from "primereact/inputtext";
 

@@ -1,3 +1,5 @@
+"use client";
+
 import dynamic from "next/dynamic";
 import { ReactElement } from "react";
 import PDFLoading from "../PDFLoading/PDFLoading";
@@ -16,7 +18,7 @@ export default function PDFPreview({ children }: IPDFPreview): ReactElement {
   );
 
   return (
-    <PDFViewer className="hw-full" showToolbar>
+    <PDFViewer className="hw-full" showToolbar={false}>
       {children}
     </PDFViewer>
   );

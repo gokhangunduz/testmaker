@@ -6,12 +6,13 @@ import useApp from "@/hooks/useApp";
 import PDFLoading from "../PDFLoading/PDFLoading";
 import _debounce from "lodash/debounce";
 import PDFPreview from "../PDFPreview/PDFPreview";
+import PDFDownload from "../PDFDownload/PDFDownload";
 
 export default function Preview(): ReactElement {
   const { questions, settings, details, isPDFLoading } = useApp();
 
   return (
-    <div className="hw-full">
+    <div className="hw-full relative">
       {isPDFLoading ? (
         <PDFLoading />
       ) : (
@@ -19,6 +20,7 @@ export default function Preview(): ReactElement {
           <PDF questions={questions} settings={settings} details={details} />
         </PDFPreview>
       )}
+      <PDFDownload />
     </div>
   );
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import { ReactElement } from "react";
 import { InputSwitch as InputSwitchPR } from "primereact/inputswitch";
 
