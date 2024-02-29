@@ -9,6 +9,7 @@ import {
   Document,
   Image,
   Text,
+  Font,
 } from "@react-pdf/renderer";
 import { handleMapperPages } from "@/functions/mapper.pages.function";
 import { handleParserQuestions } from "@/functions/parser.questions.function";
@@ -40,7 +41,7 @@ export default function PDF({
       flexDirection: "column",
       justifyContent: "space-between",
       textAlign: "center",
-      border: "1px solid #000",
+      border: `1px solid ${settings?.color}`,
       borderRadius: "25%",
     },
     textTitle: {
@@ -89,8 +90,8 @@ export default function PDF({
       flexDirection: "row",
       justifyContent: settings.answers.isPerPage ? "space-between" : "center",
       alignItems: "center",
-      borderBottom: "1px solid #000",
-      borderTop: "1px solid #000",
+      borderBottom: `1px solid ${settings?.color}`,
+      borderTop: `1px solid ${settings?.color}`,
     },
     textFooterPageNumber: {
       fontSize: 12,
@@ -120,7 +121,9 @@ export default function PDF({
                 key={colIndex}
                 style={{
                   ...styles.sectionColumn,
-                  ...(colIndex === 0 && { borderRight: "1px solid #000" }),
+                  ...(colIndex === 0 && {
+                    borderRight: `1px solid ${settings?.color}`,
+                  }),
                 }}
               >
                 {column?.map((question, qIndex) => (

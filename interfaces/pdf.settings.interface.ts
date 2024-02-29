@@ -3,4 +3,5 @@ export interface ISettings {
     isPerPage: boolean;
     isLastPage: boolean;
   };
+  color: string;
 }

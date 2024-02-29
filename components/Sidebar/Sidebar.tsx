@@ -6,6 +6,7 @@ import { ReactElement, useEffect } from "react";
 import InputText from "../InputText/InputText";
 import useApp from "@/hooks/useApp";
 import { useFormik } from "formik";
+import InputColor from "../InputColor/InputColor";
 
 export default function Sidebar(): ReactElement {
   const { details, settings, handleSetDetails, handleSetSettings } = useApp();
@@ -50,6 +51,13 @@ export default function Sidebar(): ReactElement {
           checked={formik.values.settings.answers.isLastPage}
           onChange={(e) =>
             formik.setFieldValue("settings.answers.isLastPage", e.value)
+          }
+        />
+        <InputColor
+          label="Border Color"
+          color={settings?.color}
+          onChange={(e) =>
+            formik.setFieldValue("settings.color", `#${e.value}`)
           }
         />
       </SidebarSection>

@@ -8,6 +8,7 @@ export const pdfInitialSettings: ISettings = {
     isPerPage: false,
     isLastPage: true,
   },
+  color: "#000000",
 };
 
 export const pdfInitialDetails: IDetails = {

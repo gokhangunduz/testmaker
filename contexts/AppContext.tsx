@@ -49,10 +49,6 @@ export default ({ children }: any) => {
   }, [questions, settings, details]);
 
   useEffect(() => {
-    console.log("isPDFLoading", isPDFLoading);
-  }, [isPDFLoading]);
-
-  useEffect(() => {
     console.log(questions);
   }, [questions]);
 
