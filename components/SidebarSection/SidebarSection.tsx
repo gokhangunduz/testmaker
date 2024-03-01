@@ -14,7 +14,7 @@ export default function SidebarSection({
   gap = 4,
 }: ISidebarSection): ReactElement {
   return (
-    <div className="w-full flex flex-col gap-8">
+    <div className="w-full flex flex-col gap-4">
       <p className="text-base font-medium text-zinc-800">{label}:</p>
       <div
         style={{
