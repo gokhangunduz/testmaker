@@ -41,16 +41,18 @@ export default function PDF({
       flexDirection: "column",
       justifyContent: "space-between",
       textAlign: "center",
-      border: `1px solid ${settings?.color}`,
+      border: `1px solid ${settings?.colors?.border}`,
       borderRadius: "25%",
     },
     textTitle: {
       fontSize: 14,
       textAlign: "center",
+      color: settings?.colors?.title,
     },
     textSubtitle: {
       fontSize: 10,
       textAlign: "center",
+      color: settings?.colors?.subtitle,
     },
     sectionLayout: {
       height: "90%",
@@ -80,9 +82,10 @@ export default function PDF({
       objectFit: "contain",
       objectPosition: "left top",
     },
-    textQuestion: {
+    textQuestionNumber: {
       textAlign: "left",
       fontSize: 10,
+      color: settings?.colors?.questionNumber,
     },
     sectionFooter: {
       width: "100%",
@@ -90,14 +93,16 @@ export default function PDF({
       flexDirection: "row",
       justifyContent: settings.answers.isPerPage ? "space-between" : "center",
       alignItems: "center",
-      borderBottom: `1px solid ${settings?.color}`,
-      borderTop: `1px solid ${settings?.color}`,
+      borderBottom: `1px solid ${settings?.colors?.border}`,
+      borderTop: `1px solid ${settings?.colors?.border}`,
     },
     textFooterPageNumber: {
       fontSize: 12,
+      color: settings?.colors?.pageNumber,
     },
     textFooterAnswers: {
       fontSize: 12,
+      color: settings?.colors?.pageAnswer,
     },
   });
 
@@ -122,14 +127,14 @@ export default function PDF({
                 style={{
                   ...styles.sectionColumn,
                   ...(colIndex === 0 && {
-                    borderRight: `1px solid ${settings?.color}`,
+                    borderRight: `1px solid ${settings?.colors?.border}`,
                   }),
                 }}
               >
                 {column?.map((question, qIndex) => (
                   <View style={styles.sectionQuestion} key={qIndex}>
                     <View style={styles.layoutQuestion}>
-                      <Text style={styles.textQuestion}>
+                      <Text style={styles.textQuestionNumber}>
                         {question.index! + 1})
                       </Text>
                       <Image

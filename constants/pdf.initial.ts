@@ -8,7 +8,14 @@ export const pdfInitialSettings: ISettings = {
     isPerPage: false,
     isLastPage: true,
   },
-  color: "#000000",
+  colors: {
+    title: "#000000",
+    subtitle: "#000000",
+    questionNumber: "#000000",
+    border: "#000000",
+    pageNumber: "#000000",
+    pageAnswer: "#000000",
+  },
 };
 
 export const pdfInitialDetails: IDetails = {

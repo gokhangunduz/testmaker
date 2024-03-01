@@ -3,5 +3,12 @@ export interface ISettings {
     isPerPage: boolean;
     isLastPage: boolean;
   };
-  color: string;
+  colors: {
+    title: string;
+    subtitle: string;
+    questionNumber: string;
+    border: string;
+    pageNumber: string;
+    pageAnswer: string;
+  };
 }
