@@ -1,15 +1,11 @@
 "use client";
 
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import { Dropdown } from "primereact/dropdown";
 import { useTranslation } from "react-i18next";
 
 export default function LanguageSwitcher(): ReactElement {
   const { i18n } = useTranslation();
-
-  useEffect(() => {
-    console.log(i18n.languages);
-  }, [i18n]);
 
   return (
     <Dropdown

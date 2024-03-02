@@ -2,7 +2,6 @@
 
 import i18n, { Resource } from "i18next";
 import { initReactI18next } from "react-i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
 
 const resources: Resource = {
   tr: {
@@ -67,15 +66,10 @@ const resources: Resource = {
   },
 };
 
-i18n
-  .use(initReactI18next)
-  .use(LanguageDetector)
-  .init({
-    resources: resources,
-    fallbackLng: ["en", "tr", "de"],
-    detection: {
-      convertDetectedLanguage: (lng) => lng?.split("-")[0],
-    },
-  });
+i18n.use(initReactI18next).init({
+  lng: "tr",
+  resources: resources,
+  fallbackLng: ["en", "tr", "de"],
+});
 
 export default i18n;
