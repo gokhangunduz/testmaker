@@ -3,9 +3,9 @@
 import { ReactElement } from "react";
 import PDF from "../PDF/PDF";
 import useApp from "@/hooks/useApp";
-import { MdOutlineSimCardDownload } from "react-icons/md";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import dynamic from "next/dynamic";
+import { BsFileEarmarkArrowDown } from "react-icons/bs";
 
 export default function PDFDownload(): ReactElement {
   const { questions, settings, details, isPDFLoading } = useApp();
@@ -30,7 +30,7 @@ export default function PDFDownload(): ReactElement {
             {loading && isPDFLoading ? (
               <AiOutlineLoading3Quarters className="animate-spin" size={24} />
             ) : (
-              <MdOutlineSimCardDownload size={24} />
+              <BsFileEarmarkArrowDown size={24} />
             )}
           </div>
         )}

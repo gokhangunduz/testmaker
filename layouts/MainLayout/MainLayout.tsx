@@ -7,6 +7,7 @@ import { Fragment, ReactElement } from "react";
 import "animate.css";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "primeicons/primeicons.css";
+import "@/i18n/i18n";
 
 interface IMainLayout {
   children: ReactElement | ReactElement[];

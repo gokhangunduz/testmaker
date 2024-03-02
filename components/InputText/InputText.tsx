@@ -17,17 +17,15 @@ export default function InputText({
   formikProps,
 }: IInputText): ReactElement {
   return (
-    <div className="pt-3">
-      <span className="p-float-label">
-        <InputTextPR
-          className="h-10 w-full px-2"
-          id={label}
-          value={value}
-          onChange={onChange}
-          {...formikProps}
-        />
-        <label htmlFor={label}>{label}</label>
-      </span>
-    </div>
+    <span className="p-float-label">
+      <InputTextPR
+        className="h-10 w-full px-2"
+        id={label}
+        value={value}
+        onChange={onChange}
+        {...formikProps}
+      />
+      <label htmlFor={label}>{label}</label>
+    </span>
   );
 }

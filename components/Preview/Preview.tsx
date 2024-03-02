@@ -20,7 +20,7 @@ export default function Preview(): ReactElement {
           <PDF questions={questions} settings={settings} details={details} />
         </PDFPreview>
       )}
-      <PDFDownload />
+      {questions.length > 0 && !isPDFLoading && <PDFDownload />}
     </div>
   );
 }
