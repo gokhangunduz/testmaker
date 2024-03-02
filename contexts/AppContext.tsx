@@ -14,17 +14,13 @@ import React, { createContext, useEffect, useState } from "react";
 import { IDetails } from "@/interfaces/pdf.details.interface";
 import { ISettings } from "@/interfaces/pdf.settings.interface";
 import _debounce from "lodash/debounce";
-import {
-  pdfInitialDetails,
-  pdfInitialQuestions,
-  pdfInitialSettings,
-} from "@/constants/pdf.initial";
+import { pdfInitialDetails, pdfInitialSettings } from "@/constants/pdf.initial";
 
 export const AppContext: any = createContext<any>(null);
 
 // eslint-disable-next-line
 export default ({ children }: any) => {
-  const [questions, setQuestions] = useState<IQuestion[]>(pdfInitialQuestions);
+  const [questions, setQuestions] = useState<IQuestion[]>([]);
 
   const [details, setDetails] = useState<IDetails>(
     pdfInitialDetails as IDetails

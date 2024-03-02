@@ -1,3 +1,5 @@
+"use client";
+
 import useApp from "@/hooks/useApp";
 import { IQuestionScale } from "@/interfaces/pdf.question.interface";
 import { Button } from "primereact/button";

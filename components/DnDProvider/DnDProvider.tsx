@@ -2,8 +2,11 @@
 
 import useApp from "@/hooks/useApp";
 import { ReactElement } from "react";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { resetServerContext } from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  Droppable,
+  resetServerContext,
+} from "react-beautiful-dnd";
 
 interface IDnDProvider {
   children: ReactElement | ReactElement[];
@@ -22,19 +25,23 @@ export default function DnDProvider({ children }: IDnDProvider): ReactElement {
       }}
     >
       <Droppable droppableId="questions">
-        {(provided) => (
-          <div
-            className="flex flex-col p-4 overflow-auto"
-            style={{
-              height: "calc(100vh - 6rem)",
-            }}
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-          >
-            {children}
-            {provided.placeholder}
-          </div>
-        )}
+        {(provided) => {
+          const containerStyle = {
+            height: "calc(100vh - 6rem)",
+          };
+
+          return (
+            <div
+              className="flex flex-col p-4 overflow-auto"
+              style={containerStyle}
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {children}
+              {provided.placeholder}
+            </div>
+          );
+        }}
       </Droppable>
     </DragDropContext>
   );

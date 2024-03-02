@@ -9,7 +9,6 @@ import {
   Document,
   Image,
   Text,
-  Font,
 } from "@react-pdf/renderer";
 import { handleMapperPages } from "@/functions/mapper.pages.function";
 import { handleParserQuestions } from "@/functions/parser.questions.function";
@@ -165,7 +164,7 @@ export default function PDF({
           </View>
         </Page>
       ))}
-      {questions?.length && settings.answers.isLastPage && (
+      {questions?.length > 0 && settings.answers.isLastPage && (
         <Page size="A4" style={styles.page}>
           <View style={styles.sectionHeader}>
             <Text style={styles.textTitle}>{details?.title}</Text>

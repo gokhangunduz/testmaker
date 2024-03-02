@@ -26,10 +26,6 @@ export default function Sidebar(): ReactElement {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formik?.values]);
 
-  useEffect(() => {
-    console.log(formik?.values);
-  }, [formik?.values]);
-
   const { t } = useTranslation();
 
   return (

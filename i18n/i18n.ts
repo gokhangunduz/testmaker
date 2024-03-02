@@ -67,9 +67,15 @@ const resources: Resource = {
   },
 };
 
-i18n.use(LanguageDetector).use(initReactI18next).init({
-  resources: resources,
-  fallbackLng: "en",
-});
+i18n
+  .use(initReactI18next)
+  .use(LanguageDetector)
+  .init({
+    resources: resources,
+    fallbackLng: ["en", "tr", "de"],
+    detection: {
+      convertDetectedLanguage: (lng) => lng?.split("-")[0],
+    },
+  });
 
 export default i18n;
