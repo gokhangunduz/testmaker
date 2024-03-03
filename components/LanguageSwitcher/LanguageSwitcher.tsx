@@ -1,11 +1,11 @@
 "use client";
 
-import { ReactElement } from "react";
-import { Dropdown } from "primereact/dropdown";
-import { useTranslation } from "react-i18next";
-import { ILanguages } from "@/interfaces/i18n.interface";
 import { languagePersistor } from "@/functions/languagepersistor.function";
 import { languageViewer } from "@/constants/language.viewer.constant";
+import { ILanguages } from "@/interfaces/i18n.interface";
+import { Dropdown } from "primereact/dropdown";
+import { useTranslation } from "react-i18next";
+import { ReactElement } from "react";
 
 export default function LanguageSwitcher(): ReactElement {
   const { i18n } = useTranslation();

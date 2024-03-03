@@ -2,12 +2,12 @@
 
 import SidebarSection from "../SidebarSection/SidebarSection";
 import InputSwitch from "../InputSwitch/InputSwitch";
+import InputColor from "../InputColor/InputColor";
 import { ReactElement, useEffect } from "react";
 import InputText from "../InputText/InputText";
+import { useTranslation } from "react-i18next";
 import useApp from "@/hooks/useApp";
 import { useFormik } from "formik";
-import InputColor from "../InputColor/InputColor";
-import { useTranslation } from "react-i18next";
 
 export default function Sidebar(): ReactElement {
   const { details, settings, handleSetDetails, handleSetSettings } = useApp();

@@ -1,8 +1,8 @@
 "use client";
 
-import Editor from "@/components/Editor/Editor";
 import Preview from "@/components/Preview/Preview";
 import Sidebar from "@/components/Sidebar/Sidebar";
+import Editor from "@/components/Editor/Editor";
 import AppProvider from "@/contexts/AppContext";
 import { ReactElement } from "react";
 

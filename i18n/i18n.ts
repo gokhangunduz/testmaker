@@ -1,8 +1,8 @@
 "use client";
 
 import { languagePersistor } from "@/functions/languagepersistor.function";
-import i18n, { Resource } from "i18next";
 import { initReactI18next } from "react-i18next";
+import i18n, { Resource } from "i18next";
 
 const resources: Resource = {
   tr: {
