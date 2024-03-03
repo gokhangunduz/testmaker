@@ -23,6 +23,8 @@ const resources: Resource = {
       questionNumberColor: "Soru Numarası Rengi",
       pageNumberColor: "Sayfa Numarası Rengi",
       pageAnswerColor: "Sayfa Cevap Rengi",
+      dragAndDropQuestionImages:
+        "Soru görsellerini buraya sürükleyip bırakınız.",
     },
   },
   en: {
@@ -43,6 +45,7 @@ const resources: Resource = {
       questionNumberColor: "Question Number Color",
       pageNumberColor: "Page Number Color",
       pageAnswerColor: "Page Answer Color",
+      dragAndDropQuestionImages: "Drag and drop question images here.",
     },
   },
   de: {
@@ -63,6 +66,7 @@ const resources: Resource = {
       questionNumberColor: "Fragennummer Farbe",
       pageNumberColor: "Seitennummer Farbe",
       pageAnswerColor: "Seitenantwort Farbe",
+      dragAndDropQuestionImages: "Ziehen Sie die Fragebilder hierher.",
     },
   },
 };
