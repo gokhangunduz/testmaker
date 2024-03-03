@@ -1,7 +1,7 @@
 "use client";
 
 import handleGetImageMeta from "@/functions/meta.image.function";
-import { convertBase64 } from "@/functions/convertBase64";
+import { convertBase64 } from "@/functions/convertbase64.function";
 import { Fragment, ReactElement, useState } from "react";
 import { BsFileEarmarkArrowUp } from "react-icons/bs";
 import { MdUploadFile } from "react-icons/md";
