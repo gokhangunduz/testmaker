@@ -7,6 +7,7 @@ import { BsFileEarmarkArrowUp } from "react-icons/bs";
 import { MdUploadFile } from "react-icons/md";
 import useApp from "@/hooks/useApp";
 import { DragEvent } from "react";
+import QuestionUpload from "../QuestionUpload/QuestionUpload";
 
 interface IQuestionUploader {
   children?: ReactElement | ReactElement[];
@@ -19,10 +20,9 @@ export default function QuestionUploader({
 
   const { questions, handleAddQuestion } = useApp();
 
-  function handleInputUploader(e: DragEvent<HTMLInputElement>) {
-    e.preventDefault();
+  function handleInputUploader(files: FileList) {
     setOnDragging(false);
-    Array.from(e.dataTransfer.files).map(async (file) => {
+    Array?.from(files)?.map(async (file) => {
       const { width, height, ratio } = await handleGetImageMeta(file);
 
       handleAddQuestion(
@@ -48,7 +48,10 @@ export default function QuestionUploader({
           onClick={(e) => {
             e.preventDefault();
           }}
-          onDrop={async (e) => handleInputUploader(e)}
+          onDrop={(e) => {
+            e.preventDefault();
+            handleInputUploader(e.dataTransfer.files);
+          }}
           onDragOver={(e) => {
             e.preventDefault();
             setOnDragging(true);
@@ -71,11 +74,7 @@ export default function QuestionUploader({
             </p>
           </div>
         )}
-        <div className="absolute bottom-4 right-4 z-20 cursor-pointer">
-          <div className="bg-zinc-800 border-2 border-zinc-200 text-zinc-50 p-3.5 rounded-full opacity-50 hover:opacity-100 transition-500 hover:scale-125">
-            <BsFileEarmarkArrowUp size={24} />
-          </div>
-        </div>
+        <QuestionUpload handleInputUploader={handleInputUploader} />
       </div>
     </Fragment>
   );
