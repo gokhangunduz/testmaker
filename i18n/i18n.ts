@@ -1,5 +1,6 @@
 "use client";
 
+import { languagePersistor } from "@/functions/languagePersistor";
 import i18n, { Resource } from "i18next";
 import { initReactI18next } from "react-i18next";
 
@@ -67,7 +68,7 @@ const resources: Resource = {
 };
 
 i18n.use(initReactI18next).init({
-  lng: "tr",
+  lng: languagePersistor(),
   resources: resources,
   fallbackLng: ["en", "tr", "de"],
 });

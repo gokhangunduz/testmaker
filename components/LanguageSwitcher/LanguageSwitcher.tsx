@@ -3,9 +3,16 @@
 import { ReactElement } from "react";
 import { Dropdown } from "primereact/dropdown";
 import { useTranslation } from "react-i18next";
+import { ILanguages } from "@/interfaces/i18n.interface";
+import { languagePersistor } from "@/functions/languagePersistor";
 
 export default function LanguageSwitcher(): ReactElement {
   const { i18n } = useTranslation();
+
+  function handleOnChange(lang: ILanguages) {
+    i18n.changeLanguage(lang);
+    languagePersistor(lang);
+  }
 
   return (
     <Dropdown
@@ -17,7 +24,7 @@ export default function LanguageSwitcher(): ReactElement {
       optionValue="value"
       optionLabel="label"
       placeholder="Languages"
-      onChange={(e) => i18n.changeLanguage(e.value)}
+      onChange={(e) => handleOnChange(e.value as ILanguages)}
     />
   );
 }
