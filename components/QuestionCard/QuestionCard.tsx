@@ -22,12 +22,12 @@ export default function QuestionCard({
 
   return (
     <Card>
-      <div className="hw-full flex gap-4 items-center">
+      <div className="hw-full flex gap-8 items-center">
         <QuestionCardImg index={index} base64={question.base64} />
-        <div className="hw-full flex flex-col gap-4 justify-evenly">
-          <p>
+        <div className="hw-full flex flex-col gap-6  justify-evenly">
+          <label className="text-zinc-800 font-bold">
             {t("question")} {index + 1}
-          </p>
+          </label>
           <QuestionScaleInput index={index} scale={question.scale} />
           <QuestionCardAnswer index={index} answer={question.answer} />
         </div>

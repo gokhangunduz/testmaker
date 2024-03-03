@@ -1,8 +1,9 @@
 "use client";
 
-import useApp from "@/hooks/useApp";
 import { IQuestionAnswer } from "@/interfaces/pdf.question.interface";
 import { SelectButton } from "primereact/selectbutton";
+import { useTranslation } from "react-i18next";
+import useApp from "@/hooks/useApp";
 
 interface IQuestionCardAnswer {
   index: number;
@@ -15,22 +16,35 @@ export default function QuestionCardAnswer({
 }: Readonly<IQuestionCardAnswer>) {
   const { handleChangeAnswer, handleRemoveQuestion } = useApp();
 
+  const { t } = useTranslation();
+
   return (
-    <SelectButton
-      className="flex text-xs transition-500"
-      value={answer}
-      options={["A", "B", "C", "D", "E", "N/A", "🗑️"]}
-      onChange={(e) => {
-        if (e.value === "🗑️") {
-          return handleRemoveQuestion(index);
-        }
+    <div className="flex gap-4 items-center">
+      <label className="text-base text-zinc-700 font-semibold">
+        {t("answer")}:
+      </label>
+      <SelectButton
+        className="flex transition-500"
+        value={answer}
+        options={[
+          { label: "A", value: "A" },
+          { label: "B", value: "B" },
+          { label: "C", value: "C" },
+          { label: "D", value: "D" },
+          { label: "E", value: "E" },
+          { label: t("null"), value: null },
+          { label: "🗑️", value: "🗑️" },
+        ]}
+        optionLabel="label"
+        optionValue="value"
+        onChange={(e) => {
+          if (e.value === "🗑️") {
+            return handleRemoveQuestion(index);
+          }
 
-        if (e.value === "N/A") {
-          return handleChangeAnswer(index, null);
-        }
-
-        handleChangeAnswer(index, e.value);
-      }}
-    />
+          handleChangeAnswer(index, e.value);
+        }}
+      />
+    </div>
   );
 }

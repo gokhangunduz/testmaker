@@ -9,8 +9,10 @@ const resources: Resource = {
     translation: {
       question: "Soru",
       questions: "Sorular",
+      answer: "Cevap",
       answerKey: "Cevap Anahtarı",
       answerKeys: "Cevap Anahtarları",
+      null: "Boş",
       isPerPageAnswers: "Sayfa başına cevaplar",
       isLastPageAnswers: "Son sayfa cevaplar",
       titles: "Başlıklar",
@@ -25,14 +27,17 @@ const resources: Resource = {
       pageAnswerColor: "Sayfa Cevap Rengi",
       dragAndDropQuestionImages:
         "Soru görsellerini buraya sürükleyip bırakınız.",
+      questionScale: "Soru Boyutu",
     },
   },
   en: {
     translation: {
       question: "Question",
       questions: "Questions",
+      answer: "Answer",
       answerKey: "Answer Key",
       answerKeys: "Answer Keys",
+      null: "N/A",
       isPerPageAnswers: "Per Page Answers",
       isLastPageAnswers: "Last Page Answers",
       titles: "Titles",
@@ -46,14 +51,17 @@ const resources: Resource = {
       pageNumberColor: "Page Number Color",
       pageAnswerColor: "Page Answer Color",
       dragAndDropQuestionImages: "Drag and drop question images here.",
+      questionScale: "Question Scale",
     },
   },
   de: {
     translation: {
       question: "Frage",
       questions: "Fragen",
+      answer: "Antwort",
       answerKey: "Antwort Schlüssel",
       answerKeys: "Antwort Schlüssel",
+      null: "N/A",
       isPerPageAnswers: "Pro Seite Antworten",
       isLastPageAnswers: "Letzte Seite Antworten",
       titles: "Titel",
@@ -67,6 +75,7 @@ const resources: Resource = {
       pageNumberColor: "Seitennummer Farbe",
       pageAnswerColor: "Seitenantwort Farbe",
       dragAndDropQuestionImages: "Ziehen Sie die Fragebilder hierher.",
+      questionScale: "Frage Skala",
     },
   },
 };

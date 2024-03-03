@@ -25,6 +25,11 @@ input[type="file"] {
   color: transparent !important;
   content: "";
 }
+
+.p-button-label {
+  @apply text-sm;
+}
+
 .hw-full {
   @apply h-full w-full;
 }
