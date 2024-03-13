@@ -25,9 +25,18 @@ const resources: Resource = {
       questionNumberColor: "Soru Numarası Rengi",
       pageNumberColor: "Sayfa Numarası Rengi",
       pageAnswerColor: "Sayfa Cevap Rengi",
-      dragAndDropQuestionImages:
-        "Soru görsellerini buraya sürükleyip bırakınız.",
+      dragAndDropQuestionImages: "Soru görsellerini buraya sürükleyiniz.",
       questionScale: "Soru Boyutu",
+      projectRelease: "TestMakerLab Yayında!",
+      projectDescription:
+        "TestMakerLab, eğitim materyali hazırlayan profesyoneller ve eğitmenler için özel olarak geliştirilmiş bir araçtır. Görsel tabanlı soruların hızlı ve verimli bir şekilde PDF dosyalarına dönüştürülmesini sağlar.",
+      getStarted: "Başla",
+      feedback: "Geri Bildirim",
+      welcome: "TestMakerLab'e Hoşgeldiniz 🎉",
+      beta: "TestMakerLab şu anda beta aşamasında.",
+      issues: "Önceden oluşabilecek olası sorunlar için özür dileriz.",
+      betaEmail:
+        "Herhangi bir sorunuz veya geri bildiriminiz varsa lütfen bize bir e-posta gönderin",
     },
   },
   en: {
@@ -52,6 +61,17 @@ const resources: Resource = {
       pageAnswerColor: "Page Answer Color",
       dragAndDropQuestionImages: "Drag and drop question images here.",
       questionScale: "Question Scale",
+      projectRelease: "TestMakerLab Released!",
+      projectDescription:
+        "TestMakerLab is a tool developed specifically for professionals and educators who prepare educational materials. It facilitates the quick and efficient conversion of image-based questions into PDF files.",
+      getStarted: "Get Started",
+      feedback: "Feedback",
+      welcome: "Welcome to TestMakerLab 🎉",
+      beta: "TestMakerLab is now in beta.",
+      issues:
+        "We apologize in advance for any potential issues that may arise.",
+      betaEmail:
+        "If you have any isses or feedback, please send us an email at",
     },
   },
   de: {
@@ -76,6 +96,17 @@ const resources: Resource = {
       pageAnswerColor: "Seitenantwort Farbe",
       dragAndDropQuestionImages: "Ziehen Sie die Fragebilder hierher.",
       questionScale: "Frage Skala",
+      projectRelease: "TestMakerLab Veröffentlicht!",
+      projectDescription:
+        "TestMakerLab ist ein speziell für Fachleute und Pädagogen entwickeltes Tool, das die schnelle und effiziente Umwandlung von bildbasierten Fragen in PDF-Dateien ermöglicht.",
+      getStarted: "Loslegen",
+      feedback: "Feedback",
+      welcome: "Willkommen bei TestMakerLab 🎉",
+      beta: "TestMakerLab ist jetzt in der Beta.",
+      issues:
+        "Wir entschuldigen uns im Voraus für mögliche Probleme, die auftreten können.",
+      betaEmail:
+        "Wenn Sie Probleme oder Feedback haben, senden Sie uns bitte eine E-Mail an",
     },
   },
 };

@@ -32,7 +32,7 @@ export default ({ children }: any) => {
 
   const logChanges = _debounce(() => {
     setPDFLoading(false);
-  }, 3000);
+  }, 10000);
 
   useEffect(() => {
     !isPDFLoading && setPDFLoading(true);

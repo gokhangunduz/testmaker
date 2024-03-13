@@ -2,6 +2,9 @@
 const nextConfig = {
   productionBrowserSourceMaps: false,
   reactStrictMode: false,
+  images: {
+    unoptimized: true,
+  },
   output: "export",
 };
 

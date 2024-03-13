@@ -11,7 +11,7 @@ export default function Footer(): ReactElement {
         {packageJSON?.version}
       </p>
       <p className="">
-        © {new Date().getFullYear()} Gökhan Gündüz | All rights reserved.
+        © {new Date().getFullYear()} TestMakerLab | All rights reserved.
       </p>
       <p>
         {process.env.NODE_ENV === "production" ? "P" : "D"}{" "}

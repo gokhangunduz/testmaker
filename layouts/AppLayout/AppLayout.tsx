@@ -5,6 +5,7 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import Editor from "@/components/Editor/Editor";
 import AppProvider from "@/contexts/AppContext";
 import { ReactElement } from "react";
+import WelcomeModal from "@/components/WelcomeModal/WelcomeModal";
 
 export interface IAppLayout {
   children: ReactElement | ReactElement[];
@@ -13,6 +14,7 @@ export interface IAppLayout {
 export default function AppLayout({ children }: Readonly<IAppLayout>) {
   return (
     <AppProvider>
+      <WelcomeModal />
       <div
         className="w-full grid grid-cols-12"
         style={{

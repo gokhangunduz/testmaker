@@ -5,6 +5,7 @@ import { InputText as InputTextPR } from "primereact/inputtext";
 
 interface IInputText {
   label: string;
+  tooltip?: string;
   value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   formikProps?: any;
@@ -12,6 +13,7 @@ interface IInputText {
 
 export default function InputText({
   label,
+  tooltip,
   value,
   onChange,
   formikProps,
@@ -23,6 +25,7 @@ export default function InputText({
         id={label}
         value={value}
         onChange={onChange}
+        tooltip={tooltip}
         {...formikProps}
       />
       <label htmlFor={label}>{label}</label>
