@@ -22,9 +22,9 @@ export default function QuestionCard({
 
   return (
     <Card>
-      <div className="hw-full flex gap-8 items-center">
+      <div className="hw-full flex gap-1 items-center">
         <QuestionCardImg index={index} base64={question.base64} />
-        <div className="hw-full flex flex-col gap-6  justify-evenly">
+        <div className="hw-full flex flex-col gap-6 justify-evenly">
           <label className="text-zinc-800 font-bold">
             {t("question")} {index + 1}
           </label>

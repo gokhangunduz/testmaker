@@ -10,7 +10,7 @@ interface IQuestionCardAnswer {
   answer: IQuestionAnswer;
 }
 
-export default function QuestionCardAnswer({
+export default function QuestxsionCardAnswer({
   index,
   answer,
 }: Readonly<IQuestionCardAnswer>) {
@@ -19,7 +19,7 @@ export default function QuestionCardAnswer({
   const { t } = useTranslation();
 
   return (
-    <div className="flex gap-4 items-center">
+    <div className="flex gap-2 items-center">
       <label className="text-base text-zinc-700 font-semibold">
         {t("answer")}:
       </label>

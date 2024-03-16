@@ -16,6 +16,7 @@
   "dependencies": {
     "@react-pdf/renderer": "^3.3.8",
     "animate.css": "^4.1.1",
+    "devtools-detect": "^4.0.1",
     "formik": "^2.4.5",
     "i18next": "^23.10.0",
     "jay-peg": "^1.0.1",

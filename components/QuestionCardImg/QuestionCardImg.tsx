@@ -16,14 +16,14 @@ export default function QuestionCardImg({
   return (
     <Image
       height={96}
-      width={128}
+      width={96}
       style={{
         objectFit: "contain",
         objectPosition: "center",
-        minWidth: "128px",
+        minWidth: "96px",
         minHeight: "96px",
         maxHeight: "96px",
-        maxWidth: "128px",
+        maxWidth: "96px",
       }}
       src={base64!}
       alt="Question Image"

@@ -1,3 +1,5 @@
+"use client";
+
 import { IQuestion } from "@/interfaces/pdf.question.interface";
 
 export function handleParserQuestions(questions: IQuestion[]): IQuestion[][] {

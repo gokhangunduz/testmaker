@@ -4,11 +4,11 @@ import { PrimeReactProvider } from "primereact/api";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import { Fragment, ReactElement } from "react";
-import "@/styles/global.css";
-import "animate.css";
-import "@/i18n/i18n";
-import "primeicons/primeicons.css";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
+import "primeicons/primeicons.css";
+import "animate.css";
+import "@/styles/global.css";
+import "@/i18n/i18n";
 import Head from "next/head";
 
 interface IMainLayout {

@@ -4,14 +4,19 @@ import Preview from "@/components/Preview/Preview";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Editor from "@/components/Editor/Editor";
 import AppProvider from "@/contexts/AppContext";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import WelcomeModal from "@/components/WelcomeModal/WelcomeModal";
+import { disableDevTools } from "@/functions/devtools.function";
 
 export interface IAppLayout {
   children: ReactElement | ReactElement[];
 }
 
 export default function AppLayout({ children }: Readonly<IAppLayout>) {
+  useEffect(() => {
+    disableDevTools();
+  }, []);
+
   return (
     <AppProvider>
       <WelcomeModal />
@@ -24,10 +29,10 @@ export default function AppLayout({ children }: Readonly<IAppLayout>) {
         <div className="col-span-2">
           <Sidebar />
         </div>
-        <div className="col-span-4">
+        <div className="col-span-5">
           <Editor />
         </div>
-        <div className="col-span-6">
+        <div className="col-span-5">
           <Preview />
         </div>
       </div>

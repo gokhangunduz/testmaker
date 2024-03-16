@@ -1,3 +1,5 @@
+"use client";
+
 import { ILanguages } from "@/interfaces/i18n.interface";
 
 export function languageViewer(lang: ILanguages): string {

@@ -1,14 +1,20 @@
 "use client";
 
 import Image from "next/image";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button/Button";
 import { useTranslation } from "react-i18next";
+import { renderCanvas } from "@/functions/canvas.function";
+import Canvas from "@/components/Canvas/Canvas";
 
 export default function Home(): ReactElement {
   const router = useRouter();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    renderCanvas();
+  }, []);
 
   return (
     <div
@@ -17,6 +23,7 @@ export default function Home(): ReactElement {
         height: "calc(100vh - 6rem)",
       }}
     >
+      <Canvas />
       <div className="hw-full flex items-center justify-center animate__animated animate__fadeInLeft">
         <Image width={768} height={768} src={"/test.svg"} alt="svg" />
       </div>
