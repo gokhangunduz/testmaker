@@ -1,20 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button/Button";
 import { useTranslation } from "react-i18next";
-import { renderCanvas } from "@/functions/canvas.function";
-import Canvas from "@/components/Canvas/Canvas";
+import Canvas from "react-cursor-rainbow-lines";
 
 export default function Home(): ReactElement {
   const router = useRouter();
   const { t } = useTranslation();
-
-  useEffect(() => {
-    renderCanvas();
-  }, []);
 
   return (
     <div

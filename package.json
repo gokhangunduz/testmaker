@@ -26,6 +26,7 @@
     "primereact": "^10.5.1",
     "react": "^18",
     "react-beautiful-dnd": "^13.1.1",
+    "react-cursor-rainbow-lines": "^0.0.1",
     "react-dom": "^18",
     "react-i18next": "^14.0.5",
     "react-icons": "^5.0.1",
