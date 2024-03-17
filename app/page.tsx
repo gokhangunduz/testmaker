@@ -13,7 +13,7 @@ export default function Home(): ReactElement {
 
   return (
     <div
-      className="w-full flex justify-center items-center"
+      className="w-full flex justify-center items-center flex-col lg:flex-row"
       style={{
         height: "calc(100vh - 6rem)",
       }}
