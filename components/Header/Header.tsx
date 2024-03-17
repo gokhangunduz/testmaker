@@ -17,7 +17,14 @@ export default function Header(): ReactElement {
       </div>
       <div className="flex gap-2">
         <LanguageSwitcher />
-        <Button label={t("feedback")} outlined icon="pi pi-envelope" />
+        <Button
+          label={t("feedback")}
+          outlined
+          icon="pi pi-envelope"
+          onClick={() => {
+            router.push("mailto:me@gokhangunduz.dev");
+          }}
+        />
       </div>
     </header>
   );
