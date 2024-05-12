@@ -1,6 +1,5 @@
 "use client";
 
-import { IDetails } from "@/interfaces/pdf.details.interface";
 import { ISettings } from "@/interfaces/pdf.settings.interface";
 
 export const pdfInitialSettings: ISettings = {
