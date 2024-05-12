@@ -1,7 +1,8 @@
 "use client";
 
 import { ReactElement } from "react";
-import { InputSwitch as InputSwitchPR } from "primereact/inputswitch";
+import { Switch as NextSwitch } from "@nextui-org/switch";
+import InputContainer from "../InputContainer/InputContainer";
 
 interface IInputSwitch {
   label: string;
@@ -15,9 +16,11 @@ export default function InputSwitch({
   onChange,
 }: IInputSwitch): ReactElement {
   return (
-    <div className="flex items-center justify-between">
-      <label className="text-zinc-600">{label}:</label>
-      <InputSwitchPR checked={checked} onChange={(e) => onChange(e)} />
-    </div>
+    <InputContainer label={label}>
+      <NextSwitch
+        isSelected={checked}
+        onChange={(e) => onChange({ value: e.target.checked })}
+      />
+    </InputContainer>
   );
 }

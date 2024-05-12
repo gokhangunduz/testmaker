@@ -13,16 +13,13 @@ import {
 import { handleMapperPages } from "@/functions/mapper.pages.function";
 import { handleParserQuestions } from "@/functions/parser.questions.function";
 import { IQuestion } from "@/interfaces/pdf.question.interface";
-import { IDetails } from "@/interfaces/pdf.details.interface";
 import { ISettings } from "@/interfaces/pdf.settings.interface";
 
 export default function PDF({
   questions,
-  details,
   settings,
 }: {
   questions: IQuestion[];
-  details: IDetails;
   settings: ISettings;
 }): ReactElement {
   const styles = StyleSheet.create({
@@ -116,8 +113,10 @@ export default function PDF({
       {pages?.map((columns, pageIndex) => (
         <Page size="A4" style={styles.page} key={pageIndex}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.textTitle}>{details?.title}</Text>
-            <Text style={styles.textSubtitle}>{details?.subtitle}</Text>
+            <Text style={styles.textTitle}>{settings?.details?.title}</Text>
+            <Text style={styles.textSubtitle}>
+              {settings?.details?.subtitle}
+            </Text>
           </View>
           <View style={styles.sectionLayout}>
             {columns?.map((column, colIndex) => (
@@ -167,8 +166,10 @@ export default function PDF({
       {questions?.length > 0 && settings.answers.isLastPage && (
         <Page size="A4" style={styles.page}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.textTitle}>{details?.title}</Text>
-            <Text style={styles.textSubtitle}>{details?.subtitle}</Text>
+            <Text style={styles.textTitle}>{settings?.details?.title}</Text>
+            <Text style={styles.textSubtitle}>
+              {settings?.details?.subtitle}
+            </Text>
           </View>
           <View
             style={{

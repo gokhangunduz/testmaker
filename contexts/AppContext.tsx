@@ -11,10 +11,10 @@ import {
   IQuestionWidth,
 } from "@/interfaces/pdf.question.interface";
 import React, { createContext, useEffect, useState } from "react";
-import { IDetails } from "@/interfaces/pdf.details.interface";
 import { ISettings } from "@/interfaces/pdf.settings.interface";
 import _debounce from "lodash/debounce";
-import { pdfInitialDetails, pdfInitialSettings } from "@/constants/pdf.initial";
+import { pdfInitialSettings } from "@/constants/pdf.initial";
+import { PDFCreationTime } from "@/configs/config";
 
 export const AppContext: any = createContext<any>(null);
 
@@ -22,9 +22,6 @@ export const AppContext: any = createContext<any>(null);
 export default ({ children }: any) => {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
 
-  const [details, setDetails] = useState<IDetails>(
-    pdfInitialDetails as IDetails
-  );
   const [settings, setSettings] = useState<ISettings>(
     pdfInitialSettings as ISettings
   );
@@ -32,7 +29,7 @@ export default ({ children }: any) => {
 
   const logChanges = _debounce(() => {
     setPDFLoading(false);
-  }, 10000);
+  }, PDFCreationTime * 1000);
 
   useEffect(() => {
     !isPDFLoading && setPDFLoading(true);
@@ -42,11 +39,7 @@ export default ({ children }: any) => {
       logChanges.cancel();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [questions, settings, details]);
-
-  useEffect(() => {
-    console.log(questions);
-  }, [questions]);
+  }, [questions, settings]);
 
   // Questions
   function handleAddQuestion(
@@ -91,7 +84,6 @@ export default ({ children }: any) => {
     );
   }
   function handleOrderQuestion(oldIndex: number, newIndex: number) {
-    console.log(oldIndex, newIndex);
     setQuestions((prevQuestions) => {
       const newQuestions = [...prevQuestions];
       const [removed] = newQuestions.splice(oldIndex, 1);
@@ -99,34 +91,31 @@ export default ({ children }: any) => {
       return newQuestions;
     });
   }
-  // Details
-  function handleSetDetails(details: IDetails) {
-    setDetails(details);
-  }
-  // Settings
-  function handleSetSettings(settings: ISettings) {
-    setSettings(settings);
-  }
+
+  useEffect(() => {
+    console.log(questions);
+  }, [questions]);
+
+  useEffect(() => {
+    console.log(settings);
+  }, [settings]);
 
   return (
     <AppContext.Provider
       value={{
-        questions,
-        details,
-        settings,
-        // Loading
-        isPDFLoading,
         // Questions
+        questions,
         handleAddQuestion,
         handleChangeQuestion,
         handleChangeAnswer,
         handleChangeScale,
         handleRemoveQuestion,
         handleOrderQuestion,
-        // Details
-        handleSetDetails,
         // Settings
-        handleSetSettings,
+        settings,
+        setSettings,
+        // Loading
+        isPDFLoading,
       }}
     >
       {children}

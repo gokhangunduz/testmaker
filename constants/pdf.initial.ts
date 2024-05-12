@@ -4,6 +4,10 @@ import { IDetails } from "@/interfaces/pdf.details.interface";
 import { ISettings } from "@/interfaces/pdf.settings.interface";
 
 export const pdfInitialSettings: ISettings = {
+  details: {
+    title: "Title",
+    subtitle: "Subtitle",
+  },
   answers: {
     isPerPage: false,
     isLastPage: true,
@@ -16,9 +20,4 @@ export const pdfInitialSettings: ISettings = {
     pageNumber: "#000000",
     pageAnswer: "#000000",
   },
-};
-
-export const pdfInitialDetails: IDetails = {
-  title: "Title",
-  subtitle: "Subtitle",
 };

@@ -10,34 +10,36 @@ import useApp from "@/hooks/useApp";
 import { useFormik } from "formik";
 
 export default function Sidebar(): ReactElement {
-  const { details, settings, handleSetDetails, handleSetSettings } = useApp();
+  const { settings, setSettings } = useApp();
 
   const formik = useFormik({
     initialValues: {
-      details: details,
       settings: settings,
     },
     onSubmit: () => {},
   });
 
   useEffect(() => {
-    handleSetDetails(formik?.values?.details);
-    handleSetSettings(formik?.values?.settings);
+    setSettings(formik?.values?.settings);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formik?.values]);
 
   const { t } = useTranslation();
 
+  useEffect(() => {
+    console.log("form", settings);
+  }, [settings]);
+
   return (
-    <div className="hw-full bg-zinc-100 border-r border-zinc-300 p-6 flex flex-col gap-6">
-      <SidebarSection label={t("titles")} gap={8} labelClassName="pb-3">
+    <div className="hw-full bg-white border-r border-zinc-300 p-6 flex flex-col gap-10">
+      <SidebarSection label={t("titles")} gap={4}>
         <InputText
           label={t("title")}
-          formikProps={formik.getFieldProps("details.title")}
+          formikProps={formik.getFieldProps("settings.details.title")}
         />
         <InputText
           label={t("subtitle")}
-          formikProps={formik.getFieldProps("details.subtitle")}
+          formikProps={formik.getFieldProps("settings.details.subtitle")}
         />
       </SidebarSection>
 

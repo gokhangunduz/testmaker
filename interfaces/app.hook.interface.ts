@@ -1,4 +1,4 @@
-import { IDetails } from "./pdf.details.interface";
+import { Dispatch, SetStateAction } from "react";
 import {
   IQuestion,
   IQuestionAnswer,
@@ -12,12 +12,8 @@ import {
 import { ISettings } from "./pdf.settings.interface";
 
 export interface IuseApp {
-  questions: IQuestion[];
-  details: IDetails;
-  settings: ISettings;
-  // Loading
-  isPDFLoading: boolean;
   // Questions
+  questions: IQuestion[];
   handleAddQuestion(
     blob: IQuestionBlob,
     base64: IQuestionBase64,
@@ -31,8 +27,9 @@ export interface IuseApp {
   handleChangeScale(index: number, scale: IQuestionScale): void;
   handleRemoveQuestion: (index: number) => void;
   handleOrderQuestion: (oldIndex: number, newIndex: number) => void;
-  // Details
-  handleSetDetails: (details: IDetails) => void;
   // Settings
-  handleSetSettings: (settings: ISettings) => void;
+  settings: ISettings;
+  setSettings: Dispatch<SetStateAction<ISettings>>;
+  // Loading
+  isPDFLoading: boolean;
 }

@@ -6,16 +6,16 @@ import Editor from "@/components/Editor/Editor";
 import AppProvider from "@/contexts/AppContext";
 import { ReactElement, useEffect } from "react";
 import WelcomeModal from "@/components/WelcomeModal/WelcomeModal";
-import { disableDevTools } from "@/functions/devtools.function";
+// import { disableDevTools } from "@/functions/devtools.function";
 
 export interface IAppLayout {
   children: ReactElement | ReactElement[];
 }
 
 export default function AppLayout({ children }: Readonly<IAppLayout>) {
-  useEffect(() => {
-    disableDevTools();
-  }, []);
+  // useEffect(() => {
+  //   disableDevTools();
+  // }, []);
 
   return (
     <AppProvider>
@@ -23,7 +23,7 @@ export default function AppLayout({ children }: Readonly<IAppLayout>) {
       <div
         className="w-full grid grid-cols-12"
         style={{
-          height: "calc(100vh - 6rem)",
+          height: "calc(100vh - 7rem)",
         }}
       >
         <div className="col-span-2">

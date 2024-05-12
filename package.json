@@ -14,10 +14,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nextui-org/react": "^2.3.6",
     "@react-pdf/renderer": "^3.3.8",
     "animate.css": "^4.1.1",
     "devtools-detect": "^4.0.1",
     "formik": "^2.4.5",
+    "framer-motion": "^11.1.7",
     "i18next": "^23.10.0",
     "jay-peg": "^1.0.1",
     "lodash": "^4.17.21",

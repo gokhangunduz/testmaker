@@ -9,7 +9,7 @@ import PDFPreview from "../PDFPreview/PDFPreview";
 import PDFDownload from "../PDFDownload/PDFDownload";
 
 export default function Preview(): ReactElement {
-  const { questions, settings, details, isPDFLoading } = useApp();
+  const { questions, settings, isPDFLoading } = useApp();
 
   return (
     <div className="hw-full relative">
@@ -17,7 +17,7 @@ export default function Preview(): ReactElement {
         <PDFLoading />
       ) : (
         <PDFPreview>
-          <PDF questions={questions} settings={settings} details={details} />
+          <PDF questions={questions} settings={settings} />
         </PDFPreview>
       )}
       {questions.length > 0 && !isPDFLoading && <PDFDownload />}

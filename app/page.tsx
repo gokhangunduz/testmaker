@@ -5,7 +5,6 @@ import { ReactElement } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button/Button";
 import { useTranslation } from "react-i18next";
-import Canvas from "react-cursor-rainbow-lines";
 
 export default function Home(): ReactElement {
   const router = useRouter();
@@ -15,10 +14,9 @@ export default function Home(): ReactElement {
     <div
       className="w-full flex justify-center items-center flex-col lg:flex-row"
       style={{
-        height: "calc(100vh - 6rem)",
+        height: "calc(100vh - 7rem)",
       }}
     >
-      <Canvas />
       <div className="hw-full flex items-center justify-center animate__animated animate__fadeInLeft">
         <Image width={768} height={768} src={"/test.svg"} alt="svg" />
       </div>

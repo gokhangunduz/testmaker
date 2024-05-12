@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, ReactElement } from "react";
-import { InputText as InputTextPR } from "primereact/inputtext";
+import { Input as NextInput } from "@nextui-org/react";
 
 interface IInputText {
   label: string;
@@ -19,16 +19,12 @@ export default function InputText({
   formikProps,
 }: IInputText): ReactElement {
   return (
-    <span className="p-float-label">
-      <InputTextPR
-        className="h-10 w-full px-2"
-        id={label}
-        value={value}
-        onChange={onChange}
-        tooltip={tooltip}
-        {...formikProps}
-      />
-      <label htmlFor={label}>{label}</label>
-    </span>
+    <NextInput
+      color="default"
+      label={label}
+      value={value}
+      onChange={onChange}
+      {...formikProps}
+    />
   );
 }

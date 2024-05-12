@@ -1,4 +1,8 @@
 export interface ISettings {
+  details: {
+    title: string;
+    subtitle: string;
+  };
   answers: {
     isPerPage: boolean;
     isLastPage: boolean;

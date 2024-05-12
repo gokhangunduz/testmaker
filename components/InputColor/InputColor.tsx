@@ -2,6 +2,7 @@
 
 import { ReactElement } from "react";
 import { ColorPicker, ColorPickerChangeEvent } from "primereact/colorpicker";
+import InputContainer from "../InputContainer/InputContainer";
 
 interface IInputColor {
   label: string;
@@ -15,9 +16,8 @@ export default function InputColor({
   onChange,
 }: IInputColor): ReactElement {
   return (
-    <div className="flex items-center w-full justify-between">
-      <label className="text-zinc-600">{label}:</label>
+    <InputContainer label={label}>
       <ColorPicker value={color} onChange={onChange} />
-    </div>
+    </InputContainer>
   );
 }
