@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.3.6",
-    "@react-pdf/renderer": "^3.3.8",
+    "@react-pdf/renderer": "^3.4.4",
     "animate.css": "^4.1.1",
     "devtools-detect": "^4.0.1",
     "formik": "^2.4.5",

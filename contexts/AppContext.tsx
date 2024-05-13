@@ -20,26 +20,7 @@ export const AppContext: any = createContext<any>(null);
 
 // eslint-disable-next-line
 export default ({ children }: any) => {
-  const [questions, setQuestions] = useState<IQuestion[]>([
-    {
-      blob: null,
-      base64: "",
-      answer: null,
-      width: 0,
-      height: 0,
-      scale: 1,
-      ratio: 0,
-    },
-    {
-      blob: null,
-      base64: "",
-      answer: null,
-      width: 0,
-      height: 0,
-      scale: 1,
-      ratio: 0,
-    },
-  ]);
+  const [questions, setQuestions] = useState<IQuestion[]>([]);
 
   const [settings, setSettings] = useState<ISettings>(
     pdfInitialSettings as ISettings

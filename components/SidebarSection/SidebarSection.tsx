@@ -8,6 +8,7 @@ interface ISidebarSection {
   gap?: number;
   containerClassName?: string;
   labelClassName?: string;
+  layoutClassName?: string;
 }
 
 export default function SidebarSection({
@@ -16,6 +17,7 @@ export default function SidebarSection({
   gap = 4,
   containerClassName,
   labelClassName,
+  layoutClassName,
 }: ISidebarSection): ReactElement {
   return (
     <div className={`w-full flex flex-col gap-5 ${containerClassName}`}>
@@ -29,7 +31,7 @@ export default function SidebarSection({
         style={{
           gap: `${gap / 4}rem`,
         }}
-        className="flex w-full flex-col"
+        className={`flex w-full flex-col ${layoutClassName}`}
       >
         {children}
       </div>

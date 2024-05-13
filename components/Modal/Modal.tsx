@@ -1,32 +1,35 @@
 "use client";
 
-import { Dialog } from "primereact/dialog";
-import { CSSProperties, ReactElement } from "react";
+import { ReactElement } from "react";
+import {
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Modal as NextModal,
+} from "@nextui-org/react";
 
 interface IModal {
-  header?: string;
-  style?: CSSProperties;
-  onHide: () => void;
+  header?: string | ReactElement;
   children: ReactElement | ReactElement[];
-  draggable?: boolean;
+  footer?: ReactElement | ReactElement[];
+
+  onHide: () => void;
 }
 
 export default function Modal({
   header,
-  style,
-  onHide,
   children,
-  draggable,
+  footer,
+  onHide,
 }: IModal): ReactElement {
   return (
-    <Dialog
-      header={header}
-      visible
-      style={style || { width: "50vw" }}
-      draggable={draggable || false}
-      onHide={onHide}
-    >
-      {children}
-    </Dialog>
+    <NextModal isOpen onClose={onHide}>
+      <ModalContent>
+        <ModalHeader>{header}</ModalHeader>
+        <ModalBody>{children}</ModalBody>
+        <ModalFooter>{footer}</ModalFooter>
+      </ModalContent>
+    </NextModal>
   );
 }
