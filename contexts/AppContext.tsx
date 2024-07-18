@@ -15,6 +15,8 @@ import { ISettings } from "@/interfaces/pdf.settings.interface";
 import _debounce from "lodash/debounce";
 import { pdfInitialSettings } from "@/constants/pdf.initial";
 import { PDFCreationTime } from "@/configs/config";
+import { idGenerator } from "@/app/helper/generator";
+import { mockQuestions } from "@/app/mocks/mocks";
 
 export const AppContext: any = createContext<any>(null);
 
@@ -53,6 +55,7 @@ export default ({ children }: any) => {
     setQuestions((prevQuestions) => [
       ...prevQuestions,
       {
+        id: idGenerator(),
         blob: blob || null,
         base64: base64 || null,
         answer: answer || null,
@@ -91,14 +94,6 @@ export default ({ children }: any) => {
       return newQuestions;
     });
   }
-
-  useEffect(() => {
-    console.log(questions);
-  }, [questions]);
-
-  useEffect(() => {
-    console.log(settings);
-  }, [settings]);
 
   return (
     <AppContext.Provider

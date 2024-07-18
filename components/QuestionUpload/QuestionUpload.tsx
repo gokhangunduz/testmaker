@@ -21,6 +21,7 @@ export default function QuestionUpload({
             e.preventDefault();
             handleInputUploader(e.target.files as FileList);
           }}
+          title="Questions"
         />
       </div>
     </div>

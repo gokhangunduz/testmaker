@@ -65,6 +65,7 @@ export default function QuestionUploader({
           type="file"
           className="absolute inset-0"
           accept="image/*"
+          title="Questions"
         />
         {!onDragging && children}
         {(!questions?.length || onDragging) && (

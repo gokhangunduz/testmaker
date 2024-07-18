@@ -1,1 +1,1 @@
-export const PDFCreationTime = 10; // 10 seconds
+export const PDFCreationTime = 2; // seconds

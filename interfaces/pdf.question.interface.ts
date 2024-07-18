@@ -1,4 +1,5 @@
 export interface IQuestion {
+  id: IQuestionId;
   blob: IQuestionBlob;
   base64: IQuestionBase64;
   answer: IQuestionAnswer;
@@ -9,6 +10,7 @@ export interface IQuestion {
   index?: IQuestionIndex;
 }
 
+export type IQuestionId = number;
 export type IQuestionBlob = string | null;
 export type IQuestionBase64 = string | null;
 export type IQuestionAnswer = "A" | "B" | "C" | "D" | "E" | null;

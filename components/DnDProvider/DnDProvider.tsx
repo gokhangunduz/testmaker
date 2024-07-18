@@ -1,48 +1,65 @@
-"use client";
-
-import useApp from "@/hooks/useApp";
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import {
-  DragDropContext,
-  Droppable,
-  resetServerContext,
-} from "react-beautiful-dnd";
+  DndContext,
+  closestCenter,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import useApp from "@/hooks/useApp";
+import QuestionCard from "../QuestionCard/QuestionCard";
 
-interface IDnDProvider {
-  children: ReactElement | ReactElement[];
-}
+export default function DnDProvider(): ReactElement {
+  const sensors = useSensors(
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: 1,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5,
+      },
+    })
+  );
 
-export default function DnDProvider({ children }: IDnDProvider): ReactElement {
-  const { handleOrderQuestion } = useApp();
+  const { questions, handleOrderQuestion } = useApp();
 
-  resetServerContext();
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over?.id && active.id !== over.id) {
+      const oldIndex = questions.findIndex((q) => q.id === active.id);
+      const newIndex = questions.findIndex((q) => q.id === over.id);
+      handleOrderQuestion(oldIndex, newIndex);
+    }
+  };
 
   return (
-    <DragDropContext
-      onDragEnd={(e) => {
-        typeof e.destination?.index === "number" &&
-          handleOrderQuestion(e.source.index, e.destination.index);
-      }}
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragEnd={handleDragEnd}
+      autoScroll
     >
-      <Droppable droppableId="questions">
-        {(provided) => {
-          const containerStyle = {
-            height: "calc(100vh - 6rem)",
-          };
-
-          return (
-            <div
-              className="flex flex-col p-4 overflow-auto"
-              style={containerStyle}
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-              {children}
-              {provided.placeholder}
-            </div>
-          );
-        }}
-      </Droppable>
-    </DragDropContext>
+      <SortableContext items={questions} strategy={verticalListSortingStrategy}>
+        <div
+          className="flex flex-col gap-3 p-4 overflow-auto"
+          style={{
+            height: "calc(100vh - 7rem)",
+          }}
+        >
+          {questions.map((question, index) => (
+            <QuestionCard key={question.id} question={question} index={index} />
+          ))}
+        </div>
+      </SortableContext>
+    </DndContext>
   );
 }

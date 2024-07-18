@@ -26,10 +26,6 @@ export default function Sidebar(): ReactElement {
 
   const { t } = useTranslation();
 
-  useEffect(() => {
-    console.log("form", settings);
-  }, [settings]);
-
   return (
     <div className="hw-full bg-white border-r border-zinc-300 p-6 flex flex-col gap-10">
       <SidebarSection label={t("titles")} gap={4}>

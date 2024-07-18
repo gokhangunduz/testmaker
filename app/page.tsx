@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button/Button";
 import { useTranslation } from "react-i18next";
 
 export default function Home(): ReactElement {
+  const [isClicked, setIsClicked] = useState<boolean>(false);
   const router = useRouter();
   const { t } = useTranslation();
 
@@ -28,7 +29,14 @@ export default function Home(): ReactElement {
           {t("projectDescription")}
         </p>
 
-        <Button label={t("getStarted")} onClick={() => router.push("/app")} />
+        <Button
+          label={t("getStarted")}
+          loading={isClicked}
+          onClick={() => {
+            setIsClicked(true);
+            router.push("/app");
+          }}
+        />
       </div>
     </div>
   );

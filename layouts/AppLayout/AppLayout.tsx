@@ -29,10 +29,10 @@ export default function AppLayout({ children }: Readonly<IAppLayout>) {
         <div className="col-span-2">
           <Sidebar />
         </div>
-        <div className="col-span-5">
+        <div className="col-span-4">
           <Editor />
         </div>
-        <div className="col-span-5">
+        <div className="col-span-6">
           <Preview />
         </div>
       </div>
