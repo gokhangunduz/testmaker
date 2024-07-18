@@ -16,7 +16,6 @@ import _debounce from "lodash/debounce";
 import { pdfInitialSettings } from "@/constants/pdf.initial";
 import { PDFCreationTime } from "@/configs/config";
 import { idGenerator } from "@/app/helper/generator";
-import { mockQuestions } from "@/app/mocks/mocks";
 
 export const AppContext: any = createContext<any>(null);
 
