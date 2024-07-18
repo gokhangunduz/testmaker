@@ -8,7 +8,7 @@ import dynamic from "next/dynamic";
 import { BsFileEarmarkArrowDown } from "react-icons/bs";
 
 export default function PDFDownload(): ReactElement {
-  const { questions, settings, details, isPDFLoading } = useApp();
+  const { questions, settings, isPDFLoading } = useApp();
 
   const PDFDownloadButton = dynamic(
     () => import("@react-pdf/renderer").then((mod) => mod.PDFDownloadLink),
@@ -20,9 +20,7 @@ export default function PDFDownload(): ReactElement {
   return (
     <div className="absolute bottom-4 right-4">
       <PDFDownloadButton
-        document={
-          <PDF questions={questions} settings={settings} details={details} />
-        }
+        document={<PDF questions={questions} settings={settings} />}
         fileName="test.pdf"
       >
         {({ loading }) => (
