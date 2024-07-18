@@ -19,7 +19,6 @@ import { idGenerator } from "@/app/helper/generator";
 
 export const AppContext: any = createContext<any>(null);
 
-// eslint-disable-next-line
 export default ({ children }: any) => {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
 
