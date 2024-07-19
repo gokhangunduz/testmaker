@@ -15,10 +15,11 @@ import { ISettings } from "@/interfaces/pdf.settings.interface";
 import _debounce from "lodash/debounce";
 import { pdfInitialSettings } from "@/constants/pdf.initial";
 import { PDFCreationTime } from "@/configs/config";
-import { idGenerator } from "@/app/helper/generator";
+import { idGenerator } from "@/helper/generator";
 
 export const AppContext: any = createContext<any>(null);
 
+// eslint-disable-next-line import/no-anonymous-default-export, react/display-name
 export default ({ children }: any) => {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
 
