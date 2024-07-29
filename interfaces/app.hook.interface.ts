@@ -5,6 +5,7 @@ import {
   IQuestionBase64,
   IQuestionBlob,
   IQuestionHeight,
+  IQuestionIndex,
   IQuestionRatio,
   IQuestionScale,
   IQuestionWidth,
@@ -15,6 +16,15 @@ export interface IuseApp {
   // Questions
   questions: IQuestion[];
   handleAddQuestion(
+    blob: IQuestionBlob,
+    base64: IQuestionBase64,
+    width: IQuestionWidth,
+    height: IQuestionHeight,
+    ratio: IQuestionRatio,
+    answer?: IQuestionAnswer
+  ): void;
+  handleReplaceQuestion(
+    index: IQuestionIndex,
     blob: IQuestionBlob,
     base64: IQuestionBase64,
     width: IQuestionWidth,

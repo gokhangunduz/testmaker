@@ -6,6 +6,7 @@ import {
   IQuestionBase64,
   IQuestionBlob,
   IQuestionHeight,
+  IQuestionIndex,
   IQuestionRatio,
   IQuestionScale,
   IQuestionWidth,
@@ -65,6 +66,35 @@ export default ({ children }: any) => {
       },
     ]);
   }
+
+  // Questions
+  function handleReplaceQuestion(
+    index: IQuestionIndex,
+    blob: IQuestionBlob,
+    base64: IQuestionBase64,
+    width: IQuestionWidth,
+    height: IQuestionHeight,
+    ratio: IQuestionRatio,
+    answer?: IQuestionAnswer
+  ) {
+    setQuestions((prevQuestions) =>
+      prevQuestions.map((q, i) =>
+        i === index
+          ? {
+              id: idGenerator(),
+              blob: blob || null,
+              base64: base64 || null,
+              answer: answer || null,
+              width: width || 0,
+              height: height || 0,
+              scale: 1,
+              ratio: ratio || 0,
+            }
+          : q
+      )
+    );
+  }
+
   function handleRemoveQuestion(index: number) {
     setQuestions((prevQuestions) =>
       prevQuestions.filter((_, i) => i !== index)
@@ -100,6 +130,7 @@ export default ({ children }: any) => {
         // Questions
         questions,
         handleAddQuestion,
+        handleReplaceQuestion,
         handleChangeQuestion,
         handleChangeAnswer,
         handleChangeScale,

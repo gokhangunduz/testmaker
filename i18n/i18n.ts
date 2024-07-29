@@ -37,6 +37,9 @@ const resources: Resource = {
       issues: "Önceden oluşabilecek olası sorunlar için özür dileriz.",
       betaEmail:
         "Herhangi bir sorunuz veya geri bildiriminiz varsa lütfen bize bir e-posta gönderin",
+      cancel: "İptal",
+      save: "Kaydet",
+      editQuestion: "Soruyu Düzenle",
     },
   },
   en: {
@@ -72,6 +75,9 @@ const resources: Resource = {
         "We apologize in advance for any potential issues that may arise.",
       betaEmail:
         "If you have any isses or feedback, please send us an email at",
+      cancel: "Cancel",
+      save: "Save",
+      editQuestion: "Edit Question",
     },
   },
   de: {
@@ -107,6 +113,9 @@ const resources: Resource = {
         "Wir entschuldigen uns im Voraus für mögliche Probleme, die auftreten können.",
       betaEmail:
         "Wenn Sie Probleme oder Feedback haben, senden Sie uns bitte eine E-Mail an",
+      cancel: "Stornieren",
+      save: "Speichern",
+      editQuestion: "Frage bearbeiten",
     },
   },
 };

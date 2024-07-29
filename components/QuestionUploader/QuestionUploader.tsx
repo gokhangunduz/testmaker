@@ -1,7 +1,7 @@
 "use client";
 
 import { convertBase64 } from "@/functions/convertbase64.function";
-import handleGetImageMeta from "@/functions/meta.image.function";
+import { handleGetImageMeta } from "@/functions/meta.image.function";
 import QuestionUpload from "../QuestionUpload/QuestionUpload";
 import { Fragment, ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
