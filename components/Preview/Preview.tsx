@@ -7,19 +7,29 @@ import PDFLoading from "../PDFLoading/PDFLoading";
 import _debounce from "lodash/debounce";
 import PDFPreview from "../PDFPreview/PDFPreview";
 import PDFDownload from "../PDFDownload/PDFDownload";
+import PDFEmpty from "../PDFEmpty/PDFEmpty";
 
 export default function Preview(): ReactElement {
   const { questions, settings, isPDFLoading } = useApp();
 
-  return (
-    <div className="hw-full relative">
-      {isPDFLoading ? (
-        <PDFLoading />
-      ) : (
+  const renderPDF = () => {
+    if (isPDFLoading) {
+      return <PDFLoading />;
+    } else if (questions == null || questions.length == 0) {
+      return <PDFEmpty />;
+    } else {
+      return (
         <PDFPreview>
           <PDF questions={questions} settings={settings} />
         </PDFPreview>
-      )}
+      );
+    }
+  };
+
+  return (
+    <div className="hw-full relative">
+      {renderPDF()}
+
       {questions.length > 0 && !isPDFLoading && <PDFDownload />}
     </div>
   );
