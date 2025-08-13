@@ -29,7 +29,7 @@ export default function EditorModal({
   const { handleReplaceQuestion } = useApp();
   const { t } = useTranslation();
 
-  const ref = useRef<CropperRef>();
+  const ref = useRef<CropperRef>(null);
 
   async function handleSaver() {
     const img = ref.current?.getCanvas()?.toDataURL();
