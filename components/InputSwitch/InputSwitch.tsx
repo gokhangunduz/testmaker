@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactElement } from "react";
-import { Switch as NextSwitch } from "@nextui-org/switch";
+import { Switch as NextSwitch } from "@heroui/react";
 import InputContainer from "../InputContainer/InputContainer";
 
 interface IInputSwitch {

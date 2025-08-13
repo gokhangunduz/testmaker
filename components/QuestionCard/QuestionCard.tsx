@@ -7,8 +7,7 @@ import {
   IQuestion,
   IQuestionAnswer,
 } from "@/interfaces/pdf.question.interface";
-import { Card } from "@nextui-org/card";
-import { Input } from "@nextui-org/react";
+import { Input, Card } from "@heroui/react";
 import useApp from "@/hooks/useApp";
 import SidebarSection from "../SidebarSection/SidebarSection";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";

@@ -8,7 +8,7 @@ import {
   ModalHeader,
   ModalProps,
   Modal as NextModal,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 interface IModal {
   header?: string | ReactElement;

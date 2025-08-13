@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { ButtonGroup as ButtonGroupNext } from "@nextui-org/react";
+import { ButtonGroup as ButtonGroupNext } from "@heroui/react";
 
 interface IButtonGroup {
   children: ReactElement | ReactElement[];

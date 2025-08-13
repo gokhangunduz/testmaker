@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, ReactElement } from "react";
-import { Input as NextInput } from "@nextui-org/react";
+import { Input as NextInput } from "@heroui/react";
 
 interface IInputText {
   label: string;

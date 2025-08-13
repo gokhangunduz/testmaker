@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactElement } from "react";
-import { Button as NextButton, ButtonProps } from "@nextui-org/button";
+import { Button as NextButton, ButtonProps } from "@heroui/react";
 
 interface IButton {
   label: string;

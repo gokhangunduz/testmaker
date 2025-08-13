@@ -10,7 +10,7 @@ import "primeicons/primeicons.css";
 import "animate.css";
 import "@/i18n/i18n";
 import Head from "next/head";
-import { NextUIProvider } from "@nextui-org/react";
+import { HeroUIProvider } from "@heroui/react";
 
 interface IMainLayout {
   children: ReactElement | ReactElement[];
@@ -28,11 +28,11 @@ export default function MainLayout({ children }: Readonly<IMainLayout>) {
       </Head>
       <body>
         <PrimeReactProvider>
-          <NextUIProvider>
+          <HeroUIProvider>
             <Header />
             <Fragment>{children}</Fragment>
             <Footer />
-          </NextUIProvider>
+          </HeroUIProvider>
         </PrimeReactProvider>
       </body>
     </html>
