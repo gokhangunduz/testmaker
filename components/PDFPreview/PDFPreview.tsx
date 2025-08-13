@@ -4,8 +4,10 @@ import dynamic from "next/dynamic";
 import { ReactElement } from "react";
 import PDFLoading from "../PDFLoading/PDFLoading";
 
+import type { DocumentProps } from "@react-pdf/renderer";
+
 interface IPDFPreview {
-  children: ReactElement;
+  children: ReactElement<DocumentProps>;
 }
 
 export default function PDFPreview({ children }: IPDFPreview): ReactElement {
@@ -18,7 +20,7 @@ export default function PDFPreview({ children }: IPDFPreview): ReactElement {
   );
 
   return (
-    <PDFViewer className="hw-full" showToolbar={false}>
+    <PDFViewer className="hw-full" showToolbar={true}>
       {children}
     </PDFViewer>
   );
