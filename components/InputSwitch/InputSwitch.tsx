@@ -19,7 +19,7 @@ export default function InputSwitch({
     <InputContainer label={label}>
       <NextSwitch
         isSelected={checked}
-        onChange={(e) => onChange({ value: e.target.checked })}
+        onChange={(isSelected) => onChange({ value: isSelected })}
       />
     </InputContainer>
   );

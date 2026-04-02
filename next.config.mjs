@@ -5,10 +5,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  experimental: {
-    esmExternals: "loose",
-  },
-  output: "export",
+output: "export",
 };
 
 export default nextConfig;

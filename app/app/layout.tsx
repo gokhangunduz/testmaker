@@ -1,10 +1,10 @@
 "use client";
 
 import AppLayout from "@/layouts/AppLayout/AppLayout";
-import { ReactElement } from "react";
+import { ReactNode } from "react";
 
 interface ILayout {
-  children: ReactElement | ReactElement[];
+  children: ReactNode;
 }
 
 export default function Layout({ children }: Readonly<ILayout>) {

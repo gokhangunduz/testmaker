@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, ReactElement } from "react";
-import { Input as NextInput } from "@heroui/react";
+import { TextField, Label, Input } from "@heroui/react";
 
 interface IInputText {
   label: string;
@@ -13,18 +13,23 @@ interface IInputText {
 
 export default function InputText({
   label,
-  tooltip,
   value,
   onChange,
   formikProps,
 }: IInputText): ReactElement {
+  const currentValue = value ?? formikProps?.value ?? "";
+
   return (
-    <NextInput
-      color="default"
-      label={label}
-      value={value}
-      onChange={onChange}
-      {...formikProps}
-    />
+    <TextField
+      value={currentValue}
+      onChange={(val) => {
+        const e = { target: { value: val } } as ChangeEvent<HTMLInputElement>;
+        onChange?.(e);
+        formikProps?.onChange?.(e);
+      }}
+    >
+      <Label>{label}</Label>
+      <Input />
+    </TextField>
   );
 }

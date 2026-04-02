@@ -49,7 +49,7 @@ export default function EditorModal({
 
   return (
     <Modal
-      size="4xl"
+      size="lg"
       header={
         <h2 className="text-xl font-semibold text-slate-700">
           {t("editQuestion")}
@@ -57,7 +57,7 @@ export default function EditorModal({
       }
       footer={
         <Fragment>
-          <Button color="secondary" label={t("cancel")} onClick={onHide} />
+          <Button variant="secondary" label={t("cancel")} onClick={onHide} />
           <Button label={t("save")} onClick={handleSaver} />
         </Fragment>
       }

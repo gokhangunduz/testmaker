@@ -1,20 +1,21 @@
 "use client";
 
-import { ReactElement } from "react";
+import { ReactNode } from "react";
 import {
+  ModalRoot,
+  ModalBackdrop,
+  ModalContainer,
+  ModalDialog,
   ModalBody,
-  ModalContent,
-  ModalFooter,
   ModalHeader,
-  ModalProps,
-  Modal as NextModal,
+  ModalFooter,
 } from "@heroui/react";
 
 interface IModal {
-  header?: string | ReactElement;
-  children: ReactElement | ReactElement[];
-  footer?: ReactElement | ReactElement[];
-  size?: ModalProps["size"];
+  header?: string | ReactNode;
+  children: ReactNode;
+  footer?: ReactNode;
+  size?: "xs" | "sm" | "md" | "lg" | "full" | "cover";
   onHide: () => void;
 }
 
@@ -24,14 +25,24 @@ export default function Modal({
   footer,
   size,
   onHide,
-}: IModal): ReactElement {
+}: IModal) {
   return (
-    <NextModal isOpen size={size} onClose={onHide}>
-      <ModalContent>
-        <ModalHeader>{header}</ModalHeader>
-        <ModalBody>{children}</ModalBody>
-        <ModalFooter>{footer}</ModalFooter>
-      </ModalContent>
-    </NextModal>
+    <ModalRoot state={{
+      isOpen: true,
+      setOpen: (open) => { if (!open) onHide(); },
+      open: () => {},
+      close: onHide,
+      toggle: onHide,
+    }}>
+      <ModalBackdrop>
+        <ModalContainer size={size}>
+          <ModalDialog>
+            {header && <ModalHeader>{header}</ModalHeader>}
+            <ModalBody>{children}</ModalBody>
+            {footer && <ModalFooter>{footer}</ModalFooter>}
+          </ModalDialog>
+        </ModalContainer>
+      </ModalBackdrop>
+    </ModalRoot>
   );
 }

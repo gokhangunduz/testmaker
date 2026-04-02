@@ -1,13 +1,22 @@
 "use client";
 
 import { ReactElement } from "react";
-import { Button as NextButton, ButtonProps } from "@heroui/react";
+import { Button as NextButton, Spinner } from "@heroui/react";
+
+type ButtonVariant =
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "outline"
+  | "ghost"
+  | "danger"
+  | "danger-soft";
 
 interface IButton {
   label: string;
   onClick?: () => void;
   loading?: boolean;
-  color?: ButtonProps["color"];
+  variant?: ButtonVariant;
   isIconOnly?: boolean;
 }
 
@@ -15,17 +24,17 @@ export default function Button({
   label,
   onClick,
   loading,
-  color = "primary",
+  variant = "primary",
   isIconOnly,
 }: Readonly<IButton>): ReactElement {
   return (
     <NextButton
       onClick={onClick}
-      color={color}
-      isLoading={loading}
+      variant={variant}
       isIconOnly={isIconOnly}
+      isDisabled={loading}
     >
-      {label}
+      {loading ? <Spinner size="sm" /> : label}
     </NextButton>
   );
 }

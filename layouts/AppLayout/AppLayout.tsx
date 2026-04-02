@@ -4,12 +4,12 @@ import Preview from "@/components/Preview/Preview";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Editor from "@/components/Editor/Editor";
 import AppProvider from "@/contexts/AppContext";
-import { ReactElement, useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import WelcomeModal from "@/components/WelcomeModal/WelcomeModal";
 // import { disableDevTools } from "@/functions/devtools.function";
 
 export interface IAppLayout {
-  children: ReactElement | ReactElement[];
+  children: ReactNode;
 }
 
 export default function AppLayout({ children }: Readonly<IAppLayout>) {

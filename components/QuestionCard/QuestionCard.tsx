@@ -7,7 +7,13 @@ import {
   IQuestion,
   IQuestionAnswer,
 } from "@/interfaces/pdf.question.interface";
-import { Input, Card } from "@heroui/react";
+import {
+  NumberFieldRoot,
+  Label,
+  NumberFieldGroup,
+  NumberFieldInput,
+  Card,
+} from "@heroui/react";
 import useApp from "@/hooks/useApp";
 import SidebarSection from "../SidebarSection/SidebarSection";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
@@ -92,8 +98,8 @@ export default function QuestionCard({
                   { label: "🗑️", value: "🗑️" },
                 ].map((option, i) => (
                   <Button
-                    color={
-                      question.answer === option.value ? "primary" : "default"
+                    variant={
+                      question.answer === option.value ? "primary" : "secondary"
                     }
                     isIconOnly
                     key={i}
@@ -111,24 +117,18 @@ export default function QuestionCard({
                 ))}
               </>
             </ButtonGroup>
-            <Input
-              type="number"
-              label="Scale"
-              placeholder="0.00"
-              labelPlacement="outside"
-              startContent={
-                <div className="pointer-events-none flex items-center">
-                  <span className="text-default-400 text-small">Scale</span>
-                </div>
-              }
+            <NumberFieldRoot
+              value={question.scale}
+              onChange={(val) => handleChangeScale(index, val)}
+              minValue={0.5}
+              maxValue={1.5}
               step={0.1}
-              max={1.5}
-              min={0.5}
-              value={String(question.scale)}
-              onChange={(e) => {
-                handleChangeScale(index, e.target.valueAsNumber as number);
-              }}
-            />
+            >
+              <Label>Scale</Label>
+              <NumberFieldGroup>
+                <NumberFieldInput />
+              </NumberFieldGroup>
+            </NumberFieldRoot>
           </SidebarSection>
         </div>
       </Card>
