@@ -33,7 +33,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "functions/canvas.function.s",
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [

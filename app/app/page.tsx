@@ -1,7 +1,3 @@
-"use client";
-
-import { Fragment, ReactElement } from "react";
-
-export default function App(): ReactElement {
-  return <Fragment />;
+export default function App() {
+  return null;
 }

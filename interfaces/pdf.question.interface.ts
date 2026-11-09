@@ -1,6 +1,5 @@
 export interface IQuestion {
   id: IQuestionId;
-  blob: IQuestionBlob;
   base64: IQuestionBase64;
   answer: IQuestionAnswer;
   width: IQuestionWidth;
@@ -10,9 +9,15 @@ export interface IQuestion {
   index?: IQuestionIndex;
 }
 
-export type IQuestionId = number;
-export type IQuestionBlob = string | null;
-export type IQuestionBase64 = string | null;
+export interface IQuestionImage {
+  base64: string;
+  width: number;
+  height: number;
+  ratio: number;
+}
+
+export type IQuestionId = string;
+export type IQuestionBase64 = string;
 export type IQuestionAnswer = "A" | "B" | "C" | "D" | "E" | null;
 export type IQuestionWidth = number;
 export type IQuestionHeight = number;

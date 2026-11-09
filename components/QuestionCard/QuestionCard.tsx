@@ -1,12 +1,10 @@
-import React, { CSSProperties, Fragment, ReactElement } from "react";
+"use client";
+
+import { CSSProperties, ReactElement } from "react";
 import Image from "next/image";
-import { MdDragIndicator } from "react-icons/md";
+import { MdDragIndicator, MdDeleteOutline } from "react-icons/md";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import {
-  IQuestion,
-  IQuestionAnswer,
-} from "@/interfaces/pdf.question.interface";
 import {
   NumberFieldRoot,
   Label,
@@ -14,18 +12,24 @@ import {
   NumberFieldInput,
   Card,
 } from "@heroui/react";
+import { useTranslation } from "react-i18next";
+import {
+  IQuestion,
+  IQuestionAnswer,
+} from "@/interfaces/pdf.question.interface";
 import useApp from "@/hooks/useApp";
+import useToggle from "@/hooks/useToggle";
 import SidebarSection from "../SidebarSection/SidebarSection";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import Button from "../Button/Button";
-import { useTranslation } from "react-i18next";
-import useToggle from "@/hooks/useToggle";
 import EditorModal from "../EditorModal/EditorModal";
 
 interface IQuestionCard {
   question: IQuestion;
   index: number;
 }
+
+const answerOptions: IQuestionAnswer[] = ["A", "B", "C", "D", "E", null];
 
 export default function QuestionCard({
   question,
@@ -51,94 +55,94 @@ export default function QuestionCard({
     zIndex: isDragging ? 1 : 0,
   };
 
+  const title = `${t("question")} ${index + 1}`;
+
   return (
-    <Fragment>
+    <>
       <Card
         className="p-4 hw-full flex gap-1 items-center min-h-40 h-40 max-h-40"
         ref={setNodeRef}
         style={style}
       >
         <div className="hw-full flex gap-1 items-center">
-          <div {...attributes} {...listeners}>
-            <MdDragIndicator
-              size={32}
-              className="text-gray-400 cursor-pointer"
-            />
-          </div>
-          <Image
-            className="rounded-lg pr-4 cursor-pointer hover:brightness-50 transition-all duration-500"
-            height={128}
-            width={128}
-            style={{
-              objectFit: "contain",
-              objectPosition: "center",
-              minWidth: "128px",
-              minHeight: "128px",
-              maxHeight: "128px",
-              maxWidth: "128px",
-            }}
-            src={question.base64!}
-            alt="Question Image"
+          <button
+            type="button"
+            aria-label={title}
+            className="cursor-grab touch-none text-gray-400"
+            {...attributes}
+            {...listeners}
+          >
+            <MdDragIndicator size={32} />
+          </button>
+          <button
+            type="button"
+            aria-label={t("editQuestion")}
             onClick={() => toggleModal(true)}
-          />
+            className="shrink-0"
+          >
+            <Image
+              className="rounded-lg pr-4 cursor-pointer hover:brightness-50 transition-500"
+              height={128}
+              width={128}
+              style={{
+                objectFit: "contain",
+                objectPosition: "center",
+                width: 128,
+                height: 128,
+              }}
+              src={question.base64}
+              alt={title}
+            />
+          </button>
           <SidebarSection
-            label={`${t("question")} ${index + 1}`}
+            label={title}
             containerClassName="h-full"
             layoutClassName="!flex-row items-start h-full"
           >
-            <ButtonGroup label="Answer">
-              <>
-                {[
-                  { label: "A", value: "A" },
-                  { label: "B", value: "B" },
-                  { label: "C", value: "C" },
-                  { label: "D", value: "D" },
-                  { label: "E", value: "E" },
-                  { label: t("null"), value: null },
-                  { label: "🗑️", value: "🗑️" },
-                ].map((option, i) => (
-                  <Button
-                    variant={
-                      question.answer === option.value ? "primary" : "secondary"
-                    }
-                    isIconOnly
-                    key={i}
-                    onClick={() => {
-                      if (option.value === "🗑️") {
-                        return handleRemoveQuestion(index);
-                      }
-                      handleChangeAnswer(
-                        index,
-                        option.value as IQuestionAnswer
-                      );
-                    }}
-                    label={option.label}
-                  />
-                ))}
-              </>
+            <ButtonGroup label={t("answer")}>
+              {answerOptions.map((option) => (
+                <Button
+                  key={option ?? "none"}
+                  variant={question.answer === option ? "primary" : "secondary"}
+                  isIconOnly
+                  label={option ?? t("null")}
+                  onClick={() => handleChangeAnswer(question.id, option)}
+                />
+              ))}
             </ButtonGroup>
             <NumberFieldRoot
               value={question.scale}
-              onChange={(val) => handleChangeScale(index, val)}
+              onChange={(value) => {
+                if (Number.isFinite(value)) {
+                  handleChangeScale(question.id, value);
+                }
+              }}
               minValue={0.5}
               maxValue={1.5}
               step={0.1}
             >
-              <Label>Scale</Label>
+              <Label>{t("questionScale")}</Label>
               <NumberFieldGroup>
                 <NumberFieldInput />
               </NumberFieldGroup>
             </NumberFieldRoot>
+            <Button
+              variant="danger-soft"
+              isIconOnly
+              ariaLabel={t("removeQuestion")}
+              label={<MdDeleteOutline size={20} />}
+              onClick={() => handleRemoveQuestion(question.id)}
+            />
           </SidebarSection>
         </div>
       </Card>
       {visibleModal && (
         <EditorModal
-          image={question.base64!}
+          id={question.id}
+          image={question.base64}
           onHide={() => toggleModal(false)}
-          index={index}
         />
       )}
-    </Fragment>
+    </>
   );
 }

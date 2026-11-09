@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 import {
   ModalRoot,
   ModalBackdrop,
@@ -12,7 +12,7 @@ import {
 } from "@heroui/react";
 
 interface IModal {
-  header?: string | ReactNode;
+  header?: ReactNode;
   children: ReactNode;
   footer?: ReactNode;
   size?: "xs" | "sm" | "md" | "lg" | "full" | "cover";
@@ -25,16 +25,15 @@ export default function Modal({
   footer,
   size,
   onHide,
-}: IModal) {
+}: IModal): ReactElement {
   return (
-    <ModalRoot state={{
-      isOpen: true,
-      setOpen: (open) => { if (!open) onHide(); },
-      open: () => {},
-      close: onHide,
-      toggle: onHide,
-    }}>
-      <ModalBackdrop>
+    <ModalRoot>
+      <ModalBackdrop
+        isOpen
+        onOpenChange={(open) => {
+          if (!open) onHide();
+        }}
+      >
         <ModalContainer size={size}>
           <ModalDialog>
             {header && <ModalHeader>{header}</ModalHeader>}

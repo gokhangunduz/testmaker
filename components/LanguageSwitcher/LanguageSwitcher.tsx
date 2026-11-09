@@ -1,31 +1,33 @@
 "use client";
 
-import { languagePersistor } from "@/functions/languagepersistor.function";
-import { languageViewer } from "@/constants/language.viewer.constant";
-import { ILanguages } from "@/interfaces/i18n.interface";
-import { Dropdown } from "primereact/dropdown";
+import { ChangeEvent, ReactElement } from "react";
 import { useTranslation } from "react-i18next";
-import { ReactElement } from "react";
+import { languageNames } from "@/constants/language.viewer.constant";
+import { persistLanguage } from "@/functions/languagepersistor.function";
+import { ILanguages, LANGUAGES } from "@/interfaces/i18n.interface";
 
 export default function LanguageSwitcher(): ReactElement {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
-  function handleOnChange(lang: ILanguages) {
+  function handleOnChange(e: ChangeEvent<HTMLSelectElement>) {
+    const lang = e.target.value as ILanguages;
+
     i18n.changeLanguage(lang);
-    languagePersistor(lang);
+    persistLanguage(lang);
   }
 
   return (
-    <Dropdown
-      value={i18n.language}
-      options={i18n.languages.map((lang) => ({
-        label: languageViewer(lang as ILanguages),
-        value: lang,
-      }))}
-      optionValue="value"
-      optionLabel="label"
-      placeholder="Languages"
-      onChange={(e) => handleOnChange(e.value as ILanguages)}
-    />
+    <select
+      aria-label={t("language")}
+      value={i18n.resolvedLanguage}
+      onChange={handleOnChange}
+      className="h-10 rounded-lg border border-zinc-300 bg-white px-3 text-sm text-zinc-700 focus:outline-2 focus:outline-zinc-400"
+    >
+      {LANGUAGES.map((lang) => (
+        <option key={lang} value={lang}>
+          {languageNames[lang]}
+        </option>
+      ))}
+    </select>
   );
 }

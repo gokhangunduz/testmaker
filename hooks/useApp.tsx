@@ -4,10 +4,12 @@ import { useContext } from "react";
 import { AppContext } from "@/contexts/AppContext";
 import { IuseApp } from "@/interfaces/app.hook.interface";
 
-const useApp = () => {
-  const useApp: IuseApp = useContext<IuseApp>(AppContext);
+export default function useApp(): IuseApp {
+  const context = useContext(AppContext);
 
-  return useApp;
-};
+  if (!context) {
+    throw new Error("useApp must be used within an AppProvider");
+  }
 
-export default useApp;
+  return context;
+}

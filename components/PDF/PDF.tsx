@@ -18,9 +18,11 @@ import { ISettings } from "@/interfaces/pdf.settings.interface";
 export default function PDF({
   questions,
   settings,
+  answersTitle,
 }: {
   questions: IQuestion[];
   settings: ISettings;
+  answersTitle: string;
 }): ReactElement {
   const styles = StyleSheet.create({
     page: {
@@ -38,7 +40,7 @@ export default function PDF({
       justifyContent: "space-between",
       textAlign: "center",
       border: `1px solid ${settings?.colors?.border}`,
-      borderRadius: "25%",
+      borderRadius: 6,
     },
     textTitle: {
       fontSize: 14,
@@ -130,7 +132,7 @@ export default function PDF({
                 }}
               >
                 {column?.map((question, qIndex) => (
-                  <View style={styles.sectionQuestion} key={qIndex}>
+                  <View style={styles.sectionQuestion} key={question.id}>
                     <View style={styles.layoutQuestion}>
                       <Text style={styles.textQuestionNumber}>
                         {question.index! + 1})
@@ -188,7 +190,7 @@ export default function PDF({
                 width: "100%",
               }}
             >
-              Answers
+              {answersTitle}
             </Text>
             <View
               style={{
@@ -204,7 +206,7 @@ export default function PDF({
                   style={{
                     padding: "0.5%",
                     width: "10%",
-                    border: "1px solid #000",
+                    border: `1px solid ${settings.colors.border}`,
                   }}
                   key={index}
                 >

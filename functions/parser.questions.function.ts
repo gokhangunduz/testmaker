@@ -1,28 +1,31 @@
-"use client";
-
 import { IQuestion } from "@/interfaces/pdf.question.interface";
+import { MAX_COLUMN_RATIO } from "@/configs/config";
+
+function columnRatio(column: IQuestion[]): number {
+  return column.reduce((sum, q) => sum + q.ratio * q.scale, 0);
+}
 
 export function handleParserQuestions(questions: IQuestion[]): IQuestion[][] {
-  const nestedArrays: IQuestion[][] = [];
-  let currentArray: IQuestion[] = [];
-  let currentIndex = 0;
+  const columns: IQuestion[][] = [];
+  let current: IQuestion[] = [];
 
-  const isRatioValid = (q: IQuestion[]): boolean =>
-    q.reduce((sum, question) => sum + question.ratio * question.scale, 0) <=
-    2.75;
+  questions.forEach((question, index) => {
+    const indexed = { ...question, index };
 
-  for (const question of questions) {
-    if (isRatioValid([...currentArray, question])) {
-      currentArray.push({ ...question, index: currentIndex++ });
-    } else {
-      nestedArrays.push([...currentArray]);
-      currentArray = [{ ...question, index: currentIndex++ }];
+    if (
+      current.length > 0 &&
+      columnRatio([...current, indexed]) > MAX_COLUMN_RATIO
+    ) {
+      columns.push(current);
+      current = [];
     }
+
+    current.push(indexed);
+  });
+
+  if (current.length > 0) {
+    columns.push(current);
   }
 
-  if (currentArray.length > 0) {
-    nestedArrays.push([...currentArray]);
-  }
-
-  return nestedArrays;
+  return columns;
 }

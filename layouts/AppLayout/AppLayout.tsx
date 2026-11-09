@@ -1,38 +1,24 @@
 "use client";
 
+import { ReactElement } from "react";
 import Preview from "@/components/Preview/Preview";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Editor from "@/components/Editor/Editor";
 import AppProvider from "@/contexts/AppContext";
-import { ReactNode, useEffect } from "react";
 import WelcomeModal from "@/components/WelcomeModal/WelcomeModal";
-// import { disableDevTools } from "@/functions/devtools.function";
 
-export interface IAppLayout {
-  children: ReactNode;
-}
-
-export default function AppLayout({ children }: Readonly<IAppLayout>) {
-  // useEffect(() => {
-  //   disableDevTools();
-  // }, []);
-
+export default function AppLayout(): ReactElement {
   return (
     <AppProvider>
       <WelcomeModal />
-      <div
-        className="w-full grid grid-cols-12"
-        style={{
-          height: "calc(100vh - 7rem)",
-        }}
-      >
-        <div className="col-span-2">
+      <div className="app-grid w-full grid grid-cols-1 lg:grid-cols-12">
+        <div className="lg:col-span-2 overflow-auto">
           <Sidebar />
         </div>
-        <div className="col-span-4">
+        <div className="lg:col-span-4 min-h-96">
           <Editor />
         </div>
-        <div className="col-span-6">
+        <div className="lg:col-span-6 min-h-96">
           <Preview />
         </div>
       </div>

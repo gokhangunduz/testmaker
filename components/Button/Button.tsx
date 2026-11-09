@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 import { Button as NextButton, Spinner } from "@heroui/react";
 
 type ButtonVariant =
@@ -13,7 +13,8 @@ type ButtonVariant =
   | "danger-soft";
 
 interface IButton {
-  label: string;
+  label: ReactNode;
+  ariaLabel?: string;
   onClick?: () => void;
   loading?: boolean;
   variant?: ButtonVariant;
@@ -22,6 +23,7 @@ interface IButton {
 
 export default function Button({
   label,
+  ariaLabel,
   onClick,
   loading,
   variant = "primary",
@@ -29,7 +31,8 @@ export default function Button({
 }: Readonly<IButton>): ReactElement {
   return (
     <NextButton
-      onClick={onClick}
+      aria-label={ariaLabel}
+      onPress={onClick}
       variant={variant}
       isIconOnly={isIconOnly}
       isDisabled={loading}

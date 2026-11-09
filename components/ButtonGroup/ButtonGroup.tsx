@@ -1,8 +1,8 @@
-import { ReactElement } from "react";
+import { ReactNode, ReactElement } from "react";
 import { ButtonGroup as ButtonGroupNext } from "@heroui/react";
 
 interface IButtonGroup {
-  children: ReactElement | ReactElement[];
+  children: ReactNode;
   label?: string;
 }
 
@@ -12,7 +12,7 @@ export default function ButtonGroup({
 }: IButtonGroup): ReactElement {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-sm">{label}</label>
+      {label && <span className="text-sm">{label}</span>}
       <ButtonGroupNext>{children}</ButtonGroupNext>
     </div>
   );

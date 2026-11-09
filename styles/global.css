@@ -1,21 +1,5 @@
+@import "tailwindcss";
 @import "@heroui/styles";
-
-::-webkit-file-upload-button {
-  display: none;
-}
-
-::file-selector-button {
-  display: none;
-}
-
-input[type="file"] {
-  color: transparent !important;
-  content: "";
-}
-
-.p-button-label {
-  @apply text-sm;
-}
 
 .hw-full {
   @apply h-full w-full;
@@ -27,4 +11,24 @@ input[type="file"] {
 
 .transition-500 {
   @apply transition-all duration-500;
+}
+
+.app-grid {
+  min-height: calc(100vh - 7rem);
+}
+
+@media (min-width: 1024px) {
+  .app-grid {
+    height: calc(100vh - 7rem);
+  }
+}
+
+.app-editor {
+  max-height: calc(100vh - 7rem);
+}
+
+@media (min-width: 1024px) {
+  .app-editor {
+    height: calc(100vh - 7rem);
+  }
 }

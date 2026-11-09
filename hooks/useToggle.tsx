@@ -1,20 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
-const useToggle = (defaultValue?: boolean) => {
-  const [toggle, setToggle] = useState<boolean>(defaultValue || false);
+export default function useToggle(defaultValue: boolean = false) {
+  const [toggle, setToggle] = useState<boolean>(defaultValue);
 
-  function handleToggle(value?: boolean) {
-    setToggle(value || !toggle);
-  }
+  const handleToggle = useCallback((value?: boolean) => {
+    setToggle((prev) => value ?? !prev);
+  }, []);
 
-  const useToggle = {
-    toggle,
-    handleToggle,
-  };
-
-  return useToggle;
-};
-
-export default useToggle;
+  return { toggle, handleToggle };
+}

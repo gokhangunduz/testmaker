@@ -1,149 +1,145 @@
 "use client";
 
 import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import {
   IQuestion,
   IQuestionAnswer,
-  IQuestionBase64,
-  IQuestionBlob,
-  IQuestionHeight,
-  IQuestionIndex,
-  IQuestionRatio,
+  IQuestionImage,
   IQuestionScale,
-  IQuestionWidth,
 } from "@/interfaces/pdf.question.interface";
-import React, { createContext, useEffect, useState } from "react";
 import { ISettings } from "@/interfaces/pdf.settings.interface";
-import _debounce from "lodash/debounce";
+import { IuseApp } from "@/interfaces/app.hook.interface";
 import { pdfInitialSettings } from "@/constants/pdf.initial";
-import { PDFCreationTime } from "@/configs/config";
-import { idGenerator } from "@/helper/generator";
+import { PDF_REFRESH_DELAY_MS } from "@/configs/config";
 
-export const AppContext: any = createContext<any>(null);
+export const AppContext = createContext<IuseApp | null>(null);
 
-// eslint-disable-next-line import/no-anonymous-default-export, react/display-name
-export default ({ children }: any) => {
+function createQuestion(image: IQuestionImage): IQuestion {
+  return {
+    id: crypto.randomUUID(),
+    base64: image.base64,
+    answer: null,
+    width: image.width,
+    height: image.height,
+    ratio: image.ratio,
+    scale: 1,
+  };
+}
+
+export default function AppProvider({ children }: { children: ReactNode }) {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
-
-  const [settings, setSettings] = useState<ISettings>(
-    pdfInitialSettings as ISettings
-  );
-  const [isPDFLoading, setPDFLoading] = useState<boolean>(true);
-
-  const logChanges = _debounce(() => {
-    setPDFLoading(false);
-  }, PDFCreationTime * 1000);
+  const [settings, setSettings] = useState<ISettings>(pdfInitialSettings);
+  const [settled, setSettled] = useState<{
+    questions: IQuestion[];
+    settings: ISettings;
+  } | null>(null);
 
   useEffect(() => {
-    !isPDFLoading && setPDFLoading(true);
-    logChanges();
+    const timeout = setTimeout(
+      () => setSettled({ questions, settings }),
+      PDF_REFRESH_DELAY_MS
+    );
 
-    return () => {
-      logChanges.cancel();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => clearTimeout(timeout);
   }, [questions, settings]);
 
-  // Questions
-  function handleAddQuestion(
-    blob: IQuestionBlob,
-    base64: IQuestionBase64,
-    width: IQuestionWidth,
-    height: IQuestionHeight,
-    ratio: IQuestionRatio,
-    answer?: IQuestionAnswer
-  ) {
-    setQuestions((prevQuestions) => [
-      ...prevQuestions,
-      {
-        id: idGenerator(),
-        blob: blob || null,
-        base64: base64 || null,
-        answer: answer || null,
-        width: width || 0,
-        height: height || 0,
-        scale: 1,
-        ratio: ratio || 0,
-      },
-    ]);
-  }
+  const isPDFLoading =
+    settled?.questions !== questions || settled?.settings !== settings;
 
-  // Questions
-  function handleReplaceQuestion(
-    index: IQuestionIndex,
-    blob: IQuestionBlob,
-    base64: IQuestionBase64,
-    width: IQuestionWidth,
-    height: IQuestionHeight,
-    ratio: IQuestionRatio,
-    answer?: IQuestionAnswer
-  ) {
-    setQuestions((prevQuestions) =>
-      prevQuestions.map((q, i) =>
-        i === index
-          ? {
-              id: idGenerator(),
-              blob: blob || null,
-              base64: base64 || null,
-              answer: answer || null,
-              width: width || 0,
-              height: height || 0,
-              scale: 1,
-              ratio: ratio || 0,
-            }
-          : q
-      )
-    );
-  }
+  const handleAddQuestions = useCallback((images: IQuestionImage[]) => {
+    setQuestions((prev) => [...prev, ...images.map(createQuestion)]);
+  }, []);
 
-  function handleRemoveQuestion(index: number) {
-    setQuestions((prevQuestions) =>
-      prevQuestions.filter((_, i) => i !== index)
-    );
-  }
-  function handleChangeQuestion(index: number, image: string) {
-    setQuestions((prevQuestions) =>
-      prevQuestions.map((q, i) => (i === index ? { ...q, image } : q))
-    );
-  }
-  function handleChangeAnswer(index: number, answer: IQuestionAnswer) {
-    setQuestions((prevQuestions) =>
-      prevQuestions.map((q, i) => (i === index ? { ...q, answer } : q))
-    );
-  }
-  function handleChangeScale(index: number, scale: IQuestionScale) {
-    setQuestions((prevQuestions) =>
-      prevQuestions.map((q, i) => (i === index ? { ...q, scale } : q))
-    );
-  }
-  function handleOrderQuestion(oldIndex: number, newIndex: number) {
-    setQuestions((prevQuestions) => {
-      const newQuestions = [...prevQuestions];
-      const [removed] = newQuestions.splice(oldIndex, 1);
-      newQuestions.splice(newIndex, 0, removed);
-      return newQuestions;
-    });
-  }
-
-  return (
-    <AppContext.Provider
-      value={{
-        // Questions
-        questions,
-        handleAddQuestion,
-        handleReplaceQuestion,
-        handleChangeQuestion,
-        handleChangeAnswer,
-        handleChangeScale,
-        handleRemoveQuestion,
-        handleOrderQuestion,
-        // Settings
-        settings,
-        setSettings,
-        // Loading
-        isPDFLoading,
-      }}
-    >
-      {children}
-    </AppContext.Provider>
+  const handleReplaceQuestion = useCallback(
+    (id: string, image: IQuestionImage) => {
+      setQuestions((prev) =>
+        prev.map((q) =>
+          q.id === id
+            ? {
+                ...q,
+                base64: image.base64,
+                width: image.width,
+                height: image.height,
+                ratio: image.ratio,
+              }
+            : q
+        )
+      );
+    },
+    []
   );
-};
+
+  const handleRemoveQuestion = useCallback((id: string) => {
+    setQuestions((prev) => prev.filter((q) => q.id !== id));
+  }, []);
+
+  const handleChangeAnswer = useCallback(
+    (id: string, answer: IQuestionAnswer) => {
+      setQuestions((prev) =>
+        prev.map((q) => (q.id === id ? { ...q, answer } : q))
+      );
+    },
+    []
+  );
+
+  const handleChangeScale = useCallback(
+    (id: string, scale: IQuestionScale) => {
+      setQuestions((prev) =>
+        prev.map((q) => (q.id === id ? { ...q, scale } : q))
+      );
+    },
+    []
+  );
+
+  const handleOrderQuestion = useCallback(
+    (activeId: string, overId: string) => {
+      setQuestions((prev) => {
+        const oldIndex = prev.findIndex((q) => q.id === activeId);
+        const newIndex = prev.findIndex((q) => q.id === overId);
+
+        if (oldIndex < 0 || newIndex < 0) return prev;
+
+        const next = [...prev];
+        const [moved] = next.splice(oldIndex, 1);
+        next.splice(newIndex, 0, moved);
+        return next;
+      });
+    },
+    []
+  );
+
+  const value = useMemo<IuseApp>(
+    () => ({
+      questions,
+      handleAddQuestions,
+      handleReplaceQuestion,
+      handleChangeAnswer,
+      handleChangeScale,
+      handleRemoveQuestion,
+      handleOrderQuestion,
+      settings,
+      setSettings,
+      isPDFLoading,
+    }),
+    [
+      questions,
+      settings,
+      isPDFLoading,
+      handleAddQuestions,
+      handleReplaceQuestion,
+      handleChangeAnswer,
+      handleChangeScale,
+      handleRemoveQuestion,
+      handleOrderQuestion,
+    ]
+  );
+
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+}

@@ -1,107 +1,84 @@
 "use client";
 
+import { ReactElement } from "react";
+import { useTranslation } from "react-i18next";
 import SidebarSection from "../SidebarSection/SidebarSection";
 import InputSwitch from "../InputSwitch/InputSwitch";
 import InputColor from "../InputColor/InputColor";
-import { ReactElement, useEffect } from "react";
 import InputText from "../InputText/InputText";
-import { useTranslation } from "react-i18next";
 import useApp from "@/hooks/useApp";
-import { useFormik } from "formik";
+import { ISettings } from "@/interfaces/pdf.settings.interface";
+
+type ColorKey = keyof ISettings["colors"];
+
+const colorFields: { key: ColorKey; label: string }[] = [
+  { key: "border", label: "lineColor" },
+  { key: "title", label: "titleColor" },
+  { key: "subtitle", label: "subtitleColor" },
+  { key: "questionNumber", label: "questionNumberColor" },
+  { key: "pageNumber", label: "pageNumberColor" },
+  { key: "pageAnswer", label: "pageAnswerColor" },
+];
 
 export default function Sidebar(): ReactElement {
   const { settings, setSettings } = useApp();
-
-  const formik = useFormik({
-    initialValues: {
-      settings: settings,
-    },
-    onSubmit: () => {},
-  });
-
-  useEffect(() => {
-    setSettings(formik?.values?.settings);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formik?.values]);
-
   const { t } = useTranslation();
+
+  const setDetail = (key: keyof ISettings["details"], value: string) =>
+    setSettings((prev) => ({
+      ...prev,
+      details: { ...prev.details, [key]: value },
+    }));
+
+  const setAnswer = (key: keyof ISettings["answers"], value: boolean) =>
+    setSettings((prev) => ({
+      ...prev,
+      answers: { ...prev.answers, [key]: value },
+    }));
+
+  const setColor = (key: ColorKey, value: string) =>
+    setSettings((prev) => ({
+      ...prev,
+      colors: { ...prev.colors, [key]: value },
+    }));
 
   return (
     <div className="hw-full bg-white border-r border-zinc-300 p-6 flex flex-col gap-10">
       <SidebarSection label={t("titles")} gap={4}>
         <InputText
           label={t("title")}
-          formikProps={formik.getFieldProps("settings.details.title")}
+          value={settings.details.title}
+          onChange={(value) => setDetail("title", value)}
         />
         <InputText
           label={t("subtitle")}
-          formikProps={formik.getFieldProps("settings.details.subtitle")}
+          value={settings.details.subtitle}
+          onChange={(value) => setDetail("subtitle", value)}
         />
       </SidebarSection>
 
       <SidebarSection label={t("answerKeys")}>
         <InputSwitch
           label={t("isPerPageAnswers")}
-          checked={formik.values.settings.answers.isPerPage}
-          onChange={(e) =>
-            formik.setFieldValue("settings.answers.isPerPage", e.value)
-          }
+          checked={settings.answers.isPerPage}
+          onChange={(value) => setAnswer("isPerPage", value)}
         />
         <InputSwitch
           label={t("isLastPageAnswers")}
-          checked={formik.values.settings.answers.isLastPage}
-          onChange={(e) =>
-            formik.setFieldValue("settings.answers.isLastPage", e.value)
-          }
+          checked={settings.answers.isLastPage}
+          onChange={(value) => setAnswer("isLastPage", value)}
         />
       </SidebarSection>
 
       <SidebarSection label={t("colors")}>
-        <InputColor
-          label={t("lineColor")}
-          color={formik.values.settings?.colors?.border}
-          onChange={(e) =>
-            formik.setFieldValue("settings.colors.border", `#${e.value}`)
-          }
-        />
-        <InputColor
-          label={t("titleColor")}
-          color={formik.values.settings?.colors?.title}
-          onChange={(e) =>
-            formik.setFieldValue("settings.colors.title", `#${e.value}`)
-          }
-        />
-        <InputColor
-          label={t("subtitleColor")}
-          color={formik.values.settings?.colors?.subtitle}
-          onChange={(e) =>
-            formik.setFieldValue("settings.colors.subtitle", `#${e.value}`)
-          }
-        />
-        <InputColor
-          label={t("questionNumberColor")}
-          color={formik.values.settings?.colors?.questionNumber}
-          onChange={(e) =>
-            formik.setFieldValue(
-              "settings.colors.questionNumber",
-              `#${e.value}`
-            )
-          }
-        />
-        <InputColor
-          label={t("pageNumberColor")}
-          color={formik.values.settings?.colors?.pageNumber}
-          onChange={(e) =>
-            formik.setFieldValue("settings.colors.pageNumber", `#${e.value}`)
-          }
-        />
-        <InputColor
-          label={t("pageAnswerColor")}
-          color={formik.values.settings?.colors?.pageAnswer}
-          onChange={(e) =>
-            formik.setFieldValue("settings.colors.pageAnswer", `#${e.value}`)
-          }
-        />
+        {colorFields.map(({ key, label }) => (
+          <InputColor
+            key={key}
+            label={t(label)}
+            color={settings.colors[key]}
+            onChange={(value) => setColor(key, value)}
+          />
+        ))}
       </SidebarSection>
     </div>
   );

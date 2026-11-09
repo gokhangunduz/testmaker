@@ -1,13 +1,12 @@
 "use client";
 
 import { ReactElement } from "react";
-import { Switch as NextSwitch } from "@heroui/react";
-import InputContainer from "../InputContainer/InputContainer";
+import { Switch } from "@heroui/react";
 
 interface IInputSwitch {
   label: string;
   checked: boolean;
-  onChange: (e: { value: boolean }) => void;
+  onChange: (checked: boolean) => void;
 }
 
 export default function InputSwitch({
@@ -16,11 +15,9 @@ export default function InputSwitch({
   onChange,
 }: IInputSwitch): ReactElement {
   return (
-    <InputContainer label={label}>
-      <NextSwitch
-        isSelected={checked}
-        onChange={(isSelected) => onChange({ value: isSelected })}
-      />
-    </InputContainer>
+    <div className="flex items-center w-full justify-between">
+      <span className="text-zinc-600">{label}:</span>
+      <Switch aria-label={label} isSelected={checked} onChange={onChange} />
+    </div>
   );
 }

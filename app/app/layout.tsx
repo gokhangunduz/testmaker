@@ -1,12 +1,11 @@
-"use client";
-
-import AppLayout from "@/layouts/AppLayout/AppLayout";
 import { ReactNode } from "react";
+import AppLayout from "@/layouts/AppLayout/AppLayout";
 
-interface ILayout {
-  children: ReactNode;
-}
-
-export default function Layout({ children }: Readonly<ILayout>) {
-  return <AppLayout>{children}</AppLayout>;
+export default function Layout({ children }: Readonly<{ children: ReactNode }>) {
+  return (
+    <>
+      <AppLayout />
+      {children}
+    </>
+  );
 }

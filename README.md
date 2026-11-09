@@ -7,6 +7,7 @@ testmaker is a tool specifically designed for professionals and educators who pr
 ## Features
 
 - **Quick Conversion:** Converts images to PDF quickly.
+- **Private:** Everything runs in your browser, no image is ever uploaded.
 - **User-Friendly Interface:** Easy-to-use and intuitive user interface.
 - **Supports Various Formats:** Supports various image formats.
 - **Drag & Drop:** Reorder questions with drag and drop support.
@@ -21,10 +22,10 @@ testmaker is a tool specifically designed for professionals and educators who pr
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS v4](https://tailwindcss.com/)
 - [HeroUI v3](https://heroui.com/)
-- [PrimeReact](https://primereact.org/)
 - [@react-pdf/renderer](https://react-pdf.org/)
 - [dnd kit](https://dndkit.com/)
 - [i18next](https://www.i18next.com/)
+- [react-advanced-cropper](https://advanced-cropper.github.io/react-advanced-cropper/)
 
 ## Installation
 
@@ -57,6 +58,16 @@ npm run dev
 ```
 
 Then, open your browser and go to `http://localhost:3000`.
+
+Other scripts:
+
+| Script          | Description                                  |
+| --------------- | -------------------------------------------- |
+| `npm run build` | Creates the static production export (`out`) |
+| `npm run start` | Serves the production build                  |
+| `npm run lint`  | Runs ESLint                                  |
+
+> TypeScript is pinned to 6.x because `typescript-eslint` does not support TypeScript 7 yet.
 
 ## Contributing
 

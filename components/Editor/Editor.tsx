@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import DnDProvider from "../DnDProvider/DnDProvider";
 import QuestionUploader from "../QuestionUploader/QuestionUploader";
 

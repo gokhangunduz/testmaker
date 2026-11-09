@@ -1,6 +1,3 @@
-"use client";
-
-import { languagePersistor } from "@/functions/languagepersistor.function";
 import { initReactI18next } from "react-i18next";
 import i18n, { Resource } from "i18next";
 
@@ -8,7 +5,6 @@ const resources: Resource = {
   tr: {
     translation: {
       question: "Soru",
-      questions: "Sorular",
       answer: "Cevap",
       answerKey: "Cevap Anahtarı",
       answerKeys: "Cevap Anahtarları",
@@ -26,7 +22,10 @@ const resources: Resource = {
       pageNumberColor: "Sayfa Numarası Rengi",
       pageAnswerColor: "Sayfa Cevap Rengi",
       dragAndDropQuestionImages: "Soru görsellerini buraya sürükleyiniz.",
+      uploadQuestionImages: "Soru görselleri yükle",
       questionScale: "Soru Boyutu",
+      removeQuestion: "Soruyu sil",
+      language: "Dil",
       projectRelease: "TestMakerLab Yayında!",
       projectDescription:
         "TestMakerLab, eğitim materyali hazırlayan profesyoneller ve eğitmenler için özel olarak geliştirilmiş bir araçtır. Görsel tabanlı soruların hızlı ve verimli bir şekilde PDF dosyalarına dönüştürülmesini sağlar.",
@@ -34,18 +33,22 @@ const resources: Resource = {
       feedback: "Geri Bildirim",
       welcome: "TestMakerLab'e Hoşgeldiniz 🎉",
       beta: "TestMakerLab şu anda beta aşamasında.",
-      issues: "Önceden oluşabilecek olası sorunlar için özür dileriz.",
+      issues: "Olası sorunlar için şimdiden özür dileriz.",
       betaEmail:
         "Herhangi bir sorunuz veya geri bildiriminiz varsa lütfen bize bir e-posta gönderin",
       cancel: "İptal",
       save: "Kaydet",
       editQuestion: "Soruyu Düzenle",
+      pdfEmpty: "Başlamak için soldaki alana görselleri bırakın.",
+      pdfLoading: "PDF yeniden oluşturuluyor...",
+      downloadPdf: "PDF'i indir",
+      imageLoadError: "Bazı görseller yüklenemedi.",
+      allRightsReserved: "Tüm hakları saklıdır.",
     },
   },
   en: {
     translation: {
       question: "Question",
-      questions: "Questions",
       answer: "Answer",
       answerKey: "Answer Key",
       answerKeys: "Answer Keys",
@@ -63,7 +66,10 @@ const resources: Resource = {
       pageNumberColor: "Page Number Color",
       pageAnswerColor: "Page Answer Color",
       dragAndDropQuestionImages: "Drag and drop question images here.",
+      uploadQuestionImages: "Upload question images",
       questionScale: "Question Scale",
+      removeQuestion: "Remove question",
+      language: "Language",
       projectRelease: "TestMakerLab Released!",
       projectDescription:
         "TestMakerLab is a tool developed specifically for professionals and educators who prepare educational materials. It facilitates the quick and efficient conversion of image-based questions into PDF files.",
@@ -74,22 +80,26 @@ const resources: Resource = {
       issues:
         "We apologize in advance for any potential issues that may arise.",
       betaEmail:
-        "If you have any isses or feedback, please send us an email at",
+        "If you have any issues or feedback, please send us an email at",
       cancel: "Cancel",
       save: "Save",
       editQuestion: "Edit Question",
+      pdfEmpty: "Drop images on the left to get started.",
+      pdfLoading: "PDF is being recreated...",
+      downloadPdf: "Download PDF",
+      imageLoadError: "Some images could not be loaded.",
+      allRightsReserved: "All rights reserved.",
     },
   },
   de: {
     translation: {
       question: "Frage",
-      questions: "Fragen",
       answer: "Antwort",
-      answerKey: "Antwort Schlüssel",
-      answerKeys: "Antwort Schlüssel",
+      answerKey: "Antwortschlüssel",
+      answerKeys: "Antwortschlüssel",
       null: "N/A",
-      isPerPageAnswers: "Pro Seite Antworten",
-      isLastPageAnswers: "Letzte Seite Antworten",
+      isPerPageAnswers: "Antworten pro Seite",
+      isLastPageAnswers: "Antworten auf der letzten Seite",
       titles: "Titel",
       title: "Titel",
       subtitle: "Untertitel",
@@ -97,33 +107,44 @@ const resources: Resource = {
       lineColor: "Linienfarbe",
       titleColor: "Titelfarbe",
       subtitleColor: "Untertitelfarbe",
-      questionNumberColor: "Fragennummer Farbe",
-      pageNumberColor: "Seitennummer Farbe",
-      pageAnswerColor: "Seitenantwort Farbe",
+      questionNumberColor: "Farbe der Fragennummer",
+      pageNumberColor: "Farbe der Seitennummer",
+      pageAnswerColor: "Farbe der Seitenantworten",
       dragAndDropQuestionImages: "Ziehen Sie die Fragebilder hierher.",
-      questionScale: "Frage Skala",
-      projectRelease: "TestMakerLab Veröffentlicht!",
+      uploadQuestionImages: "Fragebilder hochladen",
+      questionScale: "Fragengröße",
+      removeQuestion: "Frage entfernen",
+      language: "Sprache",
+      projectRelease: "TestMakerLab ist veröffentlicht!",
       projectDescription:
         "TestMakerLab ist ein speziell für Fachleute und Pädagogen entwickeltes Tool, das die schnelle und effiziente Umwandlung von bildbasierten Fragen in PDF-Dateien ermöglicht.",
       getStarted: "Loslegen",
       feedback: "Feedback",
       welcome: "Willkommen bei TestMakerLab 🎉",
-      beta: "TestMakerLab ist jetzt in der Beta.",
+      beta: "TestMakerLab befindet sich derzeit in der Beta-Phase.",
       issues:
         "Wir entschuldigen uns im Voraus für mögliche Probleme, die auftreten können.",
       betaEmail:
         "Wenn Sie Probleme oder Feedback haben, senden Sie uns bitte eine E-Mail an",
-      cancel: "Stornieren",
+      cancel: "Abbrechen",
       save: "Speichern",
       editQuestion: "Frage bearbeiten",
+      pdfEmpty: "Ziehen Sie Bilder nach links, um zu beginnen.",
+      pdfLoading: "PDF wird neu erstellt...",
+      downloadPdf: "PDF herunterladen",
+      imageLoadError: "Einige Bilder konnten nicht geladen werden.",
+      allRightsReserved: "Alle Rechte vorbehalten.",
     },
   },
 };
 
-i18n.use(initReactI18next).init({
-  lng: languagePersistor(),
-  resources: resources,
-  fallbackLng: ["en", "tr", "de"],
-});
+if (!i18n.isInitialized) {
+  i18n.use(initReactI18next).init({
+    lng: "en",
+    resources,
+    fallbackLng: "en",
+    interpolation: { escapeValue: false },
+  });
+}
 
 export default i18n;
