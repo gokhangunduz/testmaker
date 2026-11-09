@@ -3,25 +3,25 @@
 
 @layer base {
   :root {
-    /* "Porcelain & Purple": soft violet-tinted neutrals with a purple primary. Never navy/indigo. */
+    /* "Porcelain & Navy": soft cool neutrals with a navy blue primary. */
 
     /* Surfaces */
-    --background: 270 25% 97%;
+    --background: 220 20% 97%;
     --surface-1: 0 0% 100%;
-    --surface-2: 270 20% 95%;
-    --surface-3: 270 16% 92%;
+    --surface-2: 220 16% 95%;
+    --surface-3: 220 14% 92%;
 
-    --foreground: 272 22% 12%;
+    --foreground: 224 24% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 272 22% 12%;
+    --card-foreground: 224 24% 12%;
     --popover: 0 0% 100%;
-    --popover-foreground: 272 22% 12%;
+    --popover-foreground: 224 24% 12%;
 
     /* Brand */
-    --primary: 271 81% 56%;
-    --primary-hover: 272 72% 47%;
-    --primary-foreground: 270 40% 99%;
+    --primary: 225 73% 42%;
+    --primary-hover: 226 71% 35%;
+    --primary-foreground: 210 40% 99%;
 
     --secondary: 180 84% 35%;
     --secondary-hover: 180 84% 29%;
@@ -29,12 +29,12 @@
     --secondary-strong: 180 84% 27%;
     --secondary-strong-hover: 180 84% 22%;
 
-    --accent: 270 90% 96%;
-    --accent-foreground: 272 60% 40%;
+    --accent: 220 90% 96%;
+    --accent-foreground: 225 60% 35%;
 
-    --muted: 270 18% 94%;
-    --muted-foreground: 270 10% 42%;
-    --subtle-foreground: 270 8% 55%;
+    --muted: 220 16% 94%;
+    --muted-foreground: 220 12% 42%;
+    --subtle-foreground: 220 10% 55%;
 
     --warning: 32 92% 46%;
     --warning-foreground: 30 50% 10%;
@@ -48,19 +48,19 @@
     --destructive-solid: 358 72% 46%;
 
     /* Structural */
-    --border: 270 14% 88%;
-    --border-strong: 270 14% 80%;
-    --input: 270 14% 88%;
-    --ring: 271 81% 60%;
+    --border: 220 14% 88%;
+    --border-strong: 220 14% 80%;
+    --input: 220 14% 88%;
+    --ring: 224 76% 48%;
 
     --radius: 0.5rem;
 
     /* Elevation */
-    --shadow-sm: 0 1px 2px 0 hsl(270 30% 15% / 0.04);
-    --shadow-md: 0 1px 2px 0 hsl(270 30% 15% / 0.04), 0 2px 6px -1px hsl(270 30% 15% / 0.06);
+    --shadow-sm: 0 1px 2px 0 hsl(220 30% 15% / 0.04);
+    --shadow-md: 0 1px 2px 0 hsl(220 30% 15% / 0.04), 0 2px 6px -1px hsl(220 30% 15% / 0.06);
     --shadow-lg:
-      0 0 0 1px hsl(270 30% 15% / 0.04), 0 2px 4px -1px hsl(270 30% 15% / 0.05),
-      0 12px 24px -6px hsl(270 30% 15% / 0.08);
+      0 0 0 1px hsl(220 30% 15% / 0.04), 0 2px 4px -1px hsl(220 30% 15% / 0.05),
+      0 12px 24px -6px hsl(220 30% 15% / 0.08);
     --card-shadow: var(--shadow-md);
   }
 }

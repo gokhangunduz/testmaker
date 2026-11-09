@@ -17,6 +17,8 @@ export default function QuestionUploader({ children }: Readonly<IQuestionUploade
   const { t } = useTranslation()
   const { questions, handleUploadFiles, uploadErrors, dismissUploadErrors, isRestoring } = useApp()
 
+  const isEmpty = questions.length === 0 && !isRestoring
+
   function handleInputUploader(files: Iterable<File> | null) {
     dragDepth.current = 0
     setOnDragging(false)
@@ -93,9 +95,9 @@ export default function QuestionUploader({ children }: Readonly<IQuestionUploade
         </div>
       )}
 
-      {children}
+      {!isEmpty && children}
 
-      {questions.length === 0 && !isRestoring && !onDragging && (
+      {isEmpty && !onDragging && (
         <div className="flex flex-1 items-center justify-center p-4">
           <div className="flex w-full max-w-sm flex-col items-center gap-4 rounded-2xl border-2 border-dashed border-border bg-card px-6 py-10 text-center">
             <CloudUpload className="size-12 text-muted-foreground" />
