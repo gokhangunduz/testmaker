@@ -22,6 +22,7 @@ import {
   IQuestion,
   IQuestionAnswer,
 } from "@/interfaces/pdf.question.interface";
+import { MAX_SCALE, MIN_SCALE } from "@/configs/config";
 import useApp from "@/hooks/useApp";
 import useToggle from "@/hooks/useToggle";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
@@ -72,8 +73,8 @@ export default function QuestionCard({
         <div className="flex items-center gap-2 sm:gap-3">
           <button
             type="button"
-            aria-label={title}
-            className="shrink-0 cursor-grab touch-none rounded text-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-accent"
+            aria-label={`${t("reorderQuestion")} – ${title}`}
+            className="-m-1 shrink-0 cursor-grab touch-none rounded p-1.5 text-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-accent"
             {...attributes}
             {...listeners}
           >
@@ -82,7 +83,7 @@ export default function QuestionCard({
 
           <button
             type="button"
-            aria-label={t("editQuestion")}
+            aria-label={`${t("editQuestion")} – ${title}`}
             onClick={() => toggleModal(true)}
             className="group relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-default focus-visible:outline-2 focus-visible:outline-accent sm:h-24 sm:w-24"
           >
@@ -109,9 +110,10 @@ export default function QuestionCard({
                       handleChangeScale(question.id, value);
                     }
                   }}
-                  minValue={0.5}
-                  maxValue={1.5}
-                  step={0.1}
+                  minValue={MIN_SCALE}
+                  maxValue={MAX_SCALE}
+                  step={0.05}
+                  formatOptions={{ maximumFractionDigits: 2 }}
                 >
                   <Label>{t("scale")}</Label>
                   <NumberFieldGroup>
@@ -137,11 +139,12 @@ export default function QuestionCard({
           </div>
         </div>
 
-        <ButtonGroup label={t("answer")}>
+        <ButtonGroup label={t("answer")} ariaLabel={`${t("answer")} – ${title}`}>
           {answerOptions.map((option) => (
             <Button
               key={option ?? "none"}
               variant={question.answer === option ? "primary" : "secondary"}
+              pressed={question.answer === option}
               label={option ?? t("null")}
               onClick={() => handleChangeAnswer(question.id, option)}
               className="flex-1"
@@ -152,6 +155,7 @@ export default function QuestionCard({
       {visibleModal && (
         <EditorModal
           id={question.id}
+          title={title}
           image={question.base64}
           onHide={() => toggleModal(false)}
         />

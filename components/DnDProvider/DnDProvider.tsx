@@ -10,12 +10,15 @@ import {
   useSensor,
   useSensors,
   DragEndEvent,
+  DragOverEvent,
+  DragStartEvent,
 } from "@dnd-kit/core";
 import {
   SortableContext,
   sortableKeyboardCoordinates,
   rectSortingStrategy,
 } from "@dnd-kit/sortable";
+import { useTranslation } from "react-i18next";
 import useApp from "@/hooks/useApp";
 import QuestionCard from "../QuestionCard/QuestionCard";
 
@@ -31,6 +34,28 @@ export default function DnDProvider(): ReactElement | null {
   );
 
   const { questions, handleOrderQuestion } = useApp();
+  const { t } = useTranslation();
+
+  const position = (id: string | number) =>
+    questions.findIndex((q) => q.id === String(id)) + 1;
+
+  const accessibility = {
+    screenReaderInstructions: { draggable: t("dndInstructions") },
+    announcements: {
+      onDragStart: ({ active }: DragStartEvent) =>
+        t("dndPickedUp", { n: position(active.id) }),
+      onDragOver: ({ active, over }: DragOverEvent) =>
+        over && over.id !== active.id
+          ? t("dndMovedOver", { n: position(active.id), target: position(over.id) })
+          : undefined,
+      onDragEnd: ({ active, over }: DragEndEvent) =>
+        t("dndDropped", {
+          n: position(active.id),
+          target: position(over?.id ?? active.id),
+        }),
+      onDragCancel: () => t("dndCancelled"),
+    },
+  };
 
   function handleDragEnd({ active, over }: DragEndEvent) {
     if (over && active.id !== over.id) {
@@ -46,9 +71,10 @@ export default function DnDProvider(): ReactElement | null {
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
       autoScroll
+      accessibility={accessibility}
     >
       <SortableContext items={questions} strategy={rectSortingStrategy}>
-        <div className="grid min-h-0 flex-1 auto-rows-min grid-cols-1 content-start gap-3 overflow-y-auto p-3 sm:p-4 md:grid-cols-2 xl:grid-cols-1">
+        <div className="grid auto-rows-min grid-cols-1 content-start gap-3 p-3 sm:p-4 md:grid-cols-2 xl:grid-cols-1">
           {questions.map((question, index) => (
             <QuestionCard key={question.id} question={question} index={index} />
           ))}

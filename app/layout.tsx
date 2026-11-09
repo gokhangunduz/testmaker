@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className="flex h-dvh flex-col overflow-hidden">
         <I18nProvider>
           <Header />
-          <main className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+          <main className="flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden">
             {children}
           </main>
           <Footer />

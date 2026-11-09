@@ -12,7 +12,7 @@ export default function Home(): ReactElement {
   const { t } = useTranslation();
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-center justify-center gap-8 px-4 py-8 lg:flex-row lg:gap-16 lg:px-8">
+    <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-center justify-center gap-4 px-4 py-4 sm:gap-8 sm:py-8 lg:flex-row lg:gap-16 lg:px-8 [@media(max-height:500px)]:flex-row [@media(max-height:500px)]:gap-6 [@media(max-height:500px)]:py-2">
       <div className="flex w-full max-w-xs items-center justify-center animate__animated animate__fadeInLeft sm:max-w-md lg:max-w-none lg:flex-1">
         <Image
           width={768}
@@ -21,7 +21,7 @@ export default function Home(): ReactElement {
           alt=""
           aria-hidden="true"
           priority
-          className="h-auto w-full"
+          className="h-auto max-h-[30dvh] w-auto max-w-full lg:max-h-[60dvh] [@media(max-height:500px)]:max-h-[60dvh]"
         />
       </div>
       <div className="flex w-full flex-col items-center gap-6 text-center animate__animated animate__fadeInRight lg:flex-1 lg:items-start lg:text-left">

@@ -1,23 +1,53 @@
 "use client";
 
-import { ReactElement, useState } from "react";
+import { ReactElement, useState, useSyncExternalStore } from "react";
 import { useTranslation } from "react-i18next";
 import Modal from "../Modal/Modal";
 import Button from "../Button/Button";
 import { CONTACT_EMAIL } from "@/configs/config";
 
+const STORAGE_KEY = "welcome-seen";
+
+function hasSeenWelcome(): boolean {
+  try {
+    return localStorage.getItem(STORAGE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function rememberWelcome(): void {
+  try {
+    localStorage.setItem(STORAGE_KEY, "1");
+  } catch {
+    // storage unavailable, the welcome just shows again next time
+  }
+}
+
+function subscribe(onChange: () => void): () => void {
+  window.addEventListener("storage", onChange);
+  return () => window.removeEventListener("storage", onChange);
+}
+
 export default function WelcomeModal(): ReactElement | null {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const seen = useSyncExternalStore(subscribe, hasSeenWelcome, () => true);
+  const [dismissed, setDismissed] = useState<boolean>(false);
   const { t } = useTranslation();
 
-  if (!isOpen) return null;
+  function close() {
+    rememberWelcome();
+    setDismissed(true);
+  }
+
+  if (seen || dismissed) return null;
 
   return (
-    <Modal onHide={() => setIsOpen(false)}>
+    <Modal
+      onHide={close}
+      footer={<Button label={t("getStarted")} onClick={close} />}
+    >
       <div className="flex flex-col items-center gap-6 text-center">
-        <h2 className="text-2xl font-semibold">
-          {t("welcome")}
-        </h2>
+        <h2 className="text-2xl font-semibold">{t("welcome")}</h2>
         <p className="text-muted">{t("projectDescription")}</p>
         <p className="font-semibold">{t("beta")}</p>
         <p className="text-muted">{t("issues")}</p>
@@ -27,7 +57,6 @@ export default function WelcomeModal(): ReactElement | null {
             {CONTACT_EMAIL}
           </a>
         </p>
-        <Button label={t("getStarted")} onClick={() => setIsOpen(false)} />
       </div>
     </Modal>
   );

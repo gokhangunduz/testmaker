@@ -7,6 +7,7 @@ import {
   View,
   StyleSheet,
   Document,
+  Font,
   Image,
   Text,
 } from "@react-pdf/renderer";
@@ -14,6 +15,16 @@ import { handleMapperPages } from "@/functions/mapper.pages.function";
 import { handleParserQuestions } from "@/functions/parser.questions.function";
 import { IQuestion } from "@/interfaces/pdf.question.interface";
 import { ISettings } from "@/interfaces/pdf.settings.interface";
+
+const FONT_FAMILY = "NotoSans";
+
+Font.register({
+  family: FONT_FAMILY,
+  fonts: [
+    { src: "/fonts/NotoSans-Regular.ttf", fontWeight: "normal" },
+    { src: "/fonts/NotoSans-Bold.ttf", fontWeight: "bold" },
+  ],
+});
 
 export default function PDF({
   questions,
@@ -31,25 +42,31 @@ export default function PDF({
       paddingHorizontal: "5%",
       paddingVertical: "5%",
       flexDirection: "column",
+      fontFamily: FONT_FAMILY,
     },
     sectionHeader: {
       width: "100%",
       height: "6%",
       padding: "1.5%",
       flexDirection: "column",
-      justifyContent: "space-between",
+      justifyContent: "center",
       textAlign: "center",
       border: `1px solid ${settings?.colors?.border}`,
       borderRadius: 6,
     },
     textTitle: {
       fontSize: 14,
+      fontWeight: "bold",
       textAlign: "center",
+      maxLines: 1,
+      textOverflow: "ellipsis",
       color: settings?.colors?.title,
     },
     textSubtitle: {
       fontSize: 10,
       textAlign: "center",
+      maxLines: 1,
+      textOverflow: "ellipsis",
       color: settings?.colors?.subtitle,
     },
     sectionLayout: {
@@ -62,7 +79,8 @@ export default function PDF({
       width: "100%",
       padding: "2%",
       flexDirection: "column",
-      justifyContent: "space-between",
+      justifyContent: "flex-start",
+      gap: "0.4cm",
     },
     sectionQuestion: {
       flexDirection: "row",
@@ -115,7 +133,9 @@ export default function PDF({
       {pages?.map((columns, pageIndex) => (
         <Page size="A4" style={styles.page} key={pageIndex}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.textTitle}>{settings?.details?.title}</Text>
+            <Text style={styles.textTitle}>
+              {settings?.details?.title}
+            </Text>
             <Text style={styles.textSubtitle}>
               {settings?.details?.subtitle}
             </Text>
@@ -157,7 +177,7 @@ export default function PDF({
                 {columns
                   ?.flat()
                   ?.map((question) => {
-                    return `${question.index! + 1}${question?.answer || "?"}`;
+                    return `${question.index! + 1}-${question?.answer || "?"}`;
                   })
                   ?.join("  ")}
               </Text>
@@ -168,7 +188,9 @@ export default function PDF({
       {questions?.length > 0 && settings.answers.isLastPage && (
         <Page size="A4" style={styles.page}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.textTitle}>{settings?.details?.title}</Text>
+            <Text style={styles.textTitle}>
+              {settings?.details?.title}
+            </Text>
             <Text style={styles.textSubtitle}>
               {settings?.details?.subtitle}
             </Text>
@@ -216,8 +238,7 @@ export default function PDF({
                       textAlign: "center",
                     }}
                   >
-                    {index + 1}
-                    {question?.answer || "?"}
+                    {index + 1}. {question?.answer || "?"}
                   </Text>
                 </View>
               ))}

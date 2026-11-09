@@ -7,10 +7,15 @@ import {
 } from "./pdf.question.interface";
 import { ISettings } from "./pdf.settings.interface";
 
+export interface IUndo {
+  kind: "removed" | "cleared" | "reset";
+}
+
 export interface IuseApp {
   questions: IQuestion[];
   handleUploadFiles(files: Iterable<File> | null): Promise<void>;
-  hasUploadError: boolean;
+  uploadErrors: string[];
+  dismissUploadErrors(): void;
   handleReplaceQuestion(id: string, image: IQuestionImage): void;
   handleChangeAnswer(id: string, answer: IQuestionAnswer): void;
   handleChangeScale(id: string, scale: IQuestionScale): void;
@@ -24,4 +29,9 @@ export interface IuseApp {
   setSettings: Dispatch<SetStateAction<ISettings>>;
   isPDFLoading: boolean;
   isRestoring: boolean;
+  pdfSource: { questions: IQuestion[]; settings: ISettings } | null;
+  externalChange: boolean;
+  undo: IUndo | null;
+  handleUndo(): void;
+  dismissUndo(): void;
 }

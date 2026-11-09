@@ -49,11 +49,15 @@ export default function Sidebar(): ReactElement {
       <SidebarSection label={t("titles")} gap={4}>
         <InputText
           label={t("title")}
+          placeholder={t("titlePlaceholder")}
+          maxLength={80}
           value={settings.details.title}
           onChange={(value) => setDetail("title", value)}
         />
         <InputText
           label={t("subtitle")}
+          placeholder={t("subtitlePlaceholder")}
+          maxLength={120}
           value={settings.details.subtitle}
           onChange={(value) => setDetail("subtitle", value)}
         />

@@ -17,9 +17,9 @@ export default function SidebarSection({
   return (
     <section className={`flex w-full flex-col gap-3 ${className}`}>
       <div className="flex flex-col gap-2">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-muted">
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-muted">
           {label}
-        </h3>
+        </h2>
         <Separator />
       </div>
       <div className="flex w-full flex-col" style={{ gap: `${gap * 0.25}rem` }}>

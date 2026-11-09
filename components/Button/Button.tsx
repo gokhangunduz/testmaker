@@ -20,6 +20,8 @@ interface IButton {
   onClick?: () => void;
   loading?: boolean;
   disabled?: boolean;
+  pressed?: boolean;
+  autoFocus?: boolean;
   variant?: ButtonVariant;
   size?: "sm" | "md" | "lg";
   isIconOnly?: boolean;
@@ -35,6 +37,8 @@ export default function Button({
   onClick,
   loading,
   disabled,
+  pressed,
+  autoFocus,
   variant = "primary",
   size,
   isIconOnly,
@@ -44,6 +48,8 @@ export default function Button({
   const button = (
     <NextButton
       aria-label={ariaLabel ?? tooltip}
+      aria-pressed={pressed}
+      autoFocus={autoFocus}
       onPress={onClick}
       variant={variant}
       size={size}
@@ -67,7 +73,9 @@ export default function Button({
 
   return (
     <Tooltip delay={400}>
-      <Tooltip.Trigger>{button}</Tooltip.Trigger>
+      <Tooltip.Trigger tabIndex={-1} role="presentation">
+        {button}
+      </Tooltip.Trigger>
       <Tooltip.Content>{tooltip}</Tooltip.Content>
     </Tooltip>
   );

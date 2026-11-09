@@ -26,7 +26,7 @@ export default function InputColor({
       onChange={(value) => onChange(value.toString("hex"))}
     >
       <ColorPicker.Trigger className="flex w-full items-center justify-between gap-3 rounded-lg px-1 py-1.5 text-left hover:bg-default">
-        <span className="min-w-0 truncate text-sm">{label}</span>
+        <span className="min-w-0 break-words text-sm">{label}</span>
         <span className="flex shrink-0 items-center gap-2">
           <span className="font-mono text-xs uppercase text-muted">{color}</span>
           <ColorSwatch size="sm" />

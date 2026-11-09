@@ -8,8 +8,10 @@ import QuestionUploader from "../QuestionUploader/QuestionUploader";
 export default function Editor(): ReactElement {
   return (
     <QuestionUploader>
-      <EditorToolbar />
-      <DnDProvider />
+      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+        <EditorToolbar />
+        <DnDProvider />
+      </div>
     </QuestionUploader>
   );
 }

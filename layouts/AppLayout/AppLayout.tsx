@@ -13,6 +13,10 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import Editor from "@/components/Editor/Editor";
 import AppProvider from "@/contexts/AppContext";
 import WelcomeModal from "@/components/WelcomeModal/WelcomeModal";
+import {
+  ExternalChangeBanner,
+  UndoBar,
+} from "@/components/AppNotices/AppNotices";
 import useApp from "@/hooks/useApp";
 
 type PaneKey = "questions" | "settings" | "preview";
@@ -41,16 +45,18 @@ function Workspace(): ReactElement {
   const { t } = useTranslation();
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col xl:grid xl:grid-cols-[19rem_minmax(26rem,1fr)_minmax(0,1.2fr)]">
+    <div className="flex min-h-0 flex-1 flex-col">
+      <ExternalChangeBanner />
+      <div className="flex min-h-0 flex-1 flex-col xl:grid xl:grid-cols-[20rem_minmax(26rem,1fr)_minmax(0,1.2fr)]">
       <Tabs
         selectedKey={pane}
         onSelectionChange={(key: Key) => setPane(key as PaneKey)}
         className="shrink-0 border-b border-border bg-surface p-2 xl:hidden"
       >
         <Tabs.ListContainer>
-          <Tabs.List aria-label="Workspace">
-            <Tabs.Tab id="questions" className="gap-1.5 px-2 text-sm sm:gap-2 sm:px-3">
-              <MdOutlineQuiz size={18} />
+          <Tabs.List aria-label={t("workspace")}>
+            <Tabs.Tab id="questions" className="min-h-10 gap-1.5 px-2 text-sm sm:gap-2 sm:px-3">
+              <MdOutlineQuiz size={18} className="hidden min-[360px]:block" />
               <span>{t("tabQuestions")}</span>
               {questions.length > 0 && (
                 <span className="hidden text-xs text-muted sm:inline">
@@ -59,13 +65,13 @@ function Workspace(): ReactElement {
               )}
               <Tabs.Indicator />
             </Tabs.Tab>
-            <Tabs.Tab id="settings" className="gap-1.5 px-2 text-sm sm:gap-2 sm:px-3">
-              <MdOutlineTune size={18} />
+            <Tabs.Tab id="settings" className="min-h-10 gap-1.5 px-2 text-sm sm:gap-2 sm:px-3">
+              <MdOutlineTune size={18} className="hidden min-[360px]:block" />
               <span>{t("tabSettings")}</span>
               <Tabs.Indicator />
             </Tabs.Tab>
-            <Tabs.Tab id="preview" className="gap-1.5 px-2 text-sm sm:gap-2 sm:px-3">
-              <MdOutlinePictureAsPdf size={18} />
+            <Tabs.Tab id="preview" className="min-h-10 gap-1.5 px-2 text-sm sm:gap-2 sm:px-3">
+              <MdOutlinePictureAsPdf size={18} className="hidden min-[360px]:block" />
               <span>{t("tabPreview")}</span>
               <Tabs.Indicator />
             </Tabs.Tab>
@@ -88,6 +94,8 @@ function Workspace(): ReactElement {
       <Pane active={pane === "preview"}>
         <Preview />
       </Pane>
+      </div>
+      <UndoBar />
     </div>
   );
 }
@@ -95,6 +103,7 @@ function Workspace(): ReactElement {
 export default function AppLayout(): ReactElement {
   return (
     <AppProvider>
+      <h1 className="sr-only">TestMakerLab</h1>
       <WelcomeModal />
       <Workspace />
     </AppProvider>

@@ -9,12 +9,14 @@ testmaker is a tool specifically designed for professionals and educators who pr
 - **Quick Conversion:** Converts images to PDF quickly.
 - **Private:** Everything runs in your browser, no image is ever uploaded.
 - **User-Friendly Interface:** Easy-to-use and intuitive user interface.
-- **Supports Various Formats:** Supports various image formats.
+- **Supports Various Formats:** PNG, JPEG, WebP, GIF, BMP, AVIF, SVG and more. Every image is converted to a clean PNG on upload, so whatever the browser can show also prints correctly. (TIFF and HEIC depend on browser support.)
 - **Drag & Drop:** Reorder questions with drag and drop support.
 - **Multi-language:** Supports Turkish, English and German.
 - **Answer Key:** Generates a separate answer key page in the PDF.
 - **Image Editor:** Crop and adjust question images before export.
-- **Autosave:** Your work is stored in the browser (IndexedDB) and restored on reload.
+- **Autosave:** Your work is stored in the browser (IndexedDB) and restored on reload, even if you reload right after an edit. Changing the project in a second tab is detected so nothing gets overwritten.
+- **Undo:** Removing a question, clearing everything or resetting the settings can be undone.
+- **Unicode PDFs:** The PDF embeds Noto Sans, so Turkish, German and other Latin characters print correctly.
 - **Paste Images:** Paste screenshots straight from the clipboard with Ctrl+V.
 - **Bulk Answer Key:** Fill every answer at once by typing e.g. `ABCDE-A`.
 - **Duplicate & Clear:** Duplicate a question or clear the whole test (with confirmation).
@@ -30,6 +32,10 @@ testmaker is a tool specifically designed for professionals and educators who pr
 - [dnd kit](https://dndkit.com/)
 - [i18next](https://www.i18next.com/)
 - [react-advanced-cropper](https://advanced-cropper.github.io/react-advanced-cropper/)
+
+## Credits
+
+The PDF font is [Noto Sans](https://github.com/notofonts/latin-greek-cyrillic) (SIL Open Font License, see `public/fonts/LICENSE.txt`).
 
 ## Installation
 

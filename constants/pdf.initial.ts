@@ -1,11 +1,9 @@
-"use client";
-
 import { ISettings } from "@/interfaces/pdf.settings.interface";
 
 export const pdfInitialSettings: ISettings = {
   details: {
-    title: "Title",
-    subtitle: "Subtitle",
+    title: "",
+    subtitle: "",
   },
   answers: {
     isPerPage: false,

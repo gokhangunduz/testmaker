@@ -15,17 +15,13 @@ export default function InputSwitch({
   onChange,
 }: IInputSwitch): ReactElement {
   return (
-    <Switch
-      isSelected={checked}
-      onChange={onChange}
-      className="w-full justify-between"
-    >
-      <Switch.Content>
+    <Switch isSelected={checked} onChange={onChange} className="w-full">
+      <Switch.Content className="flex w-full items-center justify-between gap-3">
         <Label>{label}</Label>
+        <Switch.Control>
+          <Switch.Thumb />
+        </Switch.Control>
       </Switch.Content>
-      <Switch.Control>
-        <Switch.Thumb />
-      </Switch.Control>
     </Switch>
   );
 }
