@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactElement, ReactNode } from "react";
-import { Button as NextButton, Spinner } from "@heroui/react";
+import { Button as NextButton, Spinner, Tooltip } from "@heroui/react";
 
 type ButtonVariant =
   | "primary"
@@ -13,33 +13,62 @@ type ButtonVariant =
   | "danger-soft";
 
 interface IButton {
-  label: ReactNode;
+  label?: ReactNode;
+  icon?: ReactNode;
   ariaLabel?: string;
+  tooltip?: string;
   onClick?: () => void;
   loading?: boolean;
   disabled?: boolean;
   variant?: ButtonVariant;
+  size?: "sm" | "md" | "lg";
   isIconOnly?: boolean;
+  fullWidth?: boolean;
+  className?: string;
 }
 
 export default function Button({
   label,
+  icon,
   ariaLabel,
+  tooltip,
   onClick,
   loading,
   disabled,
   variant = "primary",
+  size,
   isIconOnly,
+  fullWidth,
+  className,
 }: Readonly<IButton>): ReactElement {
-  return (
+  const button = (
     <NextButton
-      aria-label={ariaLabel}
+      aria-label={ariaLabel ?? tooltip}
       onPress={onClick}
       variant={variant}
+      size={size}
       isIconOnly={isIconOnly}
       isDisabled={loading || disabled}
+      fullWidth={fullWidth}
+      className={className}
     >
-      {loading ? <Spinner size="sm" /> : label}
+      {loading ? (
+        <Spinner size="sm" />
+      ) : (
+        <>
+          {icon}
+          {label}
+        </>
+      )}
     </NextButton>
+  );
+
+  if (!tooltip) return button;
+
+  return (
+    <Tooltip delay={400}>
+      <Tooltip.Trigger>{button}</Tooltip.Trigger>
+      <Tooltip.Content>{tooltip}</Tooltip.Content>
+    </Tooltip>
   );
 }

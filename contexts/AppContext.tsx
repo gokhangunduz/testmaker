@@ -19,6 +19,7 @@ import { IuseApp } from "@/interfaces/app.hook.interface";
 import { pdfInitialSettings } from "@/constants/pdf.initial";
 import { PDF_REFRESH_DELAY_MS, SAVE_DELAY_MS } from "@/configs/config";
 import { loadProject, saveProject } from "@/functions/storage.function";
+import { fileToQuestionImage } from "@/functions/meta.image.function";
 
 export const AppContext = createContext<IuseApp | null>(null);
 
@@ -93,9 +94,30 @@ export default function AppProvider({ children }: { children: ReactNode }) {
   const isPDFLoading =
     settled?.questions !== questions || settled?.settings !== settings;
 
-  const handleAddQuestions = useCallback((images: IQuestionImage[]) => {
-    setQuestions((prev) => [...prev, ...images.map(createQuestion)]);
-  }, []);
+  const [hasUploadError, setHasUploadError] = useState<boolean>(false);
+
+  const handleUploadFiles = useCallback(
+    async (files: Iterable<File> | null) => {
+      const images = Array.from(files ?? []).filter((file) =>
+        file.type.startsWith("image/")
+      );
+      if (images.length === 0) return;
+
+      const results = await Promise.allSettled(images.map(fileToQuestionImage));
+      const loaded = results
+        .filter(
+          (result): result is PromiseFulfilledResult<IQuestionImage> =>
+            result.status === "fulfilled"
+        )
+        .map((result) => result.value);
+
+      setHasUploadError(loaded.length !== images.length);
+      if (loaded.length > 0) {
+        setQuestions((prev) => [...prev, ...loaded.map(createQuestion)]);
+      }
+    },
+    []
+  );
 
   const handleReplaceQuestion = useCallback(
     (id: string, image: IQuestionImage) => {
@@ -182,7 +204,8 @@ export default function AppProvider({ children }: { children: ReactNode }) {
   const value = useMemo<IuseApp>(
     () => ({
       questions,
-      handleAddQuestions,
+      handleUploadFiles,
+      hasUploadError,
       handleReplaceQuestion,
       handleChangeAnswer,
       handleChangeScale,
@@ -202,7 +225,8 @@ export default function AppProvider({ children }: { children: ReactNode }) {
       settings,
       isPDFLoading,
       isRestoring,
-      handleAddQuestions,
+      handleUploadFiles,
+      hasUploadError,
       handleReplaceQuestion,
       handleChangeAnswer,
       handleChangeScale,

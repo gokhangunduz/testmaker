@@ -5,13 +5,12 @@ import {
   ReactNode,
   ReactElement,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { MdUploadFile } from "react-icons/md";
+import { MdOutlineCloudUpload } from "react-icons/md";
 import QuestionUpload from "../QuestionUpload/QuestionUpload";
-import { fileToQuestionImage } from "@/functions/meta.image.function";
-import { IQuestionImage } from "@/interfaces/pdf.question.interface";
 import useApp from "@/hooks/useApp";
 
 interface IQuestionUploader {
@@ -22,29 +21,16 @@ export default function QuestionUploader({
   children,
 }: Readonly<IQuestionUploader>): ReactElement {
   const [onDragging, setOnDragging] = useState<boolean>(false);
-  const [hasError, setHasError] = useState<boolean>(false);
+  const dragDepth = useRef<number>(0);
 
   const { t } = useTranslation();
-  const { questions, handleAddQuestions } = useApp();
+  const { questions, handleUploadFiles, hasUploadError, isRestoring } =
+    useApp();
 
-  async function handleInputUploader(files: Iterable<File> | null) {
+  function handleInputUploader(files: Iterable<File> | null) {
+    dragDepth.current = 0;
     setOnDragging(false);
-
-    const images = Array.from(files ?? []).filter((file) =>
-      file.type.startsWith("image/")
-    );
-    if (images.length === 0) return;
-
-    const results = await Promise.allSettled(images.map(fileToQuestionImage));
-    const loaded = results
-      .filter(
-        (result): result is PromiseFulfilledResult<IQuestionImage> =>
-          result.status === "fulfilled"
-      )
-      .map((result) => result.value);
-
-    setHasError(loaded.length !== images.length);
-    if (loaded.length > 0) handleAddQuestions(loaded);
+    handleUploadFiles(files);
   }
 
   useEffect(() => {
@@ -66,46 +52,60 @@ export default function QuestionUploader({
     handleInputUploader(e.dataTransfer.files);
   }
 
-  function handleDragOver(e: DragEvent<HTMLDivElement>) {
+  function handleDragEnter(e: DragEvent<HTMLDivElement>) {
     e.preventDefault();
+    dragDepth.current += 1;
     setOnDragging(true);
   }
 
   function handleDragLeave(e: DragEvent<HTMLDivElement>) {
     e.preventDefault();
-    setOnDragging(false);
+    dragDepth.current = Math.max(0, dragDepth.current - 1);
+    if (dragDepth.current === 0) setOnDragging(false);
   }
 
   return (
     <div
       onDrop={handleDrop}
-      onDragOver={handleDragOver}
+      onDragOver={(e) => e.preventDefault()}
+      onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
-      className={`relative hw-full bg-zinc-200 border-r border-zinc-300 transition-500 ${
-        onDragging ? "flex items-center justify-center bg-zinc-400 opacity-75" : ""
-      }`}
+      className="relative flex min-h-0 flex-1 flex-col"
     >
-      {!onDragging && children}
-      {(questions.length === 0 || onDragging) && (
-        <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col gap-6 items-center justify-center">
-          <MdUploadFile size={48} className="text-zinc-600" />
-          <p className="text-zinc-500 text-base text-center">
-            {t("dragAndDropQuestionImages")}
-          </p>
-          <p className="text-zinc-400 text-sm text-center max-w-64">
-            {t("pasteHint")}
-          </p>
+      {children}
+
+      {questions.length === 0 && !isRestoring && (
+        <div className="flex flex-1 items-center justify-center p-4">
+          <div className="flex w-full max-w-sm flex-col items-center gap-4 rounded-2xl border-2 border-dashed border-border bg-surface px-6 py-10 text-center">
+            <MdOutlineCloudUpload size={48} className="text-muted" />
+            <p className="font-medium">{t("dragAndDropQuestionImages")}</p>
+            <QuestionUpload
+              label={t("browseImages")}
+              handleInputUploader={handleInputUploader}
+            />
+            <p className="max-w-64 text-sm text-muted">{t("pasteHint")}</p>
+          </div>
         </div>
       )}
-      {hasError && (
+
+      {onDragging && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-2 z-20 flex flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-accent bg-accent-soft/90 text-accent-soft-foreground"
+        >
+          <MdOutlineCloudUpload size={48} />
+          <p className="font-medium">{t("dragAndDropQuestionImages")}</p>
+        </div>
+      )}
+
+      {hasUploadError && (
         <p
           role="alert"
-          className="absolute bottom-4 left-4 z-20 rounded bg-red-100 px-3 py-1.5 text-sm text-red-700"
+          className="absolute inset-x-3 bottom-3 z-20 rounded-lg bg-danger-soft px-3 py-2 text-sm text-danger-soft-foreground"
         >
           {t("imageLoadError")}
         </p>
       )}
-      <QuestionUpload handleInputUploader={handleInputUploader} />
     </div>
   );
 }

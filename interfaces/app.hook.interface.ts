@@ -9,7 +9,8 @@ import { ISettings } from "./pdf.settings.interface";
 
 export interface IuseApp {
   questions: IQuestion[];
-  handleAddQuestions(images: IQuestionImage[]): void;
+  handleUploadFiles(files: Iterable<File> | null): Promise<void>;
+  hasUploadError: boolean;
   handleReplaceQuestion(id: string, image: IQuestionImage): void;
   handleChangeAnswer(id: string, answer: IQuestionAnswer): void;
   handleChangeScale(id: string, scale: IQuestionScale): void;

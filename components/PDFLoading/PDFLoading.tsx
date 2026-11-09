@@ -8,11 +8,9 @@ export default function PDFLoading(): ReactElement {
   const { t } = useTranslation();
 
   return (
-    <div className="hw-full px-1.5 pt-1.5 bg-[#787878]">
-      <div className="hw-full bg-white flex flex-col gap-4 items-center justify-center">
-        <Spinner size="lg" />
-        <p>{t("pdfLoading")}</p>
-      </div>
+    <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-6 text-center text-muted">
+      <Spinner size="lg" />
+      <p>{t("pdfLoading")}</p>
     </div>
   );
 }

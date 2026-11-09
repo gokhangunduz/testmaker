@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { ReactNode } from "react";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
@@ -12,15 +12,22 @@ export const metadata: Metadata = {
     "TestMakerLab is a tool developed specifically for professionals and educators who prepare educational materials. It facilitates the quick and efficient conversion of image-based questions into PDF files.",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="flex h-dvh flex-col overflow-hidden">
         <I18nProvider>
           <Header />
-          {children}
+          <main className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+            {children}
+          </main>
           <Footer />
         </I18nProvider>
       </body>

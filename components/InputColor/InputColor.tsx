@@ -1,6 +1,13 @@
 "use client";
 
-import { ReactElement, useId } from "react";
+import { ReactElement } from "react";
+import {
+  ColorArea,
+  ColorField,
+  ColorPicker,
+  ColorSlider,
+  ColorSwatch,
+} from "@heroui/react";
 
 interface IInputColor {
   label: string;
@@ -13,20 +20,42 @@ export default function InputColor({
   color,
   onChange,
 }: IInputColor): ReactElement {
-  const id = useId();
-
   return (
-    <div className="flex items-center w-full justify-between">
-      <label htmlFor={id} className="text-zinc-600">
-        {label}:
-      </label>
-      <input
-        id={id}
-        type="color"
-        value={color}
-        onChange={(e) => onChange(e.target.value)}
-        className="h-8 w-10 cursor-pointer rounded border border-zinc-300 bg-white p-0.5"
-      />
-    </div>
+    <ColorPicker
+      value={color}
+      onChange={(value) => onChange(value.toString("hex"))}
+    >
+      <ColorPicker.Trigger className="flex w-full items-center justify-between gap-3 rounded-lg px-1 py-1.5 text-left hover:bg-default">
+        <span className="min-w-0 truncate text-sm">{label}</span>
+        <span className="flex shrink-0 items-center gap-2">
+          <span className="font-mono text-xs uppercase text-muted">{color}</span>
+          <ColorSwatch size="sm" />
+        </span>
+      </ColorPicker.Trigger>
+      <ColorPicker.Popover className="flex flex-col gap-3 p-3">
+        <ColorArea
+          aria-label={label}
+          colorSpace="hsb"
+          xChannel="saturation"
+          yChannel="brightness"
+          className="max-w-full"
+        >
+          <ColorArea.Thumb />
+        </ColorArea>
+        <ColorSlider aria-label={label} colorSpace="hsb" channel="hue">
+          <ColorSlider.Track>
+            <ColorSlider.Thumb />
+          </ColorSlider.Track>
+        </ColorSlider>
+        <ColorField aria-label={label}>
+          <ColorField.Group variant="secondary">
+            <ColorField.Prefix>
+              <ColorSwatch size="xs" />
+            </ColorField.Prefix>
+            <ColorField.Input />
+          </ColorField.Group>
+        </ColorField>
+      </ColorPicker.Popover>
+    </ColorPicker>
   );
 }

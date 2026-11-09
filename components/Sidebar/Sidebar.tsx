@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactElement } from "react";
+import { MdRestartAlt } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import SidebarSection from "../SidebarSection/SidebarSection";
 import InputSwitch from "../InputSwitch/InputSwitch";
@@ -44,7 +45,7 @@ export default function Sidebar(): ReactElement {
     }));
 
   return (
-    <div className="hw-full bg-white border-r border-zinc-300 p-6 flex flex-col gap-10">
+    <div className="mx-auto flex w-full max-w-xl flex-col gap-8 p-4 sm:p-6 xl:max-w-none">
       <SidebarSection label={t("titles")} gap={4}>
         <InputText
           label={t("title")}
@@ -85,10 +86,12 @@ export default function Sidebar(): ReactElement {
       <div className="flex flex-col gap-3">
         <Button
           variant="secondary"
+          icon={<MdRestartAlt size={18} />}
           label={t("resetSettings")}
           onClick={handleResetSettings}
+          fullWidth
         />
-        <p className="text-xs text-zinc-400">{t("projectSaved")}</p>
+        <p className="text-xs text-muted">{t("projectSaved")}</p>
       </div>
     </div>
   );

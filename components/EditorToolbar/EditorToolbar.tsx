@@ -2,8 +2,11 @@
 
 import { ReactElement, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { TextArea } from "@heroui/react";
+import { MdDeleteSweep, MdOutlineChecklist } from "react-icons/md";
 import Button from "../Button/Button";
 import Modal from "../Modal/Modal";
+import QuestionUpload from "../QuestionUpload/QuestionUpload";
 import useApp from "@/hooks/useApp";
 import { handleParserQuestions } from "@/functions/parser.questions.function";
 import { handleMapperPages } from "@/functions/mapper.pages.function";
@@ -12,7 +15,8 @@ import { formatAnswerKey, parseAnswerKey } from "@/functions/answerkey.function"
 type DialogType = "answerKey" | "clear" | null;
 
 export default function EditorToolbar(): ReactElement | null {
-  const { questions, handleSetAnswers, handleClearQuestions } = useApp();
+  const { questions, handleUploadFiles, handleSetAnswers, handleClearQuestions } =
+    useApp();
   const { t } = useTranslation();
 
   const [dialog, setDialog] = useState<DialogType>(null);
@@ -42,18 +46,27 @@ export default function EditorToolbar(): ReactElement | null {
 
   return (
     <>
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-300 bg-white px-4 py-2">
-        <p className="text-sm text-zinc-600">
+      <div className="flex shrink-0 flex-col gap-2 border-b border-border bg-surface px-3 py-3 sm:px-4">
+        <p className="text-sm text-muted">
           {t("summary", { count: questions.length, pages })}
         </p>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
+          <QuestionUpload
+            size="sm"
+            label={t("addImages")}
+            handleInputUploader={handleUploadFiles}
+          />
           <Button
+            size="sm"
             variant="secondary"
+            icon={<MdOutlineChecklist size={18} />}
             label={t("fillAnswerKey")}
             onClick={openAnswerKey}
           />
           <Button
+            size="sm"
             variant="danger-soft"
+            icon={<MdDeleteSweep size={18} />}
             label={t("clearAll")}
             onClick={() => setDialog("clear")}
           />
@@ -63,9 +76,7 @@ export default function EditorToolbar(): ReactElement | null {
       {dialog === "answerKey" && (
         <Modal
           header={
-            <h2 className="text-xl font-semibold text-slate-700">
-              {t("fillAnswerKey")}
-            </h2>
+            <h2 className="text-xl font-semibold">{t("fillAnswerKey")}</h2>
           }
           footer={
             <>
@@ -80,15 +91,16 @@ export default function EditorToolbar(): ReactElement | null {
           onHide={() => setDialog(null)}
         >
           <div className="flex flex-col gap-3">
-            <p className="text-sm text-slate-500">{t("answerKeyHint")}</p>
-            <textarea
+            <p className="text-sm text-muted">{t("answerKeyHint")}</p>
+            <TextArea
               aria-label={t("answerKey")}
               value={answerKey}
               onChange={(e) => setAnswerKey(e.target.value)}
               placeholder={t("answerKeyPlaceholder")}
               rows={4}
               spellCheck={false}
-              className="w-full rounded-lg border border-zinc-300 p-3 font-mono tracking-widest focus:outline-2 focus:outline-zinc-400"
+              fullWidth
+              className="font-mono tracking-widest"
             />
           </div>
         </Modal>
@@ -98,9 +110,7 @@ export default function EditorToolbar(): ReactElement | null {
         <Modal
           size="xs"
           header={
-            <h2 className="text-xl font-semibold text-slate-700">
-              {t("clearAllTitle")}
-            </h2>
+            <h2 className="text-xl font-semibold">{t("clearAllTitle")}</h2>
           }
           footer={
             <>
@@ -118,7 +128,7 @@ export default function EditorToolbar(): ReactElement | null {
           }
           onHide={() => setDialog(null)}
         >
-          <p className="text-slate-500">{t("clearAllText")}</p>
+          <p className="text-muted">{t("clearAllText")}</p>
         </Modal>
       )}
     </>

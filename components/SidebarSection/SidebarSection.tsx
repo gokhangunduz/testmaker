@@ -1,36 +1,30 @@
 import { ReactNode, ReactElement } from "react";
+import { Separator } from "@heroui/react";
 
 interface ISidebarSection {
   label: string;
   children: ReactNode;
   gap?: number;
-  containerClassName?: string;
-  labelClassName?: string;
-  layoutClassName?: string;
+  className?: string;
 }
 
 export default function SidebarSection({
   label,
   children,
-  gap = 4,
-  containerClassName = "",
-  labelClassName = "",
-  layoutClassName = "",
+  gap = 3,
+  className = "",
 }: ISidebarSection): ReactElement {
   return (
-    <div className={`w-full flex flex-col gap-5 ${containerClassName}`}>
-      <div className="flex flex-col w-full gap-0.5">
-        <p className={`text-lg font-medium text-zinc-800 ${labelClassName}`}>
+    <section className={`flex w-full flex-col gap-3 ${className}`}>
+      <div className="flex flex-col gap-2">
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-muted">
           {label}
-        </p>
-        <div className="w-full h-px bg-gray-300" />
+        </h3>
+        <Separator />
       </div>
-      <div
-        style={{ gap: `${gap / 4}rem` }}
-        className={`flex w-full flex-col ${layoutClassName}`}
-      >
+      <div className="flex w-full flex-col" style={{ gap: `${gap * 0.25}rem` }}>
         {children}
       </div>
-    </div>
+    </section>
   );
 }

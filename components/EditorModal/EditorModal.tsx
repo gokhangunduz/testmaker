@@ -40,7 +40,7 @@ export default function EditorModal({
     <Modal
       size="lg"
       header={
-        <h2 className="text-xl font-semibold text-slate-700">
+        <h2 className="text-xl font-semibold">
           {t("editQuestion")}
         </h2>
       }
@@ -52,12 +52,13 @@ export default function EditorModal({
       }
       onHide={onHide}
     >
-      <Cropper
-        ref={ref}
-        src={image}
-        style={{ background: "#DDD" }}
-        className="w-full h-full"
-      />
+      <div className="h-[55dvh] w-full overflow-hidden rounded-lg">
+        <Cropper
+          ref={ref}
+          src={image}
+          className="h-full w-full bg-default"
+        />
+      </div>
     </Modal>
   );
 }

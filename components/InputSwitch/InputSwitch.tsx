@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactElement } from "react";
-import { Switch } from "@heroui/react";
+import { Label, Switch } from "@heroui/react";
 
 interface IInputSwitch {
   label: string;
@@ -15,9 +15,17 @@ export default function InputSwitch({
   onChange,
 }: IInputSwitch): ReactElement {
   return (
-    <div className="flex items-center w-full justify-between">
-      <span className="text-zinc-600">{label}:</span>
-      <Switch aria-label={label} isSelected={checked} onChange={onChange} />
-    </div>
+    <Switch
+      isSelected={checked}
+      onChange={onChange}
+      className="w-full justify-between"
+    >
+      <Switch.Content>
+        <Label>{label}</Label>
+      </Switch.Content>
+      <Switch.Control>
+        <Switch.Thumb />
+      </Switch.Control>
+    </Switch>
   );
 }

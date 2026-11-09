@@ -9,12 +9,13 @@ export default function Footer(): ReactElement {
   const { t } = useTranslation();
 
   return (
-    <footer className="w-full flex font-light justify-between items-center h-8 sticky bottom-0 z-30 bg-white border-t border-zinc-300 text-xs px-4">
-      <p>
+    <footer className="z-30 flex h-8 shrink-0 items-center justify-between gap-3 border-t border-border bg-surface px-3 text-xs text-muted sm:px-6">
+      <p className="shrink-0">
         {environment} {process.env.NEXT_PUBLIC_APP_VERSION}
       </p>
-      <p>
-        © {new Date().getFullYear()} TestMakerLab | {t("allRightsReserved")}
+      <p className="truncate">
+        © {new Date().getFullYear()} TestMakerLab
+        <span className="hidden sm:inline"> | {t("allRightsReserved")}</span>
       </p>
     </footer>
   );

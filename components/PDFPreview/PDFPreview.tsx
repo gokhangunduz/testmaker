@@ -16,7 +16,7 @@ interface IPDFPreview {
 
 export default function PDFPreview({ children }: IPDFPreview): ReactElement {
   return (
-    <PDFViewer className="hw-full" showToolbar>
+    <PDFViewer className="h-full w-full border-0" showToolbar>
       {children}
     </PDFViewer>
   );

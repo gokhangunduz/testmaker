@@ -34,7 +34,7 @@ export default function Modal({
           if (!open) onHide();
         }}
       >
-        <ModalContainer size={size}>
+        <ModalContainer size={size} scroll="inside">
           <ModalDialog>
             {header && <ModalHeader>{header}</ModalHeader>}
             <ModalBody>{children}</ModalBody>

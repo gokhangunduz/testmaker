@@ -12,11 +12,8 @@ export default function Home(): ReactElement {
   const { t } = useTranslation();
 
   return (
-    <main
-      className="w-full flex justify-center items-center flex-col lg:flex-row"
-      style={{ minHeight: "calc(100vh - 7rem)" }}
-    >
-      <div className="hw-full flex items-center justify-center animate__animated animate__fadeInLeft">
+    <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-center justify-center gap-8 px-4 py-8 lg:flex-row lg:gap-16 lg:px-8">
+      <div className="flex w-full max-w-xs items-center justify-center animate__animated animate__fadeInLeft sm:max-w-md lg:max-w-none lg:flex-1">
         <Image
           width={768}
           height={768}
@@ -24,16 +21,16 @@ export default function Home(): ReactElement {
           alt=""
           aria-hidden="true"
           priority
+          className="h-auto w-full"
         />
       </div>
-      <div className="hw-full flex flex-col gap-8 items-center justify-center px-6 pb-10 animate__animated animate__fadeInRight">
-        <h1 className="font-semibold text-2xl text-slate-700">
+      <div className="flex w-full flex-col items-center gap-6 text-center animate__animated animate__fadeInRight lg:flex-1 lg:items-start lg:text-left">
+        <h1 className="text-2xl font-semibold sm:text-3xl">
           {t("projectRelease")}
         </h1>
-        <p className="text-center text-slate-500 max-w-xl">
-          {t("projectDescription")}
-        </p>
+        <p className="max-w-xl text-muted">{t("projectDescription")}</p>
         <Button
+          size="lg"
           label={t("getStarted")}
           loading={isClicked}
           onClick={() => {
@@ -42,6 +39,6 @@ export default function Home(): ReactElement {
           }}
         />
       </div>
-    </main>
+    </div>
   );
 }

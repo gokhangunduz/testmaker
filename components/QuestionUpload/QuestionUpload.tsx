@@ -1,35 +1,45 @@
 "use client";
 
-import { ReactElement } from "react";
-import { useTranslation } from "react-i18next";
-import { BsFileEarmarkArrowUp } from "react-icons/bs";
+import { ReactElement, useRef } from "react";
+import { MdAddPhotoAlternate } from "react-icons/md";
+import Button from "../Button/Button";
 
 interface IQuestionUpload {
+  label: string;
+  variant?: "primary" | "secondary";
+  size?: "sm" | "md" | "lg";
   handleInputUploader: (files: Iterable<File> | null) => void;
 }
 
 export default function QuestionUpload({
+  label,
+  variant = "primary",
+  size,
   handleInputUploader,
 }: Readonly<IQuestionUpload>): ReactElement {
-  const { t } = useTranslation();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <label
-      title={t("uploadQuestionImages")}
-      className="absolute bottom-4 right-4 z-20 cursor-pointer bg-zinc-800 border-2 border-zinc-200 text-zinc-50 p-3.5 rounded-full opacity-50 hover:opacity-100 focus-within:opacity-100 transition-500 hover:scale-125"
-    >
-      <BsFileEarmarkArrowUp size={24} />
+    <>
+      <Button
+        variant={variant}
+        size={size}
+        icon={<MdAddPhotoAlternate size={18} />}
+        label={label}
+        onClick={() => inputRef.current?.click()}
+      />
       <input
+        ref={inputRef}
         type="file"
         accept="image/*"
         multiple
-        className="sr-only"
-        aria-label={t("uploadQuestionImages")}
+        hidden
+        tabIndex={-1}
         onChange={(e) => {
           handleInputUploader(e.target.files);
           e.target.value = "";
         }}
       />
-    </label>
+    </>
   );
 }

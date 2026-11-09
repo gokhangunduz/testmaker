@@ -3,18 +3,19 @@
 import { CSSProperties, ReactElement } from "react";
 import Image from "next/image";
 import {
-  MdDragIndicator,
-  MdDeleteOutline,
   MdContentCopy,
+  MdDeleteOutline,
+  MdDragIndicator,
+  MdOutlineCrop,
 } from "react-icons/md";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import {
-  NumberFieldRoot,
+  Card,
   Label,
   NumberFieldGroup,
   NumberFieldInput,
-  Card,
+  NumberFieldRoot,
 } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 import {
@@ -59,63 +60,48 @@ export default function QuestionCard({
   const style: CSSProperties = {
     transform: CSS.Transform.toString(transform),
     transition,
-    zIndex: isDragging ? 1 : 0,
+    zIndex: isDragging ? 10 : 0,
+    opacity: isDragging ? 0.85 : 1,
   };
 
   const title = `${t("question")} ${index + 1}`;
 
   return (
     <>
-      <Card
-        className="p-3 w-full shrink-0"
-        ref={setNodeRef}
-        style={style}
-      >
-        <div className="flex w-full items-center gap-2">
+      <Card className="w-full shrink-0 gap-3 p-3" ref={setNodeRef} style={style}>
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
             type="button"
             aria-label={title}
-            className="cursor-grab touch-none text-gray-400"
+            className="shrink-0 cursor-grab touch-none rounded text-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-accent"
             {...attributes}
             {...listeners}
           >
-            <MdDragIndicator size={28} />
+            <MdDragIndicator size={26} />
           </button>
+
           <button
             type="button"
             aria-label={t("editQuestion")}
             onClick={() => toggleModal(true)}
-            className="shrink-0"
+            className="group relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-default focus-visible:outline-2 focus-visible:outline-accent sm:h-24 sm:w-24"
           >
             <Image
-              className="rounded-lg cursor-pointer hover:brightness-50 transition-500"
-              height={112}
-              width={112}
-              style={{
-                objectFit: "contain",
-                objectPosition: "center",
-                width: 112,
-                height: 112,
-              }}
+              className="h-full w-full object-contain"
+              height={96}
+              width={96}
               src={question.base64}
               alt={title}
             />
+            <span className="absolute inset-0 flex items-center justify-center bg-black/50 text-white opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+              <MdOutlineCrop size={24} />
+            </span>
           </button>
+
           <div className="flex min-w-0 flex-1 flex-col gap-2">
-            <p className="font-medium text-zinc-800">{title}</p>
-            <ButtonGroup label={t("answer")}>
-              {answerOptions.map((option) => (
-                <Button
-                  key={option ?? "none"}
-                  variant={question.answer === option ? "primary" : "secondary"}
-                  isIconOnly
-                  label={option ?? t("null")}
-                  onClick={() => handleChangeAnswer(question.id, option)}
-                />
-              ))}
-            </ButtonGroup>
-            <div className="flex flex-wrap items-end gap-2">
-              <div className="w-24">
+            <p className="truncate font-medium">{title}</p>
+            <div className="flex items-end gap-2">
+              <div className="w-20 sm:w-24">
                 <NumberFieldRoot
                   value={question.scale}
                   onChange={(value) => {
@@ -127,7 +113,7 @@ export default function QuestionCard({
                   maxValue={1.5}
                   step={0.1}
                 >
-                  <Label>{t("questionScale")}</Label>
+                  <Label>{t("scale")}</Label>
                   <NumberFieldGroup>
                     <NumberFieldInput />
                   </NumberFieldGroup>
@@ -136,20 +122,32 @@ export default function QuestionCard({
               <Button
                 variant="secondary"
                 isIconOnly
-                ariaLabel={t("duplicateQuestion")}
-                label={<MdContentCopy size={18} />}
+                tooltip={t("duplicateQuestion")}
+                icon={<MdContentCopy size={18} />}
                 onClick={() => handleDuplicateQuestion(question.id)}
               />
               <Button
                 variant="danger-soft"
                 isIconOnly
-                ariaLabel={t("removeQuestion")}
-                label={<MdDeleteOutline size={20} />}
+                tooltip={t("removeQuestion")}
+                icon={<MdDeleteOutline size={20} />}
                 onClick={() => handleRemoveQuestion(question.id)}
               />
             </div>
           </div>
         </div>
+
+        <ButtonGroup label={t("answer")}>
+          {answerOptions.map((option) => (
+            <Button
+              key={option ?? "none"}
+              variant={question.answer === option ? "primary" : "secondary"}
+              label={option ?? t("null")}
+              onClick={() => handleChangeAnswer(question.id, option)}
+              className="flex-1"
+            />
+          ))}
+        </ButtonGroup>
       </Card>
       {visibleModal && (
         <EditorModal
