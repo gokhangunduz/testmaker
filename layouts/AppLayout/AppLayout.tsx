@@ -1,6 +1,12 @@
 "use client";
 
-import { Key, ReactElement, ReactNode, useState } from "react";
+import {
+  Key,
+  ReactElement,
+  ReactNode,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { Tabs } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 import {
@@ -21,18 +27,34 @@ import useApp from "@/hooks/useApp";
 
 type PaneKey = "questions" | "settings" | "preview";
 
+const WIDE_QUERY = "(min-width: 1024px)";
+
+function subscribeWide(onChange: () => void): () => void {
+  const query = window.matchMedia(WIDE_QUERY);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+
+function useIsWide(): boolean {
+  return useSyncExternalStore(
+    subscribeWide,
+    () => window.matchMedia(WIDE_QUERY).matches,
+    () => false
+  );
+}
+
 function Pane({
-  active,
+  visibility,
   className = "",
   children,
 }: {
-  active: boolean;
+  visibility: string;
   className?: string;
   children: ReactNode;
 }): ReactElement {
   return (
     <section
-      className={`${active ? "flex" : "hidden"} min-h-0 min-w-0 flex-1 flex-col xl:flex xl:flex-none ${className}`}
+      className={`${visibility} min-h-0 min-w-0 flex-1 flex-col xl:flex xl:flex-none ${className}`}
     >
       {children}
     </section>
@@ -41,21 +63,26 @@ function Pane({
 
 function Workspace(): ReactElement {
   const [pane, setPane] = useState<PaneKey>("questions");
+  const isWide = useIsWide();
   const { questions } = useApp();
   const { t } = useTranslation();
+
+  // From 1024px the preview is always on screen next to the tabs.
+  const selected: PaneKey = isWide && pane === "preview" ? "questions" : pane;
+  const tabClass =
+    "min-h-10 gap-1.5 px-2 text-sm sm:gap-2 sm:px-3 [@media(max-height:500px)]:min-h-9";
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
       <ExternalChangeBanner />
-      <div className="flex min-h-0 flex-1 flex-col xl:grid xl:grid-cols-[20rem_minmax(26rem,1fr)_minmax(0,1.2fr)]">
-      <Tabs
-        selectedKey={pane}
-        onSelectionChange={(key: Key) => setPane(key as PaneKey)}
-        className="shrink-0 border-b border-border bg-surface p-2 xl:hidden"
-      >
-        <Tabs.ListContainer>
+      <div className="flex min-h-0 flex-1 flex-col lg:grid lg:grid-cols-[minmax(24rem,2fr)_3fr] lg:grid-rows-[auto_minmax(0,1fr)] xl:grid-cols-[20rem_minmax(26rem,1fr)_minmax(0,1.2fr)] xl:grid-rows-[minmax(0,1fr)]">
+        <Tabs
+          selectedKey={selected}
+          onSelectionChange={(key: Key) => setPane(key as PaneKey)}
+          className="shrink-0 border-b border-border bg-surface p-2 lg:col-start-1 lg:row-start-1 lg:border-r xl:hidden [@media(max-height:500px)]:p-1"
+        >
           <Tabs.List aria-label={t("workspace")}>
-            <Tabs.Tab id="questions" className="min-h-10 gap-1.5 px-2 text-sm sm:gap-2 sm:px-3">
+            <Tabs.Tab id="questions" className={tabClass}>
               <MdOutlineQuiz size={18} className="hidden min-[360px]:block" />
               <span>{t("tabQuestions")}</span>
               {questions.length > 0 && (
@@ -65,35 +92,40 @@ function Workspace(): ReactElement {
               )}
               <Tabs.Indicator />
             </Tabs.Tab>
-            <Tabs.Tab id="settings" className="min-h-10 gap-1.5 px-2 text-sm sm:gap-2 sm:px-3">
+            <Tabs.Tab id="settings" className={tabClass}>
               <MdOutlineTune size={18} className="hidden min-[360px]:block" />
               <span>{t("tabSettings")}</span>
               <Tabs.Indicator />
             </Tabs.Tab>
-            <Tabs.Tab id="preview" className="min-h-10 gap-1.5 px-2 text-sm sm:gap-2 sm:px-3">
-              <MdOutlinePictureAsPdf size={18} className="hidden min-[360px]:block" />
+            <Tabs.Tab id="preview" className={`${tabClass} lg:hidden`}>
+              <MdOutlinePictureAsPdf
+                size={18}
+                className="hidden min-[360px]:block"
+              />
               <span>{t("tabPreview")}</span>
               <Tabs.Indicator />
             </Tabs.Tab>
           </Tabs.List>
-        </Tabs.ListContainer>
-      </Tabs>
+        </Tabs>
 
-      <Pane
-        active={pane === "settings"}
-        className="overflow-y-auto border-border bg-surface xl:border-r"
-      >
-        <Sidebar />
-      </Pane>
-      <Pane
-        active={pane === "questions"}
-        className="border-border bg-background-secondary xl:border-r"
-      >
-        <Editor />
-      </Pane>
-      <Pane active={pane === "preview"}>
-        <Preview />
-      </Pane>
+        <Pane
+          visibility={selected === "settings" ? "flex" : "hidden"}
+          className="overflow-y-auto border-border bg-surface lg:col-start-1 lg:row-start-2 lg:border-r xl:col-start-1 xl:row-start-1"
+        >
+          <Sidebar />
+        </Pane>
+        <Pane
+          visibility={selected === "questions" ? "flex" : "hidden"}
+          className="border-border bg-background-secondary lg:col-start-1 lg:row-start-2 lg:border-r xl:col-start-2 xl:row-start-1"
+        >
+          <Editor />
+        </Pane>
+        <Pane
+          visibility={selected === "preview" ? "flex" : "hidden lg:flex"}
+          className="lg:col-start-2 lg:row-span-2 lg:row-start-1 xl:col-start-3 xl:row-span-1"
+        >
+          <Preview />
+        </Pane>
       </div>
       <UndoBar />
     </div>

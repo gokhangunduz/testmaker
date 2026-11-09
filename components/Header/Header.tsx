@@ -16,7 +16,7 @@ export default function Header(): ReactElement {
     <header className="z-30 flex h-14 shrink-0 items-center justify-between gap-3 border-b border-border bg-surface px-3 sm:h-16 sm:px-6 [@media(max-height:500px)]:h-12">
       <Link
         href="/"
-        className="flex min-h-10 min-w-10 items-center gap-2 text-lg font-semibold sm:text-xl"
+        className="flex min-h-11 min-w-11 items-center gap-2 text-lg font-semibold sm:text-xl"
       >
         <Image src="/icon.svg" alt="" width={28} height={28} aria-hidden="true" />
         <span className="max-[340px]:sr-only">TestMakerLab</span>

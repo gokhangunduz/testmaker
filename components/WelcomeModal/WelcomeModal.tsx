@@ -44,10 +44,10 @@ export default function WelcomeModal(): ReactElement | null {
   return (
     <Modal
       onHide={close}
+      header={<h2 className="text-2xl font-semibold">{t("welcome")}</h2>}
       footer={<Button label={t("getStarted")} onClick={close} />}
     >
-      <div className="flex flex-col items-center gap-6 text-center">
-        <h2 className="text-2xl font-semibold">{t("welcome")}</h2>
+      <div className="flex flex-col gap-4">
         <p className="text-muted">{t("projectDescription")}</p>
         <p className="font-semibold">{t("beta")}</p>
         <p className="text-muted">{t("issues")}</p>

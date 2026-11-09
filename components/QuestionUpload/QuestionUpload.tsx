@@ -31,7 +31,7 @@ export default function QuestionUpload({
       <input
         ref={inputRef}
         type="file"
-        accept="image/*"
+        accept="image/*,.heic,.heif,.tif,.tiff"
         multiple
         hidden
         tabIndex={-1}

@@ -4,7 +4,11 @@ import { ReactElement, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { buttonVariants, Spinner } from "@heroui/react";
 import { usePDF } from "@react-pdf/renderer";
-import { MdErrorOutline, MdOutlineFileDownload } from "react-icons/md";
+import {
+  MdErrorOutline,
+  MdOpenInNew,
+  MdOutlineFileDownload,
+} from "react-icons/md";
 import PDF from "../PDF/PDF";
 import PDFEmpty from "../PDFEmpty/PDFEmpty";
 import PDFLoading from "../PDFLoading/PDFLoading";
@@ -116,21 +120,41 @@ export default function PDFPanel(): ReactElement {
           )}
         </div>
         {!isEmpty && (
-          <a
-            href={canDownload ? (instance.url ?? undefined) : undefined}
-            download={toFileName(settings.details.title)}
-            aria-disabled={!canDownload}
-            className={`${buttonVariants({ variant: "primary", size: "sm" })} ${
-              canDownload ? "" : "pointer-events-none opacity-50"
-            }`}
-          >
-            {isUpdating ? (
-              <Spinner size="sm" />
-            ) : (
-              <MdOutlineFileDownload size={18} />
-            )}
-            {t("downloadPdf")}
-          </a>
+          <div className="flex shrink-0 items-center gap-2">
+            <a
+              href={canDownload ? (instance.url ?? undefined) : undefined}
+              target="_blank"
+              rel="noopener"
+              aria-label={t("openPdf")}
+              title={t("openPdf")}
+              aria-disabled={!canDownload}
+              className={`${buttonVariants({
+                variant: "secondary",
+                size: "sm",
+                isIconOnly: true,
+              })} ${canDownload ? "" : "pointer-events-none opacity-50"}`}
+            >
+              <MdOpenInNew size={18} />
+            </a>
+            <a
+              href={canDownload ? (instance.url ?? undefined) : undefined}
+              download={toFileName(settings.details.title)}
+              aria-label={t("downloadPdf")}
+              aria-disabled={!canDownload}
+              className={`${buttonVariants({ variant: "primary", size: "sm" })} ${
+                canDownload ? "" : "pointer-events-none opacity-50"
+              }`}
+            >
+              {isUpdating ? (
+                <Spinner size="sm" />
+              ) : (
+                <MdOutlineFileDownload size={18} />
+              )}
+              <span className="hidden min-[400px]:inline">
+                {t("downloadPdf")}
+              </span>
+            </a>
+          </div>
         )}
       </div>
       <div className="relative min-h-0 flex-1 bg-background-secondary">

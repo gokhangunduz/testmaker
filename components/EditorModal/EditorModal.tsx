@@ -43,7 +43,7 @@ export default function EditorModal({
     <Modal
       size="lg"
       header={
-        <h2 className="text-xl font-semibold">
+        <h2 className="text-xl font-semibold [@media(max-height:500px)]:text-base">
           {t("editQuestion")} – {title}
         </h2>
       }
@@ -55,7 +55,7 @@ export default function EditorModal({
       }
       onHide={onHide}
     >
-      <div className="h-[clamp(8rem,calc(100dvh-16rem),32rem)] w-full overflow-hidden rounded-lg">
+      <div className="h-[clamp(8rem,calc(100dvh-16rem),32rem)] [@media(max-height:500px)]:h-[calc(100dvh-14.5rem)] w-full overflow-hidden rounded-lg">
         <Cropper
           ref={ref}
           src={image}

@@ -10,13 +10,7 @@ import {
 } from "react-icons/md";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import {
-  Card,
-  Label,
-  NumberFieldGroup,
-  NumberFieldInput,
-  NumberFieldRoot,
-} from "@heroui/react";
+import { Card } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 import {
   IQuestion,
@@ -27,6 +21,7 @@ import useApp from "@/hooks/useApp";
 import useToggle from "@/hooks/useToggle";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import Button from "../Button/Button";
+import InputScale from "../InputScale/InputScale";
 import EditorModal from "../EditorModal/EditorModal";
 
 interface IQuestionCard {
@@ -73,19 +68,9 @@ export default function QuestionCard({
         <div className="flex items-center gap-2 sm:gap-3">
           <button
             type="button"
-            aria-label={`${t("reorderQuestion")} – ${title}`}
-            className="-m-1 shrink-0 cursor-grab touch-none rounded p-1.5 text-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-accent"
-            {...attributes}
-            {...listeners}
-          >
-            <MdDragIndicator size={26} />
-          </button>
-
-          <button
-            type="button"
             aria-label={`${t("editQuestion")} – ${title}`}
             onClick={() => toggleModal(true)}
-            className="group relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-default focus-visible:outline-2 focus-visible:outline-accent sm:h-24 sm:w-24"
+            className="group relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-default focus-visible:outline-2 focus-visible:outline-accent min-[360px]:h-20 min-[360px]:w-20 sm:h-24 sm:w-24"
           >
             <Image
               className="h-full w-full object-contain"
@@ -100,26 +85,28 @@ export default function QuestionCard({
           </button>
 
           <div className="flex min-w-0 flex-1 flex-col gap-2">
-            <p className="truncate font-medium">{title}</p>
-            <div className="flex items-end gap-2">
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                aria-label={`${t("reorderQuestion")} – ${title}`}
+                className="-my-1 -ml-1.5 shrink-0 cursor-grab touch-none rounded p-1.5 text-muted [@media(pointer:coarse)]:p-2.5 hover:text-foreground focus-visible:outline-2 focus-visible:outline-accent"
+                {...attributes}
+                {...listeners}
+              >
+                <MdDragIndicator size={26} />
+              </button>
+              <p className="min-w-0 truncate font-medium">{title}</p>
+            </div>
+            <div className="flex flex-wrap items-end gap-2">
               <div className="w-20 sm:w-24">
-                <NumberFieldRoot
+                <InputScale
+                  label={t("scale")}
                   value={question.scale}
-                  onChange={(value) => {
-                    if (Number.isFinite(value)) {
-                      handleChangeScale(question.id, value);
-                    }
-                  }}
-                  minValue={MIN_SCALE}
-                  maxValue={MAX_SCALE}
+                  min={MIN_SCALE}
+                  max={MAX_SCALE}
                   step={0.05}
-                  formatOptions={{ maximumFractionDigits: 2 }}
-                >
-                  <Label>{t("scale")}</Label>
-                  <NumberFieldGroup>
-                    <NumberFieldInput />
-                  </NumberFieldGroup>
-                </NumberFieldRoot>
+                  onChange={(value) => handleChangeScale(question.id, value)}
+                />
               </div>
               <Button
                 variant="secondary"

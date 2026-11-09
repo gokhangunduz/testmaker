@@ -16,3 +16,31 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
+/* Comfortable touch targets on touch screens. */
+@media (pointer: coarse) {
+  .button,
+  [data-slot="button"],
+  [data-slot="tabs-tab"],
+  [data-slot="select-trigger"],
+  [data-slot="input"] {
+    min-height: 2.75rem;
+  }
+
+  .button {
+    min-width: 2.75rem;
+  }
+}
+
+/* Wider grab area for the crop edges on touch screens. */
+@media (pointer: coarse) {
+  .advanced-cropper-simple-line-wrapper--east,
+  .advanced-cropper-simple-line-wrapper--west {
+    width: 28px !important;
+  }
+
+  .advanced-cropper-simple-line-wrapper--north,
+  .advanced-cropper-simple-line-wrapper--south {
+    height: 28px !important;
+  }
+}

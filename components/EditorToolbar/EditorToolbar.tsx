@@ -50,7 +50,7 @@ export default function EditorToolbar(): ReactElement | null {
 
   return (
     <>
-      <div className="z-10 flex shrink-0 flex-col gap-2 border-b border-border bg-surface px-3 py-3 sm:px-4 [@media(min-height:600px)]:sticky [@media(min-height:600px)]:top-0">
+      <div className="z-10 flex shrink-0 flex-col gap-2 border-b border-border bg-surface px-3 py-3 sm:px-4 [@media(max-height:500px)]:flex-row [@media(max-height:500px)]:flex-wrap [@media(max-height:500px)]:items-center [@media(max-height:500px)]:justify-between [@media(max-height:500px)]:py-2 [@media(min-height:600px)]:sticky [@media(min-height:600px)]:top-0">
         <p className="text-sm text-muted">
           {t("summary", { count: questions.length, pages })}
         </p>
@@ -71,7 +71,8 @@ export default function EditorToolbar(): ReactElement | null {
             size="sm"
             variant="danger-soft"
             icon={<MdDeleteSweep size={18} />}
-            label={t("clearAll")}
+            ariaLabel={t("clearAll")}
+            label={<span className="hidden min-[420px]:inline">{t("clearAll")}</span>}
             onClick={() => setDialog("clear")}
           />
         </div>

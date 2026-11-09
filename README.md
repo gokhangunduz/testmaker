@@ -9,7 +9,7 @@ testmaker is a tool specifically designed for professionals and educators who pr
 - **Quick Conversion:** Converts images to PDF quickly.
 - **Private:** Everything runs in your browser, no image is ever uploaded.
 - **User-Friendly Interface:** Easy-to-use and intuitive user interface.
-- **Supports Various Formats:** PNG, JPEG, WebP, GIF, BMP, AVIF, SVG and more. Every image is converted to a clean PNG on upload, so whatever the browser can show also prints correctly. (TIFF and HEIC depend on browser support.)
+- **Supports Various Formats:** PNG, JPEG, WebP, GIF, BMP, AVIF, SVG, TIFF and HEIC. Every image is converted to a clean PNG on upload (large noisy photos become a right-sized JPEG), so whatever you add prints correctly. Cut-off or corrupt files are rejected by name instead of ending up half-drawn in the PDF.
 - **Drag & Drop:** Reorder questions with drag and drop support.
 - **Multi-language:** Supports Turkish, English and German.
 - **Answer Key:** Generates a separate answer key page in the PDF.
@@ -17,6 +17,7 @@ testmaker is a tool specifically designed for professionals and educators who pr
 - **Autosave:** Your work is stored in the browser (IndexedDB) and restored on reload, even if you reload right after an edit. Changing the project in a second tab is detected so nothing gets overwritten.
 - **Undo:** Removing a question, clearing everything or resetting the settings can be undone.
 - **Unicode PDFs:** The PDF embeds Noto Sans, so Turkish, German and other Latin characters print correctly.
+- **Responsive:** Tabs on phones and portrait tablets, editor plus live preview side by side on landscape tablets, three columns on desktop. Touch-sized controls on touch screens.
 - **Paste Images:** Paste screenshots straight from the clipboard with Ctrl+V.
 - **Bulk Answer Key:** Fill every answer at once by typing e.g. `ABCDE-A`.
 - **Duplicate & Clear:** Duplicate a question or clear the whole test (with confirmation).

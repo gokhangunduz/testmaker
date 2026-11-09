@@ -26,7 +26,7 @@ export default function DnDProvider(): ReactElement | null {
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 1 } }),
     useSensor(TouchSensor, {
-      activationConstraint: { delay: 250, tolerance: 5 },
+      activationConstraint: { distance: 6 },
     }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
@@ -74,7 +74,7 @@ export default function DnDProvider(): ReactElement | null {
       accessibility={accessibility}
     >
       <SortableContext items={questions} strategy={rectSortingStrategy}>
-        <div className="grid auto-rows-min grid-cols-1 content-start gap-3 p-3 sm:p-4 md:grid-cols-2 xl:grid-cols-1">
+        <div className="grid auto-rows-min grid-cols-1 content-start gap-3 p-3 sm:p-4 @2xl:grid-cols-2">
           {questions.map((question, index) => (
             <QuestionCard key={question.id} question={question} index={index} />
           ))}
