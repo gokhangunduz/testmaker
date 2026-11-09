@@ -1,33 +1,30 @@
-"use client";
+'use client'
 
-import { ReactElement, useRef } from "react";
-import { MdAddPhotoAlternate } from "react-icons/md";
-import Button from "../Button/Button";
+import { ReactElement, useRef } from 'react'
+import { ImagePlus } from 'lucide-react'
+import { Button, type ButtonProps } from '@/ui/Button'
 
 interface IQuestionUpload {
-  label: string;
-  variant?: "primary" | "secondary";
-  size?: "sm" | "md" | "lg";
-  handleInputUploader: (files: Iterable<File> | null) => void;
+  label: string
+  variant?: ButtonProps['variant']
+  size?: ButtonProps['size']
+  handleInputUploader: (files: Iterable<File> | null) => void
 }
 
 export default function QuestionUpload({
   label,
-  variant = "primary",
+  variant,
   size,
   handleInputUploader,
 }: Readonly<IQuestionUpload>): ReactElement {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null)
 
   return (
     <>
-      <Button
-        variant={variant}
-        size={size}
-        icon={<MdAddPhotoAlternate size={18} />}
-        label={label}
-        onClick={() => inputRef.current?.click()}
-      />
+      <Button variant={variant} size={size} onClick={() => inputRef.current?.click()}>
+        <ImagePlus className="size-4" />
+        {label}
+      </Button>
       <input
         ref={inputRef}
         type="file"
@@ -36,10 +33,10 @@ export default function QuestionUpload({
         hidden
         tabIndex={-1}
         onChange={(e) => {
-          handleInputUploader(e.target.files);
-          e.target.value = "";
+          handleInputUploader(e.target.files)
+          e.target.value = ''
         }}
       />
     </>
-  );
+  )
 }

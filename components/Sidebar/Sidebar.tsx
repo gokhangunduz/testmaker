@@ -1,82 +1,86 @@
-"use client";
+'use client'
 
-import { ReactElement } from "react";
-import { MdRestartAlt } from "react-icons/md";
-import { useTranslation } from "react-i18next";
-import SidebarSection from "../SidebarSection/SidebarSection";
-import InputSwitch from "../InputSwitch/InputSwitch";
-import InputColor from "../InputColor/InputColor";
-import InputText from "../InputText/InputText";
-import useApp from "@/hooks/useApp";
-import Button from "../Button/Button";
-import { ISettings } from "@/interfaces/pdf.settings.interface";
+import { ReactElement } from 'react'
+import { RotateCcw } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import SidebarSection from '../SidebarSection/SidebarSection'
+import InputColor from '../InputColor/InputColor'
+import useApp from '@/hooks/useApp'
+import { ISettings } from '@/interfaces/pdf.settings.interface'
+import { Button } from '@/ui/Button'
+import { Switch } from '@/ui/Switch'
+import { TextInput } from '@/ui/TextInput'
 
-type ColorKey = keyof ISettings["colors"];
+type ColorKey = keyof ISettings['colors']
 
 const colorFields: { key: ColorKey; label: string }[] = [
-  { key: "border", label: "lineColor" },
-  { key: "title", label: "titleColor" },
-  { key: "subtitle", label: "subtitleColor" },
-  { key: "questionNumber", label: "questionNumberColor" },
-  { key: "pageNumber", label: "pageNumberColor" },
-  { key: "pageAnswer", label: "pageAnswerColor" },
-];
+  { key: 'border', label: 'lineColor' },
+  { key: 'title', label: 'titleColor' },
+  { key: 'subtitle', label: 'subtitleColor' },
+  { key: 'questionNumber', label: 'questionNumberColor' },
+  { key: 'pageNumber', label: 'pageNumberColor' },
+  { key: 'pageAnswer', label: 'pageAnswerColor' },
+]
 
 export default function Sidebar(): ReactElement {
-  const { settings, setSettings, handleResetSettings } = useApp();
-  const { t } = useTranslation();
+  const { settings, setSettings, handleResetSettings } = useApp()
+  const { t } = useTranslation()
 
-  const setDetail = (key: keyof ISettings["details"], value: string) =>
+  const setDetail = (key: keyof ISettings['details'], value: string) =>
     setSettings((prev) => ({
       ...prev,
       details: { ...prev.details, [key]: value },
-    }));
+    }))
 
-  const setAnswer = (key: keyof ISettings["answers"], value: boolean) =>
+  const setAnswer = (key: keyof ISettings['answers'], value: boolean) =>
     setSettings((prev) => ({
       ...prev,
       answers: { ...prev.answers, [key]: value },
-    }));
+    }))
 
   const setColor = (key: ColorKey, value: string) =>
     setSettings((prev) => ({
       ...prev,
       colors: { ...prev.colors, [key]: value },
-    }));
+    }))
 
   return (
     <div className="mx-auto flex w-full max-w-xl flex-col gap-8 p-4 sm:p-6 xl:max-w-none">
-      <SidebarSection label={t("titles")} gap={4}>
-        <InputText
-          label={t("title")}
-          placeholder={t("titlePlaceholder")}
+      <SidebarSection label={t('titles')} gap={4}>
+        <TextInput
+          label={t('title')}
+          placeholder={t('titlePlaceholder')}
           maxLength={80}
           value={settings.details.title}
-          onChange={(value) => setDetail("title", value)}
+          onChange={(e) => setDetail('title', e.target.value)}
         />
-        <InputText
-          label={t("subtitle")}
-          placeholder={t("subtitlePlaceholder")}
+        <TextInput
+          label={t('subtitle')}
+          placeholder={t('subtitlePlaceholder')}
           maxLength={120}
           value={settings.details.subtitle}
-          onChange={(value) => setDetail("subtitle", value)}
+          onChange={(e) => setDetail('subtitle', e.target.value)}
         />
       </SidebarSection>
 
-      <SidebarSection label={t("answerKeys")}>
-        <InputSwitch
-          label={t("isPerPageAnswers")}
+      <SidebarSection label={t('answerKeys')}>
+        <Switch
+          labelClassName="min-h-11 w-full flex-row-reverse justify-between gap-3"
           checked={settings.answers.isPerPage}
-          onChange={(value) => setAnswer("isPerPage", value)}
-        />
-        <InputSwitch
-          label={t("isLastPageAnswers")}
+          onCheckedChange={(value) => setAnswer('isPerPage', value)}
+        >
+          {t('isPerPageAnswers')}
+        </Switch>
+        <Switch
+          labelClassName="min-h-11 w-full flex-row-reverse justify-between gap-3"
           checked={settings.answers.isLastPage}
-          onChange={(value) => setAnswer("isLastPage", value)}
-        />
+          onCheckedChange={(value) => setAnswer('isLastPage', value)}
+        >
+          {t('isLastPageAnswers')}
+        </Switch>
       </SidebarSection>
 
-      <SidebarSection label={t("colors")}>
+      <SidebarSection label={t('colors')}>
         {colorFields.map(({ key, label }) => (
           <InputColor
             key={key}
@@ -88,15 +92,12 @@ export default function Sidebar(): ReactElement {
       </SidebarSection>
 
       <div className="flex flex-col gap-3">
-        <Button
-          variant="secondary"
-          icon={<MdRestartAlt size={18} />}
-          label={t("resetSettings")}
-          onClick={handleResetSettings}
-          fullWidth
-        />
-        <p className="text-xs text-muted">{t("projectSaved")}</p>
+        <Button variant="outline" onClick={handleResetSettings} className="w-full">
+          <RotateCcw className="size-4" />
+          {t('resetSettings')}
+        </Button>
+        <p className="text-xs text-muted-foreground">{t('projectSaved')}</p>
       </div>
     </div>
-  );
+  )
 }

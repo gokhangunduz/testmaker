@@ -28,7 +28,7 @@ testmaker is a tool specifically designed for professionals and educators who pr
 - [React 19](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS v4](https://tailwindcss.com/)
-- [HeroUI v3](https://heroui.com/)
+- [Radix UI](https://www.radix-ui.com/) primitives with [class-variance-authority](https://cva.style/) and [lucide](https://lucide.dev/) icons
 - [@react-pdf/renderer](https://react-pdf.org/)
 - [dnd kit](https://dndkit.com/)
 - [i18next](https://www.i18next.com/)

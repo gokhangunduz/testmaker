@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import AppLayout from "@/layouts/AppLayout/AppLayout";
+import { ReactNode } from 'react'
+import AppLayout from '@/layouts/AppLayout/AppLayout'
 
 export default function Layout({ children }: Readonly<{ children: ReactNode }>) {
   return (
@@ -7,5 +7,5 @@ export default function Layout({ children }: Readonly<{ children: ReactNode }>) 
       <AppLayout />
       {children}
     </>
-  );
+  )
 }

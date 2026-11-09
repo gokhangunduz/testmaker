@@ -1,23 +1,23 @@
-"use client";
+'use client'
 
-import { ReactElement } from "react";
-import { useTranslation } from "react-i18next";
+import { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
-const environment = process.env.NODE_ENV === "production" ? "" : " (dev)";
+const environment = process.env.NODE_ENV === 'production' ? '' : ' (dev)'
 
 export default function Footer(): ReactElement {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
-    <footer className="z-30 flex h-8 [@media(max-height:500px)]:hidden shrink-0 items-center justify-between gap-3 border-t border-border bg-surface px-3 text-xs text-muted sm:px-6">
+    <footer className="z-30 flex h-8 [@media(max-height:500px)]:hidden shrink-0 items-center justify-between gap-3 border-t border-border bg-card px-3 text-xs text-muted-foreground sm:px-6">
       <p className="shrink-0">
         v{process.env.NEXT_PUBLIC_APP_VERSION}
         {environment}
       </p>
       <p className="truncate">
         © {new Date().getFullYear()} TestMakerLab
-        <span className="hidden sm:inline"> | {t("allRightsReserved")}</span>
+        <span className="hidden sm:inline"> | {t('allRightsReserved')}</span>
       </p>
     </footer>
-  );
+  )
 }

@@ -1,6 +1,6 @@
-import { readFileSync } from "node:fs";
+import { readFileSync } from 'node:fs'
 
-const { version } = JSON.parse(readFileSync("./package.json", "utf-8"));
+const { version } = JSON.parse(readFileSync('./package.json', 'utf-8'))
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -8,11 +8,11 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  output: "export",
+  output: 'export',
   agentRules: false,
   env: {
     NEXT_PUBLIC_APP_VERSION: version,
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig

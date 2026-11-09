@@ -1,114 +1,106 @@
 /* eslint-disable jsx-a11y/alt-text */
-"use client";
+'use client'
 
-import { ReactElement } from "react";
-import {
-  Page,
-  View,
-  StyleSheet,
-  Document,
-  Font,
-  Image,
-  Text,
-} from "@react-pdf/renderer";
-import { handleMapperPages } from "@/functions/mapper.pages.function";
-import { handleParserQuestions } from "@/functions/parser.questions.function";
-import { IQuestion } from "@/interfaces/pdf.question.interface";
-import { ISettings } from "@/interfaces/pdf.settings.interface";
+import { ReactElement } from 'react'
+import { Page, View, StyleSheet, Document, Font, Image, Text } from '@react-pdf/renderer'
+import { handleMapperPages } from '@/functions/mapper.pages.function'
+import { handleParserQuestions } from '@/functions/parser.questions.function'
+import { IQuestion } from '@/interfaces/pdf.question.interface'
+import { ISettings } from '@/interfaces/pdf.settings.interface'
 
-const FONT_FAMILY = "NotoSans";
+const FONT_FAMILY = 'NotoSans'
 
 Font.register({
   family: FONT_FAMILY,
   fonts: [
-    { src: "/fonts/NotoSans-Regular.ttf", fontWeight: "normal" },
-    { src: "/fonts/NotoSans-Bold.ttf", fontWeight: "bold" },
+    { src: '/fonts/NotoSans-Regular.ttf', fontWeight: 'normal' },
+    { src: '/fonts/NotoSans-Bold.ttf', fontWeight: 'bold' },
   ],
-});
+})
 
 export default function PDF({
   questions,
   settings,
   answersTitle,
 }: {
-  questions: IQuestion[];
-  settings: ISettings;
-  answersTitle: string;
+  questions: IQuestion[]
+  settings: ISettings
+  answersTitle: string
 }): ReactElement {
   const styles = StyleSheet.create({
     page: {
-      width: "100%",
-      height: "100%",
-      paddingHorizontal: "5%",
-      paddingVertical: "5%",
-      flexDirection: "column",
+      width: '100%',
+      height: '100%',
+      paddingHorizontal: '5%',
+      paddingVertical: '5%',
+      flexDirection: 'column',
       fontFamily: FONT_FAMILY,
     },
     sectionHeader: {
-      width: "100%",
-      height: "6%",
-      padding: "1.5%",
-      flexDirection: "column",
-      justifyContent: "center",
-      textAlign: "center",
+      width: '100%',
+      height: '6%',
+      padding: '1.5%',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      textAlign: 'center',
       border: `1px solid ${settings?.colors?.border}`,
       borderRadius: 6,
     },
     textTitle: {
       fontSize: 14,
-      fontWeight: "bold",
-      textAlign: "center",
+      fontWeight: 'bold',
+      textAlign: 'center',
       maxLines: 1,
-      textOverflow: "ellipsis",
+      textOverflow: 'ellipsis',
       color: settings?.colors?.title,
     },
     textSubtitle: {
       fontSize: 10,
-      textAlign: "center",
+      textAlign: 'center',
       maxLines: 1,
-      textOverflow: "ellipsis",
+      textOverflow: 'ellipsis',
       color: settings?.colors?.subtitle,
     },
     sectionLayout: {
-      height: "90%",
-      width: "100%",
-      flexDirection: "row",
-      justifyContent: "space-between",
+      height: '90%',
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     },
     sectionColumn: {
-      width: "100%",
-      padding: "2%",
-      flexDirection: "column",
-      justifyContent: "flex-start",
-      gap: "0.4cm",
+      width: '100%',
+      padding: '2%',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      gap: '0.4cm',
     },
     sectionQuestion: {
-      flexDirection: "row",
-      justifyContent: "center",
-      alignItems: "center",
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     layoutQuestion: {
-      width: "100%",
-      height: "100%",
-      flexDirection: "row",
-      justifyContent: "flex-start",
-      gap: "0.125cm",
+      width: '100%',
+      height: '100%',
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      gap: '0.125cm',
     },
     imageQuestion: {
-      objectFit: "contain",
-      objectPosition: "left top",
+      objectFit: 'contain',
+      objectPosition: 'left top',
     },
     textQuestionNumber: {
-      textAlign: "left",
+      textAlign: 'left',
       fontSize: 10,
       color: settings?.colors?.questionNumber,
     },
     sectionFooter: {
-      width: "100%",
-      height: "4%",
-      flexDirection: "row",
-      justifyContent: settings.answers.isPerPage ? "space-between" : "center",
-      alignItems: "center",
+      width: '100%',
+      height: '4%',
+      flexDirection: 'row',
+      justifyContent: settings.answers.isPerPage ? 'space-between' : 'center',
+      alignItems: 'center',
       borderBottom: `1px solid ${settings?.colors?.border}`,
       borderTop: `1px solid ${settings?.colors?.border}`,
     },
@@ -120,25 +112,19 @@ export default function PDF({
       fontSize: 12,
       color: settings?.colors?.pageAnswer,
     },
-  });
+  })
 
-  const pages: IQuestion[][][] = handleMapperPages(
-    handleParserQuestions(questions)
-  );
+  const pages: IQuestion[][][] = handleMapperPages(handleParserQuestions(questions))
 
-  const answers: IQuestion[] = pages?.flat()?.flat();
+  const answers: IQuestion[] = pages?.flat()?.flat()
 
   return (
     <Document>
       {pages?.map((columns, pageIndex) => (
         <Page size="A4" style={styles.page} key={pageIndex}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.textTitle}>
-              {settings?.details?.title}
-            </Text>
-            <Text style={styles.textSubtitle}>
-              {settings?.details?.subtitle}
-            </Text>
+            <Text style={styles.textTitle}>{settings?.details?.title}</Text>
+            <Text style={styles.textSubtitle}>{settings?.details?.subtitle}</Text>
           </View>
           <View style={styles.sectionLayout}>
             {columns?.map((column, colIndex) => (
@@ -154,9 +140,7 @@ export default function PDF({
                 {column?.map((question, qIndex) => (
                   <View style={styles.sectionQuestion} key={question.id}>
                     <View style={styles.layoutQuestion}>
-                      <Text style={styles.textQuestionNumber}>
-                        {question.index! + 1})
-                      </Text>
+                      <Text style={styles.textQuestionNumber}>{question.index! + 1})</Text>
                       <Image
                         style={{
                           ...styles.imageQuestion,
@@ -177,9 +161,9 @@ export default function PDF({
                 {columns
                   ?.flat()
                   ?.map((question) => {
-                    return `${question.index! + 1}-${question?.answer || "?"}`;
+                    return `${question.index! + 1}-${question?.answer || '?'}`
                   })
-                  ?.join("  ")}
+                  ?.join('  ')}
               </Text>
             )}
           </View>
@@ -188,46 +172,42 @@ export default function PDF({
       {questions?.length > 0 && settings.answers.isLastPage && (
         <Page size="A4" style={styles.page}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.textTitle}>
-              {settings?.details?.title}
-            </Text>
-            <Text style={styles.textSubtitle}>
-              {settings?.details?.subtitle}
-            </Text>
+            <Text style={styles.textTitle}>{settings?.details?.title}</Text>
+            <Text style={styles.textSubtitle}>{settings?.details?.subtitle}</Text>
           </View>
           <View
             style={{
               ...styles.sectionLayout,
-              paddingTop: "1%",
-              flexDirection: "column",
-              justifyContent: "center",
-              padding: "2.5%",
-              gap: "0.5cm",
+              paddingTop: '1%',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              padding: '2.5%',
+              gap: '0.5cm',
             }}
           >
             <Text
               style={{
                 fontSize: 12,
-                textAlign: "center",
-                width: "100%",
+                textAlign: 'center',
+                width: '100%',
               }}
             >
               {answersTitle}
             </Text>
             <View
               style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                flexDirection: "row",
-                flexWrap: "wrap",
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
               }}
             >
               {answers?.map((question, index) => (
                 <View
                   style={{
-                    padding: "0.5%",
-                    width: "10%",
+                    padding: '0.5%',
+                    width: '10%',
                     border: `1px solid ${settings.colors.border}`,
                   }}
                   key={index}
@@ -235,10 +215,10 @@ export default function PDF({
                   <Text
                     style={{
                       fontSize: 12,
-                      textAlign: "center",
+                      textAlign: 'center',
                     }}
                   >
-                    {index + 1}. {question?.answer || "?"}
+                    {index + 1}. {question?.answer || '?'}
                   </Text>
                 </View>
               ))}
@@ -247,5 +227,5 @@ export default function PDF({
         </Page>
       )}
     </Document>
-  );
+  )
 }

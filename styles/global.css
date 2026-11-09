@@ -1,34 +1,129 @@
-@import "tailwindcss";
-@import "@heroui/styles";
+@import 'tailwindcss';
+@config '../tailwind.config.ts';
 
-html {
-  color-scheme: light;
-  -webkit-text-size-adjust: 100%;
+@layer base {
+  :root {
+    /* "Porcelain & Purple": soft violet-tinted neutrals with a purple primary. Never navy/indigo. */
+
+    /* Surfaces */
+    --background: 270 25% 97%;
+    --surface-1: 0 0% 100%;
+    --surface-2: 270 20% 95%;
+    --surface-3: 270 16% 92%;
+
+    --foreground: 272 22% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 272 22% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 272 22% 12%;
+
+    /* Brand */
+    --primary: 271 81% 56%;
+    --primary-hover: 272 72% 47%;
+    --primary-foreground: 270 40% 99%;
+
+    --secondary: 180 84% 35%;
+    --secondary-hover: 180 84% 29%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-strong: 180 84% 27%;
+    --secondary-strong-hover: 180 84% 22%;
+
+    --accent: 270 90% 96%;
+    --accent-foreground: 272 60% 40%;
+
+    --muted: 270 18% 94%;
+    --muted-foreground: 270 10% 42%;
+    --subtle-foreground: 270 8% 55%;
+
+    --warning: 32 92% 46%;
+    --warning-foreground: 30 50% 10%;
+    --warning-subtle: 38 95% 94%;
+    --warning-solid: 30 88% 35%;
+    --warning-solid-foreground: 0 0% 100%;
+
+    --destructive: 358 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --destructive-subtle: 358 90% 96%;
+    --destructive-solid: 358 72% 46%;
+
+    /* Structural */
+    --border: 270 14% 88%;
+    --border-strong: 270 14% 80%;
+    --input: 270 14% 88%;
+    --ring: 271 81% 60%;
+
+    --radius: 0.5rem;
+
+    /* Elevation */
+    --shadow-sm: 0 1px 2px 0 hsl(270 30% 15% / 0.04);
+    --shadow-md: 0 1px 2px 0 hsl(270 30% 15% / 0.04), 0 2px 6px -1px hsl(270 30% 15% / 0.06);
+    --shadow-lg:
+      0 0 0 1px hsl(270 30% 15% / 0.04), 0 2px 4px -1px hsl(270 30% 15% / 0.05),
+      0 12px 24px -6px hsl(270 30% 15% / 0.08);
+    --card-shadow: var(--shadow-md);
+  }
 }
 
-:root,
-[data-theme="light"] {
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-}
-
-/* Comfortable touch targets on touch screens. */
-@media (pointer: coarse) {
-  .button,
-  [data-slot="button"],
-  [data-slot="tabs-tab"],
-  [data-slot="select-trigger"],
-  [data-slot="input"] {
-    min-height: 2.75rem;
+@layer base {
+  * {
+    @apply border-border;
   }
 
-  .button {
-    min-width: 2.75rem;
+  /* Tailwind v4 resets native buttons to `cursor: default`; restore the pointer. */
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    font-size: 16px;
+    font-family:
+      'Inter Variable',
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior-y: contain;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/30;
+  }
+}
+
+/* Soften motion for people who ask for it, but keep spinners turning. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-spin {
+    animation-duration: 1.5s !important;
+    animation-iteration-count: infinite !important;
   }
 }
 
