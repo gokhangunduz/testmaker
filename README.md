@@ -14,6 +14,10 @@ testmaker is a tool specifically designed for professionals and educators who pr
 - **Multi-language:** Supports Turkish, English and German.
 - **Answer Key:** Generates a separate answer key page in the PDF.
 - **Image Editor:** Crop and adjust question images before export.
+- **Autosave:** Your work is stored in the browser (IndexedDB) and restored on reload.
+- **Paste Images:** Paste screenshots straight from the clipboard with Ctrl+V.
+- **Bulk Answer Key:** Fill every answer at once by typing e.g. `ABCDE-A`.
+- **Duplicate & Clear:** Duplicate a question or clear the whole test (with confirmation).
 
 ## Tech Stack
 

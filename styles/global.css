@@ -24,11 +24,13 @@
 }
 
 .app-editor {
-  max-height: calc(100vh - 7rem);
+  max-height: calc(100vh - 11rem);
 }
 
 @media (min-width: 1024px) {
   .app-editor {
-    height: calc(100vh - 7rem);
+    flex: 1 1 0;
+    min-height: 0;
+    max-height: none;
   }
 }

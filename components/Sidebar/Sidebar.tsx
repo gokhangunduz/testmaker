@@ -7,6 +7,7 @@ import InputSwitch from "../InputSwitch/InputSwitch";
 import InputColor from "../InputColor/InputColor";
 import InputText from "../InputText/InputText";
 import useApp from "@/hooks/useApp";
+import Button from "../Button/Button";
 import { ISettings } from "@/interfaces/pdf.settings.interface";
 
 type ColorKey = keyof ISettings["colors"];
@@ -21,7 +22,7 @@ const colorFields: { key: ColorKey; label: string }[] = [
 ];
 
 export default function Sidebar(): ReactElement {
-  const { settings, setSettings } = useApp();
+  const { settings, setSettings, handleResetSettings } = useApp();
   const { t } = useTranslation();
 
   const setDetail = (key: keyof ISettings["details"], value: string) =>
@@ -80,6 +81,15 @@ export default function Sidebar(): ReactElement {
           />
         ))}
       </SidebarSection>
+
+      <div className="flex flex-col gap-3">
+        <Button
+          variant="secondary"
+          label={t("resetSettings")}
+          onClick={handleResetSettings}
+        />
+        <p className="text-xs text-zinc-400">{t("projectSaved")}</p>
+      </div>
     </div>
   );
 }

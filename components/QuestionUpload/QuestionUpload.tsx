@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { BsFileEarmarkArrowUp } from "react-icons/bs";
 
 interface IQuestionUpload {
-  handleInputUploader: (files: FileList | null) => void;
+  handleInputUploader: (files: Iterable<File> | null) => void;
 }
 
 export default function QuestionUpload({

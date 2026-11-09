@@ -37,12 +37,13 @@ export default function PDFDownload(): ReactElement {
         title={t("downloadPdf")}
       >
         {({ loading }) => (
-          <div className="bg-zinc-800 border-2 border-zinc-200 text-zinc-50 p-3.5 rounded-full opacity-50 hover:opacity-100 transition-500 hover:scale-125">
+          <div className="flex items-center gap-2 rounded-full border-2 border-zinc-200 bg-zinc-800 px-5 py-3 text-sm font-medium text-zinc-50 shadow-lg hover:bg-zinc-700 transition-300">
             {loading ? (
-              <AiOutlineLoading3Quarters className="animate-spin" size={24} />
+              <AiOutlineLoading3Quarters className="animate-spin" size={20} />
             ) : (
-              <BsFileEarmarkArrowDown size={24} />
+              <BsFileEarmarkArrowDown size={20} />
             )}
+            {t("downloadPdf")}
           </div>
         )}
       </PDFDownloadLink>

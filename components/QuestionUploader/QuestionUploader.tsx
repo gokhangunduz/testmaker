@@ -1,6 +1,12 @@
 "use client";
 
-import { DragEvent, ReactNode, ReactElement, useState } from "react";
+import {
+  DragEvent,
+  ReactNode,
+  ReactElement,
+  useEffect,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { MdUploadFile } from "react-icons/md";
 import QuestionUpload from "../QuestionUpload/QuestionUpload";
@@ -21,7 +27,7 @@ export default function QuestionUploader({
   const { t } = useTranslation();
   const { questions, handleAddQuestions } = useApp();
 
-  async function handleInputUploader(files: FileList | null) {
+  async function handleInputUploader(files: Iterable<File> | null) {
     setOnDragging(false);
 
     const images = Array.from(files ?? []).filter((file) =>
@@ -40,6 +46,20 @@ export default function QuestionUploader({
     setHasError(loaded.length !== images.length);
     if (loaded.length > 0) handleAddQuestions(loaded);
   }
+
+  useEffect(() => {
+    function handlePaste(e: ClipboardEvent) {
+      const files = Array.from(e.clipboardData?.files ?? []);
+      if (files.some((file) => file.type.startsWith("image/"))) {
+        e.preventDefault();
+        handleInputUploader(files);
+      }
+    }
+
+    document.addEventListener("paste", handlePaste);
+    return () => document.removeEventListener("paste", handlePaste);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function handleDrop(e: DragEvent<HTMLDivElement>) {
     e.preventDefault();
@@ -71,6 +91,9 @@ export default function QuestionUploader({
           <MdUploadFile size={48} className="text-zinc-600" />
           <p className="text-zinc-500 text-base text-center">
             {t("dragAndDropQuestionImages")}
+          </p>
+          <p className="text-zinc-400 text-sm text-center max-w-64">
+            {t("pasteHint")}
           </p>
         </div>
       )}

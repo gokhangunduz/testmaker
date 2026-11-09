@@ -17,6 +17,7 @@ interface IButton {
   ariaLabel?: string;
   onClick?: () => void;
   loading?: boolean;
+  disabled?: boolean;
   variant?: ButtonVariant;
   isIconOnly?: boolean;
 }
@@ -26,6 +27,7 @@ export default function Button({
   ariaLabel,
   onClick,
   loading,
+  disabled,
   variant = "primary",
   isIconOnly,
 }: Readonly<IButton>): ReactElement {
@@ -35,7 +37,7 @@ export default function Button({
       onPress={onClick}
       variant={variant}
       isIconOnly={isIconOnly}
-      isDisabled={loading}
+      isDisabled={loading || disabled}
     >
       {loading ? <Spinner size="sm" /> : label}
     </NextButton>
