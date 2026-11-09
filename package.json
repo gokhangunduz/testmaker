@@ -54,5 +54,8 @@
   },
   "overrides": {
     "minimatch": "^11.0.5"
+  },
+  "engines": {
+    "node": "26.x"
   }
 }
