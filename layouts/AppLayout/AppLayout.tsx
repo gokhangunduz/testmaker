@@ -32,16 +32,19 @@ function useIsWide(): boolean {
 }
 
 function Pane({
+  label,
   visibility,
   className,
   children,
 }: {
+  label: string
   visibility: string
   className?: string
   children: ReactNode
 }): ReactElement {
   return (
     <section
+      aria-label={label}
       className={cn(visibility, 'min-h-0 min-w-0 flex-1 flex-col xl:flex xl:flex-none', className)}
     >
       {children}
@@ -58,6 +61,8 @@ function Workspace(): ReactElement {
   // From 1024px the preview is always on screen next to the tabs.
   const selected: PaneKey = isWide && pane === 'preview' ? 'questions' : pane
   const triggerClass = 'flex-1 gap-1.5 px-2 sm:gap-2 sm:px-3'
+  // The panes are layout columns, not tab panels, so there is nothing for aria-controls to point at.
+  const noControls = { 'aria-controls': undefined }
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
@@ -69,7 +74,7 @@ function Workspace(): ReactElement {
           className="shrink-0 border-b border-border bg-card p-2 lg:col-start-1 lg:row-start-1 lg:border-r xl:hidden [@media(max-height:500px)]:p-1"
         >
           <TabsList aria-label={t('workspace')} className="flex w-full">
-            <TabsTrigger value="questions" className={triggerClass}>
+            <TabsTrigger value="questions" className={triggerClass} {...noControls}>
               <ClipboardList className="hidden size-4 min-[360px]:block" />
               <span>{t('tabQuestions')}</span>
               {questions.length > 0 && (
@@ -78,11 +83,11 @@ function Workspace(): ReactElement {
                 </span>
               )}
             </TabsTrigger>
-            <TabsTrigger value="settings" className={triggerClass}>
+            <TabsTrigger value="settings" className={triggerClass} {...noControls}>
               <SlidersHorizontal className="hidden size-4 min-[360px]:block" />
               <span>{t('tabSettings')}</span>
             </TabsTrigger>
-            <TabsTrigger value="preview" className={cn(triggerClass, 'lg:hidden')}>
+            <TabsTrigger value="preview" className={cn(triggerClass, 'lg:hidden')} {...noControls}>
               <FileText className="hidden size-4 min-[360px]:block" />
               <span>{t('tabPreview')}</span>
             </TabsTrigger>
@@ -90,18 +95,21 @@ function Workspace(): ReactElement {
         </Tabs>
 
         <Pane
+          label={t('tabSettings')}
           visibility={selected === 'settings' ? 'flex' : 'hidden'}
           className="overflow-y-auto border-border bg-card lg:col-start-1 lg:row-start-2 lg:border-r xl:col-start-1 xl:row-start-1"
         >
           <Sidebar />
         </Pane>
         <Pane
+          label={t('tabQuestions')}
           visibility={selected === 'questions' ? 'flex' : 'hidden'}
           className="border-border bg-background lg:col-start-1 lg:row-start-2 lg:border-r xl:col-start-2 xl:row-start-1"
         >
           <Editor />
         </Pane>
         <Pane
+          label={t('tabPreview')}
           visibility={selected === 'preview' ? 'flex' : 'hidden lg:flex'}
           className="lg:col-start-2 lg:row-span-2 lg:row-start-1 xl:col-start-3 xl:row-span-1"
         >

@@ -60,8 +60,11 @@ export default function QuestionCard({ question, index }: IQuestionCard): ReactE
               src={question.base64}
               alt={title}
             />
-            <span className="absolute inset-0 flex items-center justify-center bg-black/50 text-white opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
-              <Crop className="size-5" />
+            <span
+              aria-hidden="true"
+              className="absolute bottom-1 right-1 flex size-5 items-center justify-center rounded bg-foreground/70 text-background transition-colors group-hover:bg-primary group-focus-visible:bg-primary"
+            >
+              <Crop className="size-3" />
             </span>
           </button>
 

@@ -41,7 +41,8 @@ export function UndoBar(): ReactElement | null {
       <div className="flex shrink-0 items-center gap-1">
         <Button
           size="sm"
-          variant="secondary"
+          variant="outline"
+          className="border-transparent bg-background text-foreground hover:bg-background/90 hover:text-foreground"
           autoFocus={undo.kind !== 'reset'}
           onClick={handleUndo}
         >

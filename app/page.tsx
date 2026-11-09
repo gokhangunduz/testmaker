@@ -24,8 +24,10 @@ export default function Home(): ReactElement {
           className="h-auto max-h-[30dvh] w-auto max-w-full lg:max-h-[60dvh] [@media(max-height:500px)]:max-h-[60dvh]"
         />
       </div>
-      <div className="flex w-full flex-col items-center gap-6 text-center duration-500 animate-in fade-in slide-in-from-right-8 lg:flex-1 lg:items-start lg:text-left">
-        <h1 className="text-2xl font-semibold sm:text-3xl">{t('projectRelease')}</h1>
+      <div className="flex w-full flex-col items-center gap-6 text-center duration-500 animate-in fade-in slide-in-from-right-8 lg:flex-1 lg:items-start lg:text-left [@media(max-height:500px)]:gap-3">
+        <h1 className="text-2xl font-semibold sm:text-3xl [@media(max-height:500px)]:text-xl">
+          {t('projectRelease')}
+        </h1>
         <p className="max-w-xl text-muted-foreground">{t('projectDescription')}</p>
         <Button
           size="lg"

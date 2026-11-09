@@ -8,6 +8,7 @@ interface IQuestionUpload {
   label: string
   variant?: ButtonProps['variant']
   size?: ButtonProps['size']
+  className?: string
   handleInputUploader: (files: Iterable<File> | null) => void
 }
 
@@ -15,13 +16,19 @@ export default function QuestionUpload({
   label,
   variant,
   size,
+  className,
   handleInputUploader,
 }: Readonly<IQuestionUpload>): ReactElement {
   const inputRef = useRef<HTMLInputElement>(null)
 
   return (
     <>
-      <Button variant={variant} size={size} onClick={() => inputRef.current?.click()}>
+      <Button
+        variant={variant}
+        size={size}
+        className={className}
+        onClick={() => inputRef.current?.click()}
+      >
         <ImagePlus className="size-4" />
         {label}
       </Button>

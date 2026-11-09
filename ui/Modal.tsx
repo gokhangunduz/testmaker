@@ -19,6 +19,28 @@ const sizeClass: Record<ModalSize, string> = {
   full: 'sm:max-w-[95vw]',
 }
 
+const FIELD_SELECTOR =
+  'input:not([type=hidden]):not(:disabled), textarea:not(:disabled), select:not(:disabled)'
+
+/**
+ * Open focus: the first text field (with its content selected so typing replaces it), otherwise
+ * the first footer action, which is the safe choice in a confirm dialog. On touch screens nothing
+ * is focused automatically, so the on-screen keyboard does not cover the dialog.
+ */
+function focusOnOpen(event: Event) {
+  const content = event.currentTarget as HTMLElement | null
+  if (!content || window.matchMedia('(pointer: coarse)').matches) return
+
+  const target =
+    content.querySelector<HTMLElement>(FIELD_SELECTOR) ??
+    content.querySelector<HTMLElement>('[data-modal-footer] button')
+  if (!target) return
+
+  event.preventDefault()
+  target.focus()
+  if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) target.select()
+}
+
 type ModalProps = {
   open: boolean
   onOpenChange: (open: boolean) => void
@@ -56,6 +78,7 @@ export function Modal({
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
         <DialogPrimitive.Content
+          onOpenAutoFocus={focusOnOpen}
           {...(hasDescription ? {} : { 'aria-describedby': undefined })}
           className={cn(
             'fixed left-[50%] top-[50%] z-50 flex w-[calc(100%-1.5rem)] translate-x-[-50%] translate-y-[-50%] flex-col',
@@ -100,7 +123,10 @@ export function Modal({
             </div>
           ) : null}
           {footer ? (
-            <div className="flex shrink-0 flex-row justify-end gap-2 border-t border-border/60 bg-muted/20 px-4 py-4 sm:px-6 [@media(max-height:500px)]:py-2">
+            <div
+              data-modal-footer
+              className="flex shrink-0 flex-row justify-end gap-2 border-t border-border/60 bg-muted/20 px-4 py-4 sm:px-6 [@media(max-height:500px)]:py-2"
+            >
               {footer}
             </div>
           ) : null}
